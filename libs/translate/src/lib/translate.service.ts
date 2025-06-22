@@ -3,7 +3,7 @@ import axios from 'axios';
 
 @Injectable()
 export class TranslateService {
-   private readonly folderId = ' '; 
+   private readonly folderId = ' ';  
   private readonly apiKey = ' ';
    async translateByYandex(text: string): Promise<string> {
     try {
@@ -11,7 +11,7 @@ export class TranslateService {
         'https://translate.api.cloud.yandex.net/translate/v2/translate',
         {
          folder_id: this.folderId,
-          texts: ["slat"],
+          texts: ["cat"],
           sourceLanguageCode: 'en',
           targetLanguageCode: 'ru',
         },

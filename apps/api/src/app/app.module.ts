@@ -4,6 +4,7 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
  import { TranslateModule } from '@translate--app/translate'
 import { DictionaryModule } from '@translate--app/dictionary';
+import { QueueModule } from '@translate--app/queue';
 
 @Module({
   imports: [
@@ -19,6 +20,7 @@ import { DictionaryModule } from '@translate--app/dictionary';
     }),
     TranslateModule,
     DictionaryModule,
+    QueueModule
   ],
   controllers: [AppController],
   providers: [AppService],

@@ -12,7 +12,7 @@ export class DictionaryService {
 
   async addWord(source: string, translation: string) {
     const entry = this.repo.create({ source, translation });
-    return this.repo.save(entry);
+     return this.repo.save(entry);
   }
 
   async getTranslation(source: string): Promise<string | null> {
