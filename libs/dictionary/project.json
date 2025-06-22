@@ -1,0 +1,19 @@
+{
+  "name": "dictionary",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/dictionary/src",
+  "projectType": "library",
+  "targets": {
+    "build": {
+      "executor": "@nx/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/libs/dictionary",
+        "main": "libs/dictionary/src/index.ts",
+        "tsConfig": "libs/dictionary/tsconfig.lib.json",
+        "assets": ["libs/dictionary/*.md"]
+      }
+    }
+  },
+  "tags": []
+}
