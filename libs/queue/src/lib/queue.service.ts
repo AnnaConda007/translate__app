@@ -14,7 +14,7 @@ export class QueueService {
      await this.translateQueue.add(JOB_NAMES.TRANSLATE, { text });
   }
 
-    async addDictionaryJob(word: string, translation: string) {
- await this.dictionaryQueue.add(JOB_NAMES.DICTIONARY, { word, translation });
+    async addDictionaryJob(userId:number, word: string, translation: string) {
+ await this.dictionaryQueue.add(JOB_NAMES.DICTIONARY, { userId, word, translation });
   }
 }

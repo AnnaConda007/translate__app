@@ -14,7 +14,7 @@ export class AppController {
     @Body('source') source: string,
     @Body('translation') translation: string,
   ) {
-     return this.queueService.addDictionaryJob("men", "мужчина");
+     return this.queueService.addDictionaryJob(11,"зууу", "зукл");
 
   }
 

@@ -11,7 +11,7 @@ export class TranslateQueueProcessor {
 
   @Process(JOB_NAMES.TRANSLATE)
   async handle(job: Job<{ text: string }>) {
-    const result = await this.translateService.translateByYandex(job.data.text);
+    const result = await this.translateService.translate("cat","en","ru" );
     console.log(JOB_NAMES.TRANSLATE, result);
     return result;
   }

@@ -10,8 +10,8 @@ export class DictionaryProcessor {
   constructor(private readonly dictionaryService: DictionaryService) {}
 
   @Process(JOB_NAMES.DICTIONARY)
-  async handle(job: Job<{ word: string, translation: string }>) {
- const { word, translation } = job.data;
-       await this.dictionaryService.addWord(word,translation)
+  async handle(job: Job<{ userId:number,word: string, translation: string }>) {
+ const { userId, word, translation } = job.data;
+       await this.dictionaryService.addWord(userId, word,translation)
    }
 }

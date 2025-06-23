@@ -1,22 +1,24 @@
- import { Injectable } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
-import { DictionaryEntry } from './dictionary.entity';
+import { Inject, Injectable } from '@nestjs/common';
+ import { IDictionaryRepository } from './interfaces/dictionary-provider.interface';
 
 @Injectable()
 export class DictionaryService {
   constructor(
-    @InjectRepository(DictionaryEntry)
-    private readonly repo: Repository<DictionaryEntry>,
+    @Inject('IDictionaryRepository') private readonly repo: IDictionaryRepository,
   ) {}
 
-  async addWord(source: string, translation: string) {
-    const entry = this.repo.create({ source, translation });
-     return this.repo.save(entry);
-  }
+ async addWord(suserId:number, source: string, translation: string) {
+  console.log("добавляем", { suserId, source, translation });
 
-  async getTranslation(source: string): Promise<string | null> {
-    const entry = await this.repo.findOneBy({ source });
-    return entry?.translation ?? null;
+  try {
+    const result = await this.repo.addWord(1, "source", "translation");
+     return result;
+  } catch (error) {
+    console.error("Ошибка при сохранении слова:", error);
+    throw error;
   }
+}
+
+
+   
 }
