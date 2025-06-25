@@ -2,9 +2,10 @@ import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
- import { TranslateModule } from '@translate--app/translate'
-import { DictionaryModule } from '@translate--app/dictionary';
-import { QueueModule } from '@translate--app/queue';
+ import { TranslateModule } from '@translate'
+import { DictionaryModule } from '@dictionary';
+import { QueueModule } from '@queue';
+import {AuthModule} from '@translate--app/auth'
 
 @Module({
   imports: [
@@ -20,7 +21,8 @@ import { QueueModule } from '@translate--app/queue';
     }),
     TranslateModule,
     DictionaryModule,
-    QueueModule
+    QueueModule,
+    AuthModule
   ],
   controllers: [AppController],
   providers: [AppService],

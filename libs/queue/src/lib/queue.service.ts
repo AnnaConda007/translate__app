@@ -8,6 +8,7 @@ export class QueueService {
   constructor(
     @InjectQueue(QUEUE_NAMES.TRANSLATE_QUEUE) private translateQueue: Queue,
     @InjectQueue(QUEUE_NAMES.DICTIONARY_QUEUE) private dictionaryQueue: Queue,
+    @InjectQueue(QUEUE_NAMES.AUTH_QUEUE) private authQueue : Queue,
   ) {}
 
   async addTranslateJob(text: string) {
@@ -16,5 +17,9 @@ export class QueueService {
 
     async addDictionaryJob(userId:number, word: string, translation: string) {
  await this.dictionaryQueue.add(JOB_NAMES.DICTIONARY, { userId, word, translation });
+  }
+
+     async addAuthJob( ) {
+ await this.authQueue.add(JOB_NAMES.AUTH, {  });
   }
 }

@@ -4,9 +4,10 @@
     "emitDecoratorMetadata": true,
     "baseUrl": ".",
     "paths": {
-      "@translate--app/dictionary": ["libs/dictionary/src/index.ts"],
-      "@translate--app/queue": ["libs/queue/src/index.ts"],
-      "@translate--app/translate": ["libs/translate/src/index.ts"]
+      "@translate--app/auth": ["libs/auth/src/index.ts"],
+      "@dictionary": ["libs/dictionary/src/index.ts"],
+      "@queue": ["libs/queue/src/index.ts"],
+      "@translate": ["libs/translate/src/index.ts"]
     },
     "rootDir": ".",
     "sourceMap": true,

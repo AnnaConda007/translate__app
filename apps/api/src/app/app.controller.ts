@@ -1,13 +1,18 @@
  import { Controller, Get, Body } from '@nestjs/common';
- import {QueueService} from '@translate--app/queue';
-import { DictionaryService } from '@translate--app/dictionary';
-
+ import {QueueService} from '@queue';
+ 
 @Controller()
 export class AppController {
   constructor(
     private readonly queueService: QueueService,
-    private readonly dictionaryService: DictionaryService,
+   
   ) {}
+
+
+  @Get('auth')
+  async auth(@Body('text') text: string) {
+    await this.queueService.addAuthJob()
+   }
 
   @Get('add-word')
   async addWord(
