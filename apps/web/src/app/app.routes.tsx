@@ -1,6 +1,5 @@
  import { RouteObject } from 'react-router-dom'; 
-import { LoginPage } from '@translate--app/web-fsd';
-import { RegisterPage } from '@translate--app/web-fsd';
+ import { RegisterPage, ResetPasswordPage, LoginPage } from '@translate--app/web-fsd';
 export const appRoutes: RouteObject[] = [
   {
     path: '/auth/login',
@@ -10,4 +9,12 @@ export const appRoutes: RouteObject[] = [
     path: '/auth/register',
     element: <RegisterPage />,
   },
+
+   {
+    path: '/auth/reset-password',
+    element: <ResetPasswordPage />,
+  },
+  
+
+  
 ];
