@@ -13,6 +13,8 @@
     "@nestjs/typeorm": "^11.0.0",
     "axios": "^1.6.0",
     "bull": "^4.16.5",
+    "firebase": "^11.9.1",
+    "firebase-admin": "^13.4.0",
     "ioredis": "^5.6.1",
     "pg": "^8.16.2",
     "react": "19.0.0",

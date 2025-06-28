@@ -4,10 +4,11 @@
     "emitDecoratorMetadata": true,
     "baseUrl": ".",
     "paths": {
-      "@translate--app/auth": ["libs/auth/src/index.ts"],
       "@dictionary": ["libs/dictionary/src/index.ts"],
       "@queue": ["libs/queue/src/index.ts"],
-      "@translate": ["libs/translate/src/index.ts"]
+      "@translate": ["libs/translate/src/index.ts"],
+      "@translate--app/auth": ["libs/auth/src/index.ts"],
+      "@translate--app/web-fsd": ["libs/web-fsd/src/index.ts"]
     },
     "rootDir": ".",
     "sourceMap": true,

@@ -1,0 +1,19 @@
+{
+  "name": "web-fsd",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/web-fsd/src",
+  "projectType": "library",
+  "targets": {
+    "build": {
+      "executor": "@nx/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/libs/web-fsd",
+        "main": "libs/web-fsd/src/index.ts",
+        "tsConfig": "libs/web-fsd/tsconfig.lib.json",
+        "assets": ["libs/web-fsd/*.md"]
+      }
+    }
+  },
+  "tags": []
+}
