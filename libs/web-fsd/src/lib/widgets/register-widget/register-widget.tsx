@@ -1,4 +1,4 @@
- import { RegisterForm } from "../../features/register/ui/register-form"
+ import { RegisterForm } from "../../features/register-feature/ui/register-form"
  import { Link } from "react-router-dom";  
 
   export const RegisterWidget = ()=>{
