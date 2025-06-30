@@ -22,11 +22,14 @@ export class QueueService {
  await this.authQueue.add(JOB_NAMES.DICTIONARY, { userId, title, content });
   }
 
-     async addAuthJob( userId:string,email:string,text:string) {
- await this.authQueue.add(JOB_NAMES.AUTH, { userId, email, text});
-  }
+  async addAuthJob(userId: string, email: string, text: string) {
+  const job = await this.authQueue.add(JOB_NAMES.AUTH, { userId, email, text });
+ return await job.finished();  
+  
+}
+
 
       async addUserTextJob( userId:string,title:string,content:string) {
- await this.authQueue.add(JOB_NAMES.ADD_USER_TEXT, {userId,title,content });
+   await this.addUserText.add(JOB_NAMES.ADD_USER_TEXT, {userId,title,content });
   }
 }

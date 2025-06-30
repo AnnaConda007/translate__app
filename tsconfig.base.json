@@ -4,10 +4,10 @@
     "emitDecoratorMetadata": true,
     "baseUrl": ".",
     "paths": {
-       "@queue": ["libs/queue/src/index.ts"],
+      "@dataBase": ["libs/database/src/index.ts"],
+      "@queue": ["libs/queue/src/index.ts"],
       "@translate": ["libs/translate/src/index.ts"],
-      "@dataBase": ["libs/auth/src/index.ts"],
-       "@web-fsd": ["libs/web-fsd/src/index.ts"]
+      "@web-fsd": ["libs/web-fsd/src/index.ts"]
     },
     "rootDir": ".",
     "sourceMap": true,

@@ -6,7 +6,7 @@ export class UserWord {
   @PrimaryGeneratedColumn()
   id!: number;
 
-  @ManyToOne(() => User, user => user.dictionary)
+  @ManyToOne(() => User, (user) => user.dictionary)
   user!: User;
 
   @Column()
@@ -20,6 +20,4 @@ export class UserWord {
 
   @Column({ default: false })
   isLearned!: boolean;
- 
 }
-

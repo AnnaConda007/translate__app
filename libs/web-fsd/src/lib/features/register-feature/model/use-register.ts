@@ -11,9 +11,11 @@ const [error, setError] = useState(false);
 
 const submitRegisterForm = async (email: string, name:string,password: string) => {
       setLoading(true);
-    api(email, name)
 try {
- await createUserWithEmailAndPassword(auth, email, password)
+ const userCredential = await createUserWithEmailAndPassword(auth, email, password)
+  await userCredential.user.getIdToken(true); 
+    api(email, name)
+
  } catch (error: unknown) {
   if (error instanceof FirebaseError) {
     console.error(error.message)

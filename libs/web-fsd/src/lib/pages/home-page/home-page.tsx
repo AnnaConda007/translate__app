@@ -1,10 +1,9 @@
-import { title } from "process";
-import { useState } from "react";
+ import { useState } from "react";
 import { auth } from '../../shared/config/firebase-сonfig';  
 
  export const HomePage = ()=>{
-const [textTitle,setTextTitle] = useState("")
-const [text,setText] = useState("")
+const [title,setTextTitle] = useState("")
+const [content,setText] = useState("")
 
  const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -28,7 +27,7 @@ const sendText = async ()=>{
         headers: { 'Content-Type': 'application/json',     
               'Authorization': `Bearer ${token}`, 
  },
-             body: JSON.stringify({ text, user_id: 11 }),
+             body: JSON.stringify({ title,content }),
 
       });
     };
@@ -36,7 +35,7 @@ const sendText = async ()=>{
 
     return (
   <>
-        <input type="text" onChange={(e)=>setTextTitle(e.target.value)}  value={textTitle}/>
+        <input type="text" onChange={(e)=>setTextTitle(e.target.value)}  value={title}/>
       <input type="file" accept=".txt,.md,.docx" onChange={handleFileUpload} />
       <button onClick={sendText}>
         отправить

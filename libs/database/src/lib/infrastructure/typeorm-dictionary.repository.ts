@@ -17,10 +17,14 @@ export class TypeOrmDictionaryRepository implements IDictionaryRepository {
     private readonly userRepo: Repository<User>,
 
     @InjectRepository(UserText)
-    private readonly userTextRepo: Repository<UserText>,
+    private readonly userTextRepo: Repository<UserText>
   ) {}
 
-  async addWord(userId: number, source: string, translation: string): Promise<void> {
+  async addWord(
+    userId: number,
+    source: string,
+    translation: string
+  ): Promise<void> {
     const user = await this.userRepo.findOneByOrFail({ id: userId });
 
     const entry = this.userWordRepo.create({
@@ -33,5 +37,4 @@ export class TypeOrmDictionaryRepository implements IDictionaryRepository {
 
     await this.userWordRepo.save(entry);
   }
-
- }
+}

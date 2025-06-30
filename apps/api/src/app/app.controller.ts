@@ -1,7 +1,7 @@
 import { Controller, Get, Body,Post , Req, UseGuards} from '@nestjs/common';
 import {QueueService} from '@queue';
 import { Request } from 'express';
- 
+  
 @Controller()
 export class AppController {
   constructor(
@@ -11,12 +11,13 @@ export class AppController {
   async auth(@Body('email') email, @Body('name') name,  @Req() req: Request) {
       const user = req['user'];  
       const userId = user.uid
-       await this.queueService.addAuthJob(userId,email,name)
-   }
+       return await this.queueService.addAuthJob(userId,email,name)
+    }
        
   @Post('add-user-text') async addUserText( @Body('title') title: string, @Body('content') content: string,   @Req() req: Request) {
       const user = req['user'];  
       const userId = user.uid
+      console.log(title,content)
      return this.queueService.addUserTextJob(userId,title,content);
   }
 

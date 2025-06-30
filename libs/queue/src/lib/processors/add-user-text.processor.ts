@@ -9,9 +9,10 @@ import { DataBaseService } from '@dataBase';
 export class TextsProcessor {
   constructor(private readonly service: DataBaseService) {}
 
-  @Process(JOB_NAMES.DICTIONARY)
+  @Process(JOB_NAMES.ADD_USER_TEXT)
   async handle(job: Job<{ userId:string,title: string, content: string }>) {
  const { userId, title,content } = job.data;
        await this.service.addText(userId, title,content)
+       console.log("ADD_USER_TEXT")
    }
 }

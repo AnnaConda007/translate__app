@@ -7,7 +7,7 @@ import { QUEUE_NAMES } from './queue-constants';
  import { DictionaryProcessor } from './processors/dictionary-queue.processor';
 import {DataBaseModule} from "@dataBase"
 import { AuthProcessor } from './processors/auth-queue.processor';
-
+import { TextsProcessor } from './processors/add-user-text.processor';
 @Module({
   imports: [
     BullModule.forRoot({
@@ -24,7 +24,7 @@ import { AuthProcessor } from './processors/auth-queue.processor';
     ),
     TranslateModule, DataBaseModule
   ],
-  providers: [QueueService, TranslateQueueProcessor,DictionaryProcessor,AuthProcessor],
+  providers: [QueueService, TranslateQueueProcessor,DictionaryProcessor,AuthProcessor, TextsProcessor],
   exports: [QueueService],
 })
 export class QueueModule {}

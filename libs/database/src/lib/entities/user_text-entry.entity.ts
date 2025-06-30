@@ -6,7 +6,7 @@ export class UserText {
   @PrimaryGeneratedColumn()
   id!: number;
 
-  @ManyToOne(() => User, user => user.texts)
+  @ManyToOne(() => User, (user) => user.texts)
   user!: User;
 
   @Column()
@@ -14,5 +14,4 @@ export class UserText {
 
   @Column({ type: 'text' })
   content!: string;
-
- }
+}
