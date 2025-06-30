@@ -4,9 +4,8 @@ import { QueueService } from './queue.service';
 import { TranslateQueueProcessor } from './processors/translate-queue.processor';
 import { TranslateModule } from '@translate'; 
 import { QUEUE_NAMES } from './queue-constants';
-import {DictionaryModule} from '@dictionary'; 
-import { DictionaryProcessor } from './processors/dictionary-queue.processor';
-import {AuthModule} from "@translate--app/auth"
+ import { DictionaryProcessor } from './processors/dictionary-queue.processor';
+import {DataBaseModule} from "@dataBase"
 import { AuthProcessor } from './processors/auth-queue.processor';
 
 @Module({
@@ -20,9 +19,10 @@ import { AuthProcessor } from './processors/auth-queue.processor';
     BullModule.registerQueue(
       { name: QUEUE_NAMES.TRANSLATE_QUEUE }, 
       { name: QUEUE_NAMES.DICTIONARY_QUEUE },
-      { name: QUEUE_NAMES.AUTH_QUEUE }
+      { name: QUEUE_NAMES.AUTH_QUEUE },
+      { name: QUEUE_NAMES.ADD_USER_TEXT }
     ),
-    TranslateModule,DictionaryModule, AuthModule
+    TranslateModule, DataBaseModule
   ],
   providers: [QueueService, TranslateQueueProcessor,DictionaryProcessor,AuthProcessor],
   exports: [QueueService],

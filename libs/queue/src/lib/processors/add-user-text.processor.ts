@@ -4,14 +4,14 @@ import { Job } from 'bull';
 import { QUEUE_NAMES, JOB_NAMES } from '../queue-constants';
 import { DataBaseService } from '@dataBase';
 
-@Processor(QUEUE_NAMES.DICTIONARY_QUEUE)
+@Processor(QUEUE_NAMES.ADD_USER_TEXT)
 @Injectable()
-export class DictionaryProcessor {
+export class TextsProcessor {
   constructor(private readonly service: DataBaseService) {}
 
   @Process(JOB_NAMES.DICTIONARY)
-  async handle(job: Job<{ userId:number,word: string, translation: string }>) {
- const { userId, word, translation } = job.data;
-       await this.service.addWord(userId, word,translation)
+  async handle(job: Job<{ userId:string,title: string, content: string }>) {
+ const { userId, title,content } = job.data;
+       await this.service.addText(userId, title,content)
    }
 }

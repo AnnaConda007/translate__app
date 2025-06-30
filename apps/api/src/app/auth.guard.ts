@@ -7,7 +7,7 @@ export class FirebaseAuthGuard implements CanActivate {
   async canActivate(context: ExecutionContext): Promise<boolean> {
      const req = context.switchToHttp().getRequest<Request>();
     const authHeader = req.headers.authorization;
-
+ 
     if (!authHeader?.startsWith('Bearer ')) {
       throw new UnauthorizedException('Нет токена');
     }
@@ -16,6 +16,7 @@ export class FirebaseAuthGuard implements CanActivate {
     try {
       const decoded = await firebaseAdmin.auth().verifyIdToken(token);
       req['user'] = decoded;  
+      console.log(decoded)
       return true;
     } catch (err) {
       throw new UnauthorizedException('Невалидный токен');

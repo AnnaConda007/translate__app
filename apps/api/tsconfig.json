@@ -5,10 +5,9 @@
   "references": [
     {
       "path": "./tsconfig.app.json",
-      "@dictionary": ["libs/dictionary/src/lib/index.ts"],
-      "@translate": ["libs/translate/src/lib/index.ts"],
+       "@translate": ["libs/translate/src/lib/index.ts"],
       "@queue":["libs/queue/src/index.ts"],
-      "@translate--app/auth": ["libs/auth/src/index.ts"],
+      "@dataBase": ["libs/auth/src/index.ts"],
     }
   ],
   "compilerOptions": {

@@ -3,12 +3,11 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { TranslateModule } from '@translate'
-import { DictionaryModule } from '@dictionary';
-import { QueueModule } from '@queue';
-import {AuthModule} from '@translate--app/auth'
+ import { QueueModule } from '@queue';
+import {DataBaseModule} from '@dataBase'
 import { ConfigModule } from '@nestjs/config';
 import { join } from 'path';
-
+ 
 @Module({
   imports: [ 
      ConfigModule.forRoot({
@@ -26,10 +25,9 @@ import { join } from 'path';
       synchronize: true, // ❗ 
     }),
     TranslateModule,
-    DictionaryModule,
-    QueueModule,
-    AuthModule
-  ],
+     QueueModule,
+    DataBaseModule,
+   ],
   controllers: [AppController],
   providers: [AppService],
 })

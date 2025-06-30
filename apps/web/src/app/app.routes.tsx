@@ -1,6 +1,8 @@
  import { RouteObject } from 'react-router-dom'; 
- import { RegisterPage, ResetPasswordPage, LoginPage } from '@translate--app/web-fsd';
-export const appRoutes: RouteObject[] = [
+ import { RegisterPage, ResetPasswordPage, LoginPage,HomePage } from '@web-fsd';
+
+
+ export const appRoutes: RouteObject[] = [
   {
     path: '/auth/login',
     element: <LoginPage/>,
@@ -13,6 +15,10 @@ export const appRoutes: RouteObject[] = [
    {
     path: '/auth/reset-password',
     element: <ResetPasswordPage />,
+  },
+     {
+    path: '/home',
+    element: <HomePage />,
   },
   
 

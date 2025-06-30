@@ -12,7 +12,7 @@
   "references": [
     {
       "path": "./tsconfig.app.json",
-       "@translate--app/web-fsd": ["libs/web-fsd/src/index.ts"]
+       "@web-fsd": ["libs/web-fsd/src/index.ts"]
 
     }
   ],

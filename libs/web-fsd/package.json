@@ -1,5 +1,5 @@
 {
-  "name": "@translate--app/web-fsd",
+  "name": "@web-fsd",
   "version": "0.0.1",
   "private": true,
   "type": "commonjs",

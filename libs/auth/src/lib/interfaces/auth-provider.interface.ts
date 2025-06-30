@@ -1,3 +1,5 @@
 export interface IAuthProvider {
-  auth( ): Promise<any>;
+  addNewUser(userId:string,email:string,
+  name:string,
+   ): Promise<any>;
 }
