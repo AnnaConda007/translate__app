@@ -6,7 +6,7 @@ import { DataBaseService } from '@dataBase';
 import { AddWordJobPayload } from '@dataBase';
 @Processor(QUEUE_NAMES.DATABASE_QUEUE)
 @Injectable()
-export class DictionaryProcessor {
+export class ReplenishDictionaryProcessor {
   constructor(private readonly service: DataBaseService) {}
 
   @Process(JOB_NAMES.DICTIONARY_REPLANISH)
