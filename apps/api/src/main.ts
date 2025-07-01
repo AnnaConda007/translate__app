@@ -8,6 +8,7 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app/app.module';
 import { FirebaseAuthGuard } from './app/auth.guard';
 import * as bodyParser from 'body-parser';
+import { ValidationPipe } from '@nestjs/common';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -21,7 +22,7 @@ async function bootstrap() {
   app.use(bodyParser.json({ limit: '10mb' }));  
   app.use(bodyParser.urlencoded({ extended: true, limit: '10mb' }));
 
-
+  app.useGlobalPipes(new ValidationPipe({ whitelist: true }));
   app.useGlobalGuards(new FirebaseAuthGuard());
   app.setGlobalPrefix(globalPrefix);
   const port = process.env.PORT || 3000;

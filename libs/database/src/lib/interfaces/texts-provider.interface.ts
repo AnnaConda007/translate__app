@@ -1,3 +1,6 @@
+  import { AddUserTextRegPayload } from "../dto/database-reg.dto"; 
+ import { UserText } from "../entities/user_text-entry.entity";
+ 
 export interface ITextsRepository {
-  addText(userId: string, title: string, content: string): Promise<void>;
+  addText(payload:AddUserTextRegPayload): Promise<UserText>;
 }

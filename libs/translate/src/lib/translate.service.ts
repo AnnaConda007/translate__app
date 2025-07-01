@@ -1,7 +1,6 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { ITranslateProvider } from './interfaces/translate-provider.interface';
-import { LanguageCode } from './models/language-code.enum';//использовать позже
-
+import { TranslateRegDto } from './dto/translate.dto';
 
 @Injectable()
 export class TranslateService {
@@ -9,10 +8,8 @@ export class TranslateService {
     @Inject('ITranslateProvider') private readonly provider: ITranslateProvider
   ) {}
 
-  async translate(text: string, sourceLang: string, targetLang: string): Promise<string> {
-    if (!text?.trim()) {
-      throw new Error('Пустой текст нельзя перевести');
-    }
-     return this.provider.translate(text, sourceLang, targetLang);
+  async translate(payload:TranslateRegDto): Promise<string> {
+    
+     return this.provider.translate(payload);
   }
 } 

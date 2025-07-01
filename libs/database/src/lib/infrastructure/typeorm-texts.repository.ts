@@ -1,10 +1,12 @@
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Injectable } from '@nestjs/common';
-
 import { UserText } from '../entities/user_text-entry.entity';
 import { ITextsRepository } from '../interfaces/texts-provider.interface';
 import { User } from '../entities/users-entry.entity';
+ import { AddUserTextRegPayload } from '../dto/database-reg.dto';
+ 
+
 @Injectable()
 export class TypeOrmTextsRepository implements ITextsRepository {
   constructor(
@@ -12,10 +14,10 @@ export class TypeOrmTextsRepository implements ITextsRepository {
     private readonly userTextRepo: Repository<UserText>,
         @InjectRepository(User)
         private readonly userRepo: Repository<User>
-    
   ) {}
 
- async addText(userId: string, title: string, content: string): Promise<void> {
+ async addText(payload:AddUserTextRegPayload): Promise<UserText> {
+  const {userId,title,content,}= payload
   const user = await this.userRepo.findOne({ where: { user_id: userId } });
    if (!user) {
     throw new Error(`User with id ${userId} not found`);
@@ -26,12 +28,9 @@ export class TypeOrmTextsRepository implements ITextsRepository {
     content,
     user,
   });
- try {
-  const res = await this.userTextRepo.save(newText);
-  console.log('SAVED:', res);
-} catch (err) {
-  console.error('SAVE ERROR:', err);
-}
+
+  return  await this.userTextRepo.save(newText);
+   
 
 }
 

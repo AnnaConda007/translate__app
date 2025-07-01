@@ -2,7 +2,12 @@ import { Inject, Injectable } from '@nestjs/common';
 import { IAuthProvider } from './interfaces/auth-provider.interface';
 import { IDictionaryRepository } from './interfaces/dictionary-provider.interface';
 import { ITextsRepository } from './interfaces/texts-provider.interface';
+import { AddWordJobPayload, NewUserRegPayload } from './dto/database-reg.dto';
 
+import { AddUserTextRegPayload } from './dto/database-reg.dto';
+ import { UserText } from './entities/user_text-entry.entity';
+import { User } from './entities/users-entry.entity';
+import { UserWord } from './entities/user_word-entry.entity';
 @Injectable()
 export class DataBaseService {
   constructor(
@@ -13,22 +18,17 @@ export class DataBaseService {
     @Inject('ITextsRepository') private readonly textRepo: ITextsRepository
   ) {}
 
-  async addText(userId: string, text: string, content: string) {
-    console.log("ddd")
-      return await this.textRepo.addText(userId, text, content);
+  async addText(payload:AddUserTextRegPayload) :Promise<UserText> {
+       return await this.textRepo.addText(payload);
      
   }
-  async addWord(suserId: number, source: string, translation: string) {
-      const result = await this.dictionaryRepo.addWord(
-        1,
-        'source',
-        'translation'
-      );
+  async addWord(payload:AddWordJobPayload) : Promise<UserWord>{
+      const result = await this.dictionaryRepo.addWord(payload);
       return result;
   }
 
-  async auth(userId: string, email: string, text: string): Promise<any> {
-   return await this.authRepo.addNewUser(userId, email, text);
+  async auth(payload:NewUserRegPayload): Promise<User> {
+   return await this.authRepo.addNewUser(payload);
    
   }
 }

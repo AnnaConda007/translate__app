@@ -2,8 +2,9 @@
 import { InjectQueue } from '@nestjs/bull';
 import { Queue } from 'bull';
 import { QUEUE_NAMES,JOB_NAMES } from './queue-constants';
- 
-@Injectable()
+ import { AddWordJobPayload,NewUserRegPayload,AddUserTextRegPayload } from '@dataBase';
+ import { TranslateRegDto } from '@translate';
+ @Injectable()
 export class QueueService {
   constructor(
     @InjectQueue(QUEUE_NAMES.TRANSLATE_QUEUE) private translateQueue: Queue,
@@ -14,22 +15,26 @@ export class QueueService {
     
   ) {}
 
-  async addTranslateJob(text: string) {
-     await this.authQueue.add(JOB_NAMES.TRANSLATE, { text });
-  }
-
-    async addDictionaryJob(userId:string, title: string, content: string) {
- await this.authQueue.add(JOB_NAMES.DICTIONARY, { userId, title, content });
-  }
-
-  async addAuthJob(userId: string, email: string, text: string) {
-  const job = await this.authQueue.add(JOB_NAMES.AUTH, { userId, email, text });
- return await job.finished();  
-  
+    async addAuthJob(payload:NewUserRegPayload) {
+   const job = await this.authQueue.add(JOB_NAMES.AUTH, payload);
+ return await job.finished();   
 }
 
 
-      async addUserTextJob( userId:string,title:string,content:string) {
-   await this.addUserText.add(JOB_NAMES.ADD_USER_TEXT, {userId,title,content });
+
+  async addTranslateJob(payload: TranslateRegDto) {
+     await this.authQueue.add(JOB_NAMES.TRANSLATE, payload);
+  }
+
+    async addDictionaryJob(payload: AddWordJobPayload) {
+   const job = await this.dictionaryQueue.add(JOB_NAMES.DICTIONARY,payload);
+    return await job.finished();   
+
+  }
+
+
+      async addUserTextJob(payload:AddUserTextRegPayload) {
+           const job =  await this.addUserText.add(JOB_NAMES.ADD_USER_TEXT,payload)
+ return await job.finished();   
   }
 }

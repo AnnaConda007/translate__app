@@ -1,3 +1,5 @@
+import { TranslateRegDto } from "../dto/translate.dto";
+
 export interface ITranslateProvider {
-  translate(text: string, sourceLang: string, targetLang: string): Promise<string>;
+  translate(payload:TranslateRegDto): Promise<string>;
 }

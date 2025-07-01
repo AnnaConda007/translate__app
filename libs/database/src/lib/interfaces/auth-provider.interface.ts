@@ -1,3 +1,6 @@
+ import { NewUserRegPayload } from "../dto/database-reg.dto";
+import { User } from "../entities/users-entry.entity";
+
 export interface IAuthProvider {
-  addNewUser(userId: string, email: string, name: string): Promise<any>;
+  addNewUser(payload:NewUserRegPayload): Promise<User>;
 }
