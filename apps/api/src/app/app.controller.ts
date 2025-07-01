@@ -11,27 +11,27 @@ export class AppController {
     private readonly queueService: QueueService ) {}
  
 
-   @Post('auth')
+   @Post('create-new-user-table')
   async auth(@Body() body: NewUserRegDto,  @Req() req: Request): Promise<User> {
       const user = req['user'];  
       const userId = user.uid
       const {email,name} = body
-       return await this.queueService.addAuthJob({userId,email,name})
+       return await this.queueService.addCreateNewUserTableJob({userId,email,name})
     }
        
-  @Post('add-user-text') async addUserText( @Body() body: AddUserTextRegDto,   @Req() req: Request) :Promise<UserText>{
+  @Post('user-library-replenish') async addUserText( @Body() body: AddUserTextRegDto,   @Req() req: Request) :Promise<UserText>{
       const user = req['user'];  
       const userId = user.uid
             const {title,content} = body
-      return await this.queueService.addUserTextJob({userId,title,content});
+      return await this.queueService.addUserLibraryReplenishJob({userId,title,content});
   }
 
        
-  @Post('add-word') async addWord( @Body() body: AddWordRegDto,  @Req() req: Request):Promise <UserWord> {
+  @Post('dictionary-replenish') async addWord( @Body() body: AddWordRegDto,  @Req() req: Request):Promise <UserWord> {
        const user = req['user'];  
        const userId = user.uid
        const {source, translation} = body
-      return this.queueService.addDictionaryJob({userId,source, translation});
+      return this.queueService.addDictionaryReplenishJob({userId,source, translation});
   }
 
 

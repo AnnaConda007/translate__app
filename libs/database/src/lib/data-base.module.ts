@@ -13,19 +13,19 @@ import { TypeOrmDictionaryRepository } from './infrastructure/typeorm-dictionary
   imports: [TypeOrmModule.forFeature([User, UserWord, UserText]), ConfigModule],
   providers: [
     {
-      provide: 'IAuthProvider',
+      provide: 'ICreateNewUserTableProvider',
       useClass: TypeOrmUserRepository,
     },
-
+   {
+      provide: 'ILibraryRepository',
+      useClass: TypeOrmTextsRepository,
+    },
     {
       provide: 'IDictionaryRepository',
       useClass: TypeOrmDictionaryRepository,
     },
 
-    {
-      provide: 'ITextsRepository',
-      useClass: TypeOrmTextsRepository,
-    },
+ 
 
     DataBaseService,
   ],

@@ -17,10 +17,9 @@ import { TextsProcessor } from './processors/add-user-text.processor';
       },
     }),
     BullModule.registerQueue(
-      { name: QUEUE_NAMES.TRANSLATE_QUEUE }, 
-      { name: QUEUE_NAMES.DICTIONARY_QUEUE },
-      { name: QUEUE_NAMES.AUTH_QUEUE },
-      { name: QUEUE_NAMES.ADD_USER_TEXT }
+      { name: QUEUE_NAMES.TRANSLATE_QUEUE },  
+            { name: QUEUE_NAMES.DATABASE_QUEUE },  
+
     ),
     TranslateModule, DataBaseModule
   ],

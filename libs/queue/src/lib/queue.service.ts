@@ -8,33 +8,36 @@ import { QUEUE_NAMES,JOB_NAMES } from './queue-constants';
 export class QueueService {
   constructor(
     @InjectQueue(QUEUE_NAMES.TRANSLATE_QUEUE) private translateQueue: Queue,
-    @InjectQueue(QUEUE_NAMES.DICTIONARY_QUEUE) private dictionaryQueue: Queue,
-    @InjectQueue(QUEUE_NAMES.AUTH_QUEUE) private authQueue : Queue,
-    @InjectQueue(QUEUE_NAMES.ADD_USER_TEXT) private addUserText : Queue,
+     @InjectQueue(QUEUE_NAMES.DATABASE_QUEUE) private databaseQueue : Queue, 
+
 
     
   ) {}
 
-    async addAuthJob(payload:NewUserRegPayload) {
-   const job = await this.authQueue.add(JOB_NAMES.AUTH, payload);
+    async addCreateNewUserTableJob(payload:NewUserRegPayload) {
+   const job = await this.databaseQueue.add(JOB_NAMES.CRATE_NEW_USER_TABLE, payload);
  return await job.finished();   
 }
 
-
-
-  async addTranslateJob(payload: TranslateRegDto) {
-     await this.authQueue.add(JOB_NAMES.TRANSLATE, payload);
+   async addUserLibraryReplenishJob(payload:AddUserTextRegPayload) {
+           const job =  await this.databaseQueue.add(JOB_NAMES.ADD_USER_LIBRARY_REPLANISH,payload)
+ return await job.finished();   
   }
 
-    async addDictionaryJob(payload: AddWordJobPayload) {
-   const job = await this.dictionaryQueue.add(JOB_NAMES.DICTIONARY,payload);
+
+    async addDictionaryReplenishJob(payload: AddWordJobPayload) {
+   const job = await this.databaseQueue.add(JOB_NAMES.DICTIONARY_REPLANISH,payload);
     return await job.finished();   
 
   }
 
-
-      async addUserTextJob(payload:AddUserTextRegPayload) {
-           const job =  await this.addUserText.add(JOB_NAMES.ADD_USER_TEXT,payload)
- return await job.finished();   
+  
+  async addTranslateJob(payload: TranslateRegDto) {
+     await this.translateQueue.add(JOB_NAMES.TRANSLATE, payload);
   }
+
+  
+
+
+   
 }

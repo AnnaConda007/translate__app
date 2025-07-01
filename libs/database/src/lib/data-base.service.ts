@@ -1,7 +1,7 @@
 import { Inject, Injectable } from '@nestjs/common';
-import { IAuthProvider } from './interfaces/auth-provider.interface';
+import { ICreateNewUserTableProvider } from './interfaces/auth-provider.interface';
 import { IDictionaryRepository } from './interfaces/dictionary-provider.interface';
-import { ITextsRepository } from './interfaces/texts-provider.interface';
+import { ILibraryRepository } from './interfaces/texts-provider.interface';
 import { AddWordJobPayload, NewUserRegPayload } from './dto/database-reg.dto';
 
 import { AddUserTextRegPayload } from './dto/database-reg.dto';
@@ -11,24 +11,27 @@ import { UserWord } from './entities/user_word-entry.entity';
 @Injectable()
 export class DataBaseService {
   constructor(
-    @Inject('IAuthProvider') private readonly authRepo: IAuthProvider,
+    @Inject('ICreateNewUserTableProvider') private readonly userRepo: ICreateNewUserTableProvider,
 
     @Inject('IDictionaryRepository') private readonly dictionaryRepo: IDictionaryRepository,
 
-    @Inject('ITextsRepository') private readonly textRepo: ITextsRepository
+    @Inject('ILibraryRepository') private readonly textRepo: ILibraryRepository
   ) {}
 
-  async addText(payload:AddUserTextRegPayload) :Promise<UserText> {
-       return await this.textRepo.addText(payload);
+
+  async createNewUserTable(payload:NewUserRegPayload): Promise<User> {
+   return await this.userRepo.createNewUserTable(payload);
+   
+  }
+
+  async userLibraryReplenish(payload:AddUserTextRegPayload) :Promise<UserText> {
+       return await this.textRepo.userLibraryReplenish(payload);
      
   }
-  async addWord(payload:AddWordJobPayload) : Promise<UserWord>{
-      const result = await this.dictionaryRepo.addWord(payload);
+  async dictionaryReplenish(payload:AddWordJobPayload) : Promise<UserWord>{
+      const result = await this.dictionaryRepo.dictionaryReplenish(payload);
       return result;
   }
 
-  async auth(payload:NewUserRegPayload): Promise<User> {
-   return await this.authRepo.addNewUser(payload);
-   
-  }
+  
 }

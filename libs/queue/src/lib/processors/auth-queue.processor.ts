@@ -5,14 +5,14 @@ import { QUEUE_NAMES, JOB_NAMES } from '../queue-constants';
 import {DataBaseService} from "@dataBase"
 import { NewUserRegPayload } from '@dataBase';
 
-@Processor(QUEUE_NAMES.AUTH_QUEUE)
+@Processor(QUEUE_NAMES.DATABASE_QUEUE)
 @Injectable()
 export class AuthProcessor {
   constructor(private readonly service: DataBaseService) {}
 
-@Process(JOB_NAMES.AUTH)
+@Process(JOB_NAMES.CRATE_NEW_USER_TABLE)
 async handleAuth(job: Job< NewUserRegPayload>) {
-    return await this.service.auth(job.data);
+    return await this.service.createNewUserTable(job.data);
  
  }
  
