@@ -9,12 +9,14 @@ import { TranslateRegDto } from '../dto/translate.dto';
 export class YandexTranslateProvider implements ITranslateProvider {
   constructor(private readonly configService: ConfigService) {}
 
-  async translate(payload:TranslateRegDto): Promise<string> {
+  async translate(payload:TranslateRegDto): Promise<any> {
+    console.log("dd,kmkmlfmlfmfm")
     const yandexApiUrl = 'https://translate.api.cloud.yandex.net/translate/v2/translate'
-    const apiKey = this.configService.get<string>('API_KEY');
-    const folderId = this.configService.get<string>('FOLDER_ID');
+    const apiKey = this.configService.get<string>('YANDEX_API_KEY');
+    const folderId = this.configService.get<string>('YANDEX_FOLDER_ID');
 const {  text}= payload
-
+console.log("apiKey", apiKey)
+try {
     const response = await axios.post(yandexApiUrl,
       {
         folder_id: folderId,
@@ -28,7 +30,12 @@ const {  text}= payload
         },
       }
     );
+         return response.data.translations[0].text;
 
-    return response.data.translations[0].text;
+
+} catch (error) {
+     console.error( error)
+}
+  
   }
 }

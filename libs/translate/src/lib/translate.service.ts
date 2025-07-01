@@ -9,7 +9,6 @@ export class TranslateService {
   ) {}
 
   async translate(payload:TranslateRegDto): Promise<string> {
-    
-     return this.provider.translate(payload);
+      return this.provider.translate(payload);
   }
 } 

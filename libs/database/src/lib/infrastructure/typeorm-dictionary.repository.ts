@@ -1,12 +1,10 @@
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Injectable } from '@nestjs/common';
-
 import { IDictionaryRepository } from '../interfaces/dictionary-provider.interface';
 import { User } from '../entities/users-entry.entity';
 import { UserWord } from '../entities/user_word-entry.entity';
-import { UserText } from '../entities/user_text-entry.entity';
-import { AddWordJobPayload } from '../dto/database-reg.dto';
+ import { AddWordJobPayload, RemoveFromDictionaryobPayload, updateDictionaryProgressPayload, updateLearnedStatusPayload } from '../dto/database-reg.dto';
 
 @Injectable()
 export class TypeOrmDictionaryRepository implements IDictionaryRepository {
@@ -19,8 +17,7 @@ export class TypeOrmDictionaryRepository implements IDictionaryRepository {
  
   ) {}
 
-  async dictionaryReplenish( payload:AddWordJobPayload
-  ): Promise<UserWord> {
+  async dictionaryReplenish( payload:AddWordJobPayload): Promise<UserWord> {
     const {userId,translation, source} = payload
   const user = await this.userRepo.findOne({ where: { user_id: userId } });
       if (!user) {
@@ -37,4 +34,87 @@ export class TypeOrmDictionaryRepository implements IDictionaryRepository {
 
    return  await this.userWordRepo.save(entry);
   }
+
+
+async removeFromDictionary(payload: RemoveFromDictionaryobPayload): Promise<void> {
+  const { userId, word } = payload;
+console.log("userId, word", userId, word)
+  const user = await this.userRepo.findOne({ where: { user_id: userId } });
+   console.log("user", user)
+
+  if (!user) {
+    throw new Error(`User with id ${userId} not found`);
+  }
+
+   const entry = await this.userWordRepo.findOne({
+    where: {
+      user: { id: user.id },
+      source: word,  
+    },
+    relations: ['user'],  
+  });
+
+   if (!entry) {
+     throw new Error(`Word "${word}" not found in user's dictionary`);
+  }
+  await this.userWordRepo.remove(entry)
+ }
+
+
+
+ 
+async updateDictionaryProgress(payload: updateDictionaryProgressPayload): Promise<void> {
+  const { userId, word, progress } = payload;
+   const user = await this.userRepo.findOne({ where: { user_id: userId } });
+    if (!user) {
+      throw new Error(`User with id ${userId} not found`);
+    }
+
+  const entry = await this.userWordRepo.findOne({
+  where: {
+    user: { id: user.id },
+    source: word,  
+  },
+  relations: ['user'],
+});
+
+    if (!entry) {
+      throw new Error(`Word "${word}" not found in user's dictionary`);
+    }
+     entry.progress = progress;
+     await this.userWordRepo.save(entry);
 }
+
+
+
+async updateLearnedStatus(payload: updateLearnedStatusPayload): Promise<void> {
+  const { userId, word, isLearned } = payload;
+   const user = await this.userRepo.findOne({ where: { user_id: userId } });
+    if (!user) {
+      throw new Error(`User with id ${userId} not found`);
+    }
+
+  const entry = await this.userWordRepo.findOne({
+  where: {
+    user: { id: user.id },
+    source: word,  
+  },
+  relations: ['user'],
+});
+
+    if (!entry) {
+      throw new Error(`Word "${word}" not found in user's dictionary`);
+    }
+     entry.isLearned = isLearned;
+     await this.userWordRepo.save(entry);
+}
+
+
+
+
+
+
+}
+
+
+  

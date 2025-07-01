@@ -2,9 +2,9 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Injectable } from '@nestjs/common';
 import { UserText } from '../entities/user_text-entry.entity';
-import { ILibraryRepository } from '../interfaces/texts-provider.interface';
+import { ILibraryRepository } from '../interfaces/library-provider.interface';
 import { User } from '../entities/users-entry.entity';
- import { AddUserTextRegPayload } from '../dto/database-reg.dto';
+ import { AddUserTextRegPayload, RemoveTextPayload, RenaimeTextPayload } from '../dto/database-reg.dto';
  
 
 @Injectable()
@@ -33,5 +33,68 @@ export class TypeOrmTextsRepository implements ILibraryRepository {
    
 
 }
+
+
+async removeTextFromUserLibrary(payload: RemoveTextPayload): Promise<void> {
+  const { userId, title } = payload;
+
+  const user = await this.userRepo.findOne({
+    where: { user_id: userId },
+  });
+
+  if (!user) {
+    throw new Error(`User with id ${userId} not found`);
+  }
+
+  const entry = await this.userTextRepo.findOne({
+    where: {
+      user: { id: user.id },
+      title: title,
+    },
+    relations: ['user'],
+  });
+
+  if (!entry) {
+    throw new Error(`Text with title "${title}" not found for this user`);
+  }
+
+  await this.userTextRepo.remove(entry);
+
+  console.log(`✅ Removed text "${title}" for user ${userId}`);
+}
+
+
+
+ async renameTextInLibrary(payload: RenaimeTextPayload): Promise<void> {
+  const { userId, title, newTitle } = payload;
+
+  const user = await this.userRepo.findOne({
+    where: { user_id: userId },
+  });
+
+  if (!user) {
+    throw new Error(`User with id ${userId} not found`);
+  }
+
+  const entry = await this.userTextRepo.findOne({
+    where: {
+      user: { id: user.id },
+      title: title,
+    },
+    relations: ['user'],
+  });
+
+  if (!entry) {
+    throw new Error(`Text with title "${title}" not found for this user`);
+  }
+
+  entry.title = newTitle;
+  await this.userTextRepo.save(entry);
+
+  console.log(`✅ Renamed text "${title}" to "${newTitle}" for user ${userId}`);
+}
+
+
+
 
 }

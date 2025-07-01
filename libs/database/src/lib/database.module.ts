@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
-import { DataBaseService } from './data-base.service';
+import { DataBaseService } from './database.service';
 import { TypeOrmUserRepository } from './infrastructure/typeorm-user.repository';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { User } from './entities/users-entry.entity';

@@ -1,8 +1,8 @@
 import { Inject, Injectable } from '@nestjs/common';
-import { ICreateNewUserTableProvider } from './interfaces/auth-provider.interface';
+import { ICreateNewUserTableProvider } from './interfaces/user-provider.interface';
 import { IDictionaryRepository } from './interfaces/dictionary-provider.interface';
-import { ILibraryRepository } from './interfaces/texts-provider.interface';
-import { AddWordJobPayload, NewUserRegPayload } from './dto/database-reg.dto';
+import { ILibraryRepository } from './interfaces/library-provider.interface';
+import { AddWordJobPayload, NewUserRegPayload ,RemoveFromDictionaryobPayload, RemoveTextPayload, RenaimeTextPayload, updateDictionaryProgressPayload, updateLearnedStatusPayload} from './dto/database-reg.dto';
 
 import { AddUserTextRegPayload } from './dto/database-reg.dto';
  import { UserText } from './entities/user_text-entry.entity';
@@ -28,10 +28,35 @@ export class DataBaseService {
        return await this.textRepo.userLibraryReplenish(payload);
      
   }
+
+    async removeTextFromUserLibrary(payload:RemoveTextPayload) :Promise<void> {
+         await this.textRepo.removeTextFromUserLibrary(payload);
+     
+  }
+
+    async renameTextInLibrary(payload:RenaimeTextPayload) :Promise<void> {
+         await this.textRepo.renameTextInLibrary(payload);
+     
+  }
+
+
   async dictionaryReplenish(payload:AddWordJobPayload) : Promise<UserWord>{
       const result = await this.dictionaryRepo.dictionaryReplenish(payload);
       return result;
   }
 
+     async removeFromDictionary(payload:RemoveFromDictionaryobPayload) : Promise<void>{
+        await this.dictionaryRepo.removeFromDictionary(payload);
+   }
+  
+   
+   async updateDictionaryProgress(payload:updateDictionaryProgressPayload) : Promise<void>{
+        await this.dictionaryRepo.updateDictionaryProgress(payload);
+   }
+
+
+     async updateLearnedStatus(payload:updateLearnedStatusPayload) : Promise<void>{
+        await this.dictionaryRepo.updateLearnedStatus(payload);
+   }
   
 }

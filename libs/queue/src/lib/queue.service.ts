@@ -2,7 +2,7 @@
 import { InjectQueue } from '@nestjs/bull';
 import { Queue } from 'bull';
 import { QUEUE_NAMES,JOB_NAMES } from './queue-constants';
- import { AddWordJobPayload,NewUserRegPayload,AddUserTextRegPayload } from '@dataBase';
+ import { AddWordJobPayload,NewUserRegPayload,AddUserTextRegPayload, RemoveFromDictionaryobPayload, updateDictionaryProgressPayload, updateLearnedStatusPayload, RemoveTextPayload, RenaimeTextPayload } from '@dataBase';
  import { TranslateRegDto } from '@translate';
  @Injectable()
 export class QueueService {
@@ -25,15 +25,50 @@ export class QueueService {
   }
 
 
+     async addRemoveTextJob(payload:RemoveTextPayload) {
+          await this.databaseQueue.add(JOB_NAMES.REMOVE_TEXT,payload)
+   }
+
+
+      async addRenameTextJob(payload:RenaimeTextPayload) {
+          await this.databaseQueue.add(JOB_NAMES.RENAME_TEXT,payload)
+   }
+
+
     async addDictionaryReplenishJob(payload: AddWordJobPayload) {
    const job = await this.databaseQueue.add(JOB_NAMES.DICTIONARY_REPLANISH,payload);
     return await job.finished();   
 
   }
 
+    async addRemoveFromDictionaryJob(payload: RemoveFromDictionaryobPayload) {
+    await this.databaseQueue.add(JOB_NAMES.REMOVE_FROM_DICTONARY,payload);
+ 
+  }
+
+      async addUpdateDictionaryProgressJob (payload: updateDictionaryProgressPayload) {
+    await this.databaseQueue.add(JOB_NAMES.UPDATE_DICTIONARY_PROGRESS,payload);
+ 
+  }
+
+
+       async addUpdateLearnedStatusJob (payload: updateLearnedStatusPayload) {
+    await this.databaseQueue.add(JOB_NAMES.UPDATE_LEARNED_STATUS,payload);
+ 
+  }
+
+
+
+
+
+  
+  
+
   
   async addTranslateJob(payload: TranslateRegDto) {
-     await this.translateQueue.add(JOB_NAMES.TRANSLATE, payload);
+   const job =   await this.translateQueue.add(JOB_NAMES.TRANSLATE, payload);
+  return await job.finished();   
+
   }
 
   

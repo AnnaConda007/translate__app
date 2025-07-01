@@ -13,7 +13,6 @@ export class TranslateQueueProcessor {
   @Process(JOB_NAMES.TRANSLATE)
   async handle(job: Job<TranslateRegDto>) {
     const result = await this.service.translate(job.data );
-    console.log(JOB_NAMES.TRANSLATE, result);
     return result;
   }
 }

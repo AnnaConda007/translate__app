@@ -2,7 +2,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Injectable } from '@nestjs/common';
 import { NewUserRegPayload } from '../dto/database-reg.dto';
-import { ICreateNewUserTableProvider } from '../interfaces/auth-provider.interface';
+import { ICreateNewUserTableProvider } from '../interfaces/user-provider.interface';
 import { User } from '../entities/users-entry.entity';
  
 @Injectable()
