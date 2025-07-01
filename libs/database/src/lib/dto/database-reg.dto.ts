@@ -60,6 +60,8 @@ export class updateLearnedStatusResDto {
   word!: string;
 }
 
+ export type GetUserIdPayload =   { userId: string };
+
  export type RemoveTextPayload = RemoveTextRegDto & { userId: string };
  export type RenaimeTextPayload = RenaimeTextRegDto & { userId: string };
  export type RemoveFromDictionaryobPayload = removeFromDictionaryResDto & { userId: string };

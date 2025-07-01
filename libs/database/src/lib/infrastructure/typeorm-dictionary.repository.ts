@@ -4,7 +4,7 @@ import { Injectable } from '@nestjs/common';
 import { IDictionaryRepository } from '../interfaces/dictionary-provider.interface';
 import { User } from '../entities/users-entry.entity';
 import { UserWord } from '../entities/user_word-entry.entity';
- import { AddWordJobPayload, RemoveFromDictionaryobPayload, updateDictionaryProgressPayload, updateLearnedStatusPayload } from '../dto/database-reg.dto';
+ import { AddWordJobPayload, GetUserIdPayload, RemoveFromDictionaryobPayload, updateDictionaryProgressPayload, updateLearnedStatusPayload } from '../dto/database-reg.dto';
 
 @Injectable()
 export class TypeOrmDictionaryRepository implements IDictionaryRepository {
@@ -111,6 +111,26 @@ async updateLearnedStatus(payload: updateLearnedStatusPayload): Promise<void> {
 
 
 
+ 
+
+
+async getDictionary(payload:GetUserIdPayload): Promise<UserWord[]> {
+  const {userId}= payload
+  const user = await this.userRepo.findOne({
+    where: { user_id: userId },
+  });
+
+  if (!user) {
+    throw new Error(`User with id ${userId} not found`);
+  }
+
+  const words = await this.userWordRepo.find({
+    where: { user: { id: user.id } },
+    relations: ['user'],
+  });
+
+  return words;
+}
 
 
 

@@ -4,7 +4,7 @@ import { Injectable } from '@nestjs/common';
 import { UserText } from '../entities/user_text-entry.entity';
 import { ILibraryRepository } from '../interfaces/library-provider.interface';
 import { User } from '../entities/users-entry.entity';
- import { AddUserTextRegPayload, RemoveTextPayload, RenaimeTextPayload } from '../dto/database-reg.dto';
+ import { AddUserTextRegPayload, GetUserIdPayload, RemoveTextPayload, RenaimeTextPayload } from '../dto/database-reg.dto';
  
 
 @Injectable()
@@ -94,6 +94,26 @@ async removeTextFromUserLibrary(payload: RemoveTextPayload): Promise<void> {
   console.log(`✅ Renamed text "${title}" to "${newTitle}" for user ${userId}`);
 }
 
+
+
+
+
+async getAllText(payload:GetUserIdPayload): Promise<UserText[]> {
+  const {userId} = payload
+  const user = await this.userRepo.findOne({
+    where: { user_id: userId },
+  });
+
+  if (!user) {
+    throw new Error(`User with id ${userId} not found`);
+  }
+
+  const texts = await this.userTextRepo.find({
+    where: { user: { id: user.id } },
+    relations: ['user'],
+  });
+   return texts;
+}
 
 
 

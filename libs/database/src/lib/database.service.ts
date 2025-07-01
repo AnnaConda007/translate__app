@@ -2,7 +2,7 @@ import { Inject, Injectable } from '@nestjs/common';
 import { ICreateNewUserTableProvider } from './interfaces/user-provider.interface';
 import { IDictionaryRepository } from './interfaces/dictionary-provider.interface';
 import { ILibraryRepository } from './interfaces/library-provider.interface';
-import { AddWordJobPayload, NewUserRegPayload ,RemoveFromDictionaryobPayload, RemoveTextPayload, RenaimeTextPayload, updateDictionaryProgressPayload, updateLearnedStatusPayload} from './dto/database-reg.dto';
+import { AddWordJobPayload, GetUserIdPayload, NewUserRegPayload ,RemoveFromDictionaryobPayload, RemoveTextPayload, RenaimeTextPayload, updateDictionaryProgressPayload, updateLearnedStatusPayload} from './dto/database-reg.dto';
 
 import { AddUserTextRegPayload } from './dto/database-reg.dto';
  import { UserText } from './entities/user_text-entry.entity';
@@ -58,5 +58,14 @@ export class DataBaseService {
      async updateLearnedStatus(payload:updateLearnedStatusPayload) : Promise<void>{
         await this.dictionaryRepo.updateLearnedStatus(payload);
    }
+
   
+     async getAllText(payload:GetUserIdPayload) : Promise<UserText[]>{
+       return await this.textRepo.getAllText(payload);
+   }
+
+      async getDictionary(payload:GetUserIdPayload) : Promise<UserWord[]>{
+       return await this.dictionaryRepo.getDictionary(payload);
+   }
+
 }

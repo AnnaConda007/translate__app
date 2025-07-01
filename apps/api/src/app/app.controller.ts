@@ -4,12 +4,15 @@ import { Request } from 'express';
  import { NewUserRegDto, AddUserTextRegDto,AddWordRegDto, removeFromDictionaryResDto, updateDictionaryProgressResDto, updateLearnedStatusResDto, RemoveTextRegDto, RenaimeTextRegDto } from '@dataBase';
  import { TranslateRegDto } from '@translate';
    import { User, UserText, UserWord } from '@dataBase';
-
+import { DataBaseService } from '@dataBase';
 
 @Controller()
 export class AppController {
   constructor(
-    private readonly queueService: QueueService ) {}
+    private readonly queueService: QueueService ,
+     private readonly DataBaseService: DataBaseService 
+  ) {}
+    
  
 
    @Post('create-new-user-table')
@@ -78,4 +81,22 @@ export class AppController {
        const {text} = body
    return  await this.queueService.addTranslateJob({text});
    }
+
+
+
+     @Get('get-all-texts') async getAllTexts(  @Req() req: Request ):Promise<UserText[]> { 
+          const user = req['user'];  
+       const userId = user.uid
+    return  await this.DataBaseService.getAllText({userId});
+   
+   }
+
+
+        @Get('get-dictionary') async getDictionart(  @Req() req: Request ):Promise<UserWord[]> { 
+          const user = req['user'];  
+       const userId = user.uid
+    return  await this.DataBaseService.getDictionary({userId});
+   
+   }
+
 }
