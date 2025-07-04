@@ -29,13 +29,14 @@ export class DataBaseService {
      
   }
 
-    async removeTextFromUserLibrary(payload:RemoveTextPayload) :Promise<void> {
-         await this.textRepo.removeTextFromUserLibrary(payload);
+    async removeTextFromUserLibrary(payload:RemoveTextPayload) :Promise<UserText> {
+       return  await this.textRepo.removeTextFromUserLibrary(payload);
      
   }
 
-    async renameTextInLibrary(payload:RenaimeTextPayload) :Promise<void> {
-         await this.textRepo.renameTextInLibrary(payload);
+    async renameTextInLibrary(payload:RenaimeTextPayload) :Promise<UserText> {
+        return await this.textRepo.renameTextInLibrary(payload);
+         
      
   }
 
@@ -60,7 +61,7 @@ export class DataBaseService {
    }
 
   
-     async getAllText(payload:GetUserIdPayload) : Promise<UserText[]>{
+     async getAllText(payload:GetUserIdPayload) : Promise<string[]>{
        return await this.textRepo.getAllText(payload);
    }
 

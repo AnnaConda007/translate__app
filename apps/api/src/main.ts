@@ -23,7 +23,7 @@ async function bootstrap() {
   app.use(bodyParser.urlencoded({ extended: true, limit: '10mb' }));
 
   app.useGlobalPipes(new ValidationPipe({ whitelist: true }));
-  //app.useGlobalGuards(new FirebaseAuthGuard());
+  app.useGlobalGuards(new FirebaseAuthGuard());
   app.setGlobalPrefix(globalPrefix);
   const port = process.env.PORT || 3000;
   await app.listen(port);

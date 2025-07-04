@@ -31,20 +31,21 @@ export class AppController {
   }
 
  
-    @Post('remove-text-from-user-library') async removeTextFromUserLibrary( @Body() body: RemoveTextRegDto,   @Req() req: Request) :Promise<void>{
+    @Post('remove-text-from-user-library') async removeTextFromUserLibrary( @Body() body: RemoveTextRegDto,   @Req() req: Request) :Promise<UserText>{
       const user = req['user'];  
       const userId = user.uid
             const {title} = body
-      return await this.queueService.addRemoveTextJob({userId,title});
+      const dd = await this.queueService.addRemoveTextJob({userId,title});
+      return dd
   }
 
 
  
-      @Post('rename-text-in-library') async renameTextInLibrary( @Body() body: RenaimeTextRegDto,   @Req() req: Request) :Promise<void>{
+      @Post('rename-text-in-library') async renameTextInLibrary( @Body() body: RenaimeTextRegDto,   @Req() req: Request) :Promise<UserText>{
       const user = req['user'];  
       const userId = user.uid
-            const {title} = body
-      return await this.queueService.addRemoveTextJob({userId,title});
+            const {title, newTitle} = body
+      return await this.queueService.addRenameTextJob({userId,title,newTitle});
   } 
 
 
@@ -84,7 +85,7 @@ export class AppController {
 
 
 
-     @Get('get-all-texts') async getAllTexts(  @Req() req: Request ):Promise<UserText[]> { 
+     @Get('get-all-texts') async getAllTexts(  @Req() req: Request ):Promise<string[]> { 
           const user = req['user'];  
        const userId = user.uid
     return  await this.DataBaseService.getAllText({userId});

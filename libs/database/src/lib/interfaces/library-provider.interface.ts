@@ -3,9 +3,9 @@
  
 export interface ILibraryRepository {
   userLibraryReplenish(payload:AddUserTextRegPayload): Promise<UserText>;
-  removeTextFromUserLibrary(payload:RemoveTextPayload): Promise<void>;
-  renameTextInLibrary(payload:RenaimeTextPayload): Promise<void>;
-getAllText(payload:GetUserIdPayload):Promise<UserText[]>;
+  removeTextFromUserLibrary(payload:RemoveTextPayload): Promise<UserText>;
+  renameTextInLibrary(payload:RenaimeTextPayload): Promise<UserText>;
+getAllText(payload:GetUserIdPayload):Promise<string[]>;
 
 
 

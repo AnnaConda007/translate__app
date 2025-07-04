@@ -26,12 +26,15 @@ export class QueueService {
 
 
      async addRemoveTextJob(payload:RemoveTextPayload) {
-          await this.databaseQueue.add(JOB_NAMES.REMOVE_TEXT,payload)
+        const job =   await this.databaseQueue.add(JOB_NAMES.REMOVE_TEXT,payload)
+        return await job.finished()
    }
 
 
       async addRenameTextJob(payload:RenaimeTextPayload) {
-          await this.databaseQueue.add(JOB_NAMES.RENAME_TEXT,payload)
+        const job =   await this.databaseQueue.add(JOB_NAMES.RENAME_TEXT,payload)
+            return await job.finished();   
+
    }
 
 

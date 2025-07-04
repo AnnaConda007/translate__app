@@ -1,7 +1,7 @@
- import { useState } from 'react';
-import { createUserWithEmailAndPassword } from 'firebase/auth';
- import { FirebaseError } from 'firebase/app';
-import { auth } from '../../../shared/config/firebase-сonfig';
+ import { useState } from 'react'; 
+import { toRegister } from '../../../entities/user/api/register-api';
+
+
 export const useRegister = () => {
   const [email, setEmail] = useState('');
     const [name, setName] = useState('');
@@ -11,13 +11,11 @@ const [error, setError] = useState(false);
 
 const submitRegisterForm = async (email: string, name:string,password: string) => {
       setLoading(true);
+  
 try {
- const userCredential = await createUserWithEmailAndPassword(auth, email, password)
-  await userCredential.user.getIdToken(true); 
-    api(email, name)
-
+ await toRegister( email,name, password)
  } catch (error: unknown) {
-  if (error instanceof FirebaseError) {
+  if (error instanceof Error) {
     console.error(error.message)
     setError(true);
   }  
@@ -28,19 +26,7 @@ finally {
 
  }  
 
- const api = async(email: string, name:string)=>{
-    const user = auth.currentUser
-          if (!user) return
-      const token =await user.getIdToken()
-  fetch('http://localhost:3000/api/create-new-user-table', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json',     
-              'Authorization': `Bearer ${token}`, 
- },
-             body: JSON.stringify({ email, name}),
-
-      });
- }
+ 
 
   return {
     email,

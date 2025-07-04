@@ -35,7 +35,7 @@ export class TypeOrmTextsRepository implements ILibraryRepository {
 }
 
 
-async removeTextFromUserLibrary(payload: RemoveTextPayload): Promise<void> {
+async removeTextFromUserLibrary(payload: RemoveTextPayload): Promise<UserText> {
   const { userId, title } = payload;
 
   const user = await this.userRepo.findOne({
@@ -58,14 +58,13 @@ async removeTextFromUserLibrary(payload: RemoveTextPayload): Promise<void> {
     throw new Error(`Text with title "${title}" not found for this user`);
   }
 
-  await this.userTextRepo.remove(entry);
+ return await this.userTextRepo.remove(entry);
 
-  console.log(`✅ Removed text "${title}" for user ${userId}`);
-}
-
+ }
 
 
- async renameTextInLibrary(payload: RenaimeTextPayload): Promise<void> {
+
+ async renameTextInLibrary(payload: RenaimeTextPayload): Promise<UserText> {
   const { userId, title, newTitle } = payload;
 
   const user = await this.userRepo.findOne({
@@ -91,14 +90,14 @@ async removeTextFromUserLibrary(payload: RemoveTextPayload): Promise<void> {
   entry.title = newTitle;
   await this.userTextRepo.save(entry);
 
-  console.log(`✅ Renamed text "${title}" to "${newTitle}" for user ${userId}`);
+ return  await this.userTextRepo.save(entry);
 }
 
 
 
 
 
-async getAllText(payload:GetUserIdPayload): Promise<UserText[]> {
+async getAllText(payload:GetUserIdPayload): Promise<string[]> {
   const {userId} = payload
   const user = await this.userRepo.findOne({
     where: { user_id: userId },
@@ -112,7 +111,10 @@ async getAllText(payload:GetUserIdPayload): Promise<UserText[]> {
     where: { user: { id: user.id } },
     relations: ['user'],
   });
-   return texts;
+console.log(texts)
+  const titles = texts.map((text)=>text.title)
+
+   return titles;
 }
 
 
