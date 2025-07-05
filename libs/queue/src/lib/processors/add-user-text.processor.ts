@@ -7,11 +7,11 @@ import { DataBaseService } from '@dataBase';
 
 @Processor(QUEUE_NAMES.DATABASE_QUEUE)
 @Injectable()
-export class TextsProcessor {
+export class AddBookToLibrary {
   constructor(private readonly service: DataBaseService) {}
 
-  @Process(JOB_NAMES.ADD_USER_LIBRARY_REPLANISH)
+  @Process(JOB_NAMES.ADD_BOOK_TO_LIBRARY)
 async handle(job: Job<AddUserTextRegPayload>) {
-        await this.service.userLibraryReplenish(job.data)
+        await this.service.addBookToLibrary(job.data)
     }
 }

@@ -1,9 +1,9 @@
  
-import {UseReplanishLibrary} from "../model/use-replenish-library"
+import {useAddTextToLibrary} from "../model/use-add-text-to-library.ts"
 import {sendTextToServer} from "../../../entities/library/api/sendTextToServer"
 
-  export const ReplenishLibraryFeature = ()=>{
-const {title,content ,setTextTitle,handleFileUpload, handleSendText} = UseReplanishLibrary()
+  export const AddTextToLibraryFeature = ()=>{
+const {title,content ,setTextTitle,handleFileUpload, handleSendText} = useAddTextToLibrary()
  
 
   

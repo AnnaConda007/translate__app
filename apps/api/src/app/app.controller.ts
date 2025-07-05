@@ -23,11 +23,11 @@ export class AppController {
        return await this.queueService.addCreateNewUserTableJob({userId,email,name})
     }
        
-  @Post('user-library-replenish') async addUserText( @Body() body: AddUserTextRegDto,   @Req() req: Request) :Promise<UserText>{
+  @Post('add-text-to-library') async addUserText( @Body() body: AddUserTextRegDto,   @Req() req: Request) :Promise<UserText>{
       const user = req['user'];  
       const userId = user.uid
             const {title,content} = body
-      return await this.queueService.addUserLibraryReplenishJob({userId,title,content});
+      return await this.queueService.addAddBookToLibrary({userId,title,content});
   }
 
  
@@ -48,11 +48,11 @@ export class AppController {
   } 
 
 
-  @Post('dictionary-replenish') async addWord( @Body() body: AddWordRegDto,  @Req() req: Request):Promise <UserWord> {
+  @Post('add-word-to-dictionary') async addWordToDictionary( @Body() body: AddWordRegDto,  @Req() req: Request):Promise <UserWord> {
        const user = req['user'];  
        const userId = user.uid
        const {source, translation} = body
-      return this.queueService.addDictionaryReplenishJob({userId,source, translation});
+      return this.queueService.addAddWordToDictionaryJob({userId,source, translation});
   }
 
   @Post('remove-from-dictionary') async removeFromDictionary ( @Body() body: removeFromDictionaryResDto,  @Req() req: Request):  Promise<UserWord>{

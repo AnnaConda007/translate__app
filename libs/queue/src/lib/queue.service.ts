@@ -19,8 +19,8 @@ export class QueueService {
  return await job.finished();   
 }
 
-   async addUserLibraryReplenishJob(payload:AddUserTextRegPayload) {
-           const job =  await this.databaseQueue.add(JOB_NAMES.ADD_USER_LIBRARY_REPLANISH,payload)
+   async addAddBookToLibrary(payload:AddUserTextRegPayload) {
+           const job =  await this.databaseQueue.add(JOB_NAMES.ADD_BOOK_TO_LIBRARY,payload)
  return await job.finished();   
   }
 
@@ -38,8 +38,8 @@ export class QueueService {
    }
 
 
-    async addDictionaryReplenishJob(payload: AddWordJobPayload) {
-   const job = await this.databaseQueue.add(JOB_NAMES.DICTIONARY_REPLANISH,payload);
+    async addAddWordToDictionaryJob(payload: AddWordJobPayload) {
+   const job = await this.databaseQueue.add(JOB_NAMES.ADD_WORD_TO_DICTIONARY,payload);
     return await job.finished();   
 
   }

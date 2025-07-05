@@ -6,12 +6,12 @@ import { DataBaseService } from '@dataBase';
 import { AddWordJobPayload } from '@dataBase';
 @Processor(QUEUE_NAMES.DATABASE_QUEUE)
 @Injectable()
-export class ReplenishDictionaryProcessor {
+export class AddToDictionaryProcessor {
   constructor(private readonly service: DataBaseService) {}
 
-  @Process(JOB_NAMES.DICTIONARY_REPLANISH)
+  @Process(JOB_NAMES.ADD_WORD_TO_DICTIONARY)
   async handle(job: Job<AddWordJobPayload>) {
-         await this.service.dictionaryReplenish(job.data)
+         await this.service.addWordToDictionary(job.data)
    }
 }
  

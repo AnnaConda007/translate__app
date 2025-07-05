@@ -2,7 +2,7 @@
  import { UserText } from "../entities/user_text-entry.entity";
  
 export interface ILibraryRepository {
-  userLibraryReplenish(payload:AddUserTextRegPayload): Promise<UserText>;
+  addBookToLibrary(payload:AddUserTextRegPayload): Promise<UserText>;
   removeTextFromUserLibrary(payload:RemoveTextPayload): Promise<UserText>;
   renameTextInLibrary(payload:RenaimeTextPayload): Promise<UserText>;
 getAllText(payload:GetUserIdPayload):Promise<string[]>;

@@ -3,7 +3,7 @@ import { getAllTextTitlesFromApi } from "../../../entities/library/api/get-libra
  import { removeTitleFromDb } from "../../../entities/library/api/remove-title-name-from-db"
 import { useLibraryStore } from "../../../entities/library/model/stor";
 
-export const useTranslateForm = ()=>{ 
+export const useLibrary = ()=>{ 
    const setTitles = useLibraryStore((state) => state.setTitles);
       const titles = useLibraryStore((state) => state.titles);
 

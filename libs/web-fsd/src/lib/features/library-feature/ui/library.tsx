@@ -1,14 +1,14 @@
  
  import {InputUi} from "../../../shared/ui-kit/ui-kit-input/ui-kit-input"
  import {ButtonUi} from "../../../shared/ui-kit/ui-kit-button/ui-kit-button"
- import { useTranslateForm } from "../model/use-library"
+ import { useLibrary } from "../model/use-library"
 import { useEffect } from "react" 
 import {RenameTitleForm} from "../../renaime-text-feature/ui/rename-title-form"
- import {ReplenishLibraryFeature} from "../../replenish-library-feature/ui/replenish-library"
+ import {AddTextToLibraryFeature} from "../../add-text-to-library-feature/ui/add-text-to-library"
 import { useLibraryStore } from "../../../entities/library/model/stor"
 
  export const LibraryFeature = ()=>{
- const {searchValue, setSearchValue, filteredTextTitles, getAllTitles, renameClicked, removeTitle,setRenameClicked}= useTranslateForm()
+ const {searchValue, setSearchValue, filteredTextTitles, getAllTitles, renameClicked, removeTitle,setRenameClicked}= useLibrary()
  
  useEffect(()=>{
     getAllTitles()
@@ -17,7 +17,7 @@ import { useLibraryStore } from "../../../entities/library/model/stor"
 
     return(
         <> 
-        <ReplenishLibraryFeature/>
+        <AddTextToLibraryFeature/>
         ------------------------------------
         <InputUi value={searchValue} handleOnChange={(e: React.ChangeEvent<HTMLInputElement>)=>setSearchValue(e.target.value)}/>
 {filteredTextTitles.map((title)=>(

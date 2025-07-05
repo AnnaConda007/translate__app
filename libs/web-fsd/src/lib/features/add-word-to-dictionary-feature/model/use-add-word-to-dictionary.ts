@@ -8,7 +8,7 @@ import { addWordToDictionary } from "../../../entities/dictionary-entities/api/a
 import { getDictionaryFromApi } from "../../../entities/dictionary-entities/api/get-dictionary";
 
  
-export const UseAddToDictionary = ()=>{
+export const UseAddWordToDictionary = ()=>{
 
 const [source,setSource] = useState("")
 const [translation,setTranslation] = useState("")

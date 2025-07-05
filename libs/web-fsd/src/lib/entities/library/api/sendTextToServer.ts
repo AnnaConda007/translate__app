@@ -6,7 +6,7 @@ export const sendTextToServer = async (title: string, content: string) => {
 
   const token = await user.getIdToken();
 
-  await fetch("http://localhost:3000/api/user-library-replenish", {
+  await fetch("http://localhost:3000/api/add-text-to-library", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

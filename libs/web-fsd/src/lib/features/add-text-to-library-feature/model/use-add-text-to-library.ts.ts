@@ -1,11 +1,10 @@
 import { useState } from "react";
-import { auth } from "../../../shared/config/firebase-сonfig";
-import { useLibraryStore } from "../../../entities/library/model/stor";
+ import { useLibraryStore } from "../../../entities/library/model/stor";
 import { getAllTextTitlesFromApi } from "../../../entities/library/api/get-library-from-api";
 import {sendTextToServer} from "../../../entities/library/api/sendTextToServer"
 
 
-export const UseReplanishLibrary = ()=>{
+export const useAddTextToLibrary = ()=>{
 const [title,setTextTitle] = useState("")
 const [content,setContent] = useState("")
  const setTitles = useLibraryStore((state) => state.setTitles);

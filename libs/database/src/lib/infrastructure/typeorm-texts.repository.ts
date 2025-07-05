@@ -16,7 +16,7 @@ export class TypeOrmTextsRepository implements ILibraryRepository {
         private readonly userRepo: Repository<User>
   ) {}
 
- async userLibraryReplenish(payload:AddUserTextRegPayload): Promise<UserText> {
+ async addBookToLibrary(payload:AddUserTextRegPayload): Promise<UserText> {
   const {userId,title,content,}= payload
   const user = await this.userRepo.findOne({ where: { user_id: userId } });
    if (!user) {

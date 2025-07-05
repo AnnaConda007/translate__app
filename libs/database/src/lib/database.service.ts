@@ -24,8 +24,8 @@ export class DataBaseService {
    
   }
 
-  async userLibraryReplenish(payload:AddUserTextRegPayload) :Promise<UserText> {
-       return await this.textRepo.userLibraryReplenish(payload);
+  async addBookToLibrary(payload:AddUserTextRegPayload) :Promise<UserText> {
+       return await this.textRepo.addBookToLibrary(payload);
      
   }
 
@@ -41,8 +41,8 @@ export class DataBaseService {
   }
 
 
-  async dictionaryReplenish(payload:AddWordJobPayload) : Promise<UserWord>{
-      const result = await this.dictionaryRepo.dictionaryReplenish(payload);
+  async addWordToDictionary(payload:AddWordJobPayload) : Promise<UserWord>{
+      const result = await this.dictionaryRepo.addWordToDictionary(payload);
       return result;
   }
 

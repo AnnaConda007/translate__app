@@ -7,7 +7,7 @@ export const addWordToDictionary
 
   const token = await user.getIdToken();
 
-  await fetch("http://localhost:3000/api/dictionary-replenish", {
+  await fetch("http://localhost:3000/api/add-word-to-dictionary", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

@@ -17,7 +17,7 @@ export class TypeOrmDictionaryRepository implements IDictionaryRepository {
  
   ) {}
 
-  async dictionaryReplenish( payload:AddWordJobPayload): Promise<UserWord> {
+  async addWordToDictionary( payload:AddWordJobPayload): Promise<UserWord> {
     const {userId,translation, source} = payload
   const user = await this.userRepo.findOne({ where: { user_id: userId } });
       if (!user) {
