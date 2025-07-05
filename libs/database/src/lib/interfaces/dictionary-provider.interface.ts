@@ -4,7 +4,7 @@ import { UserWord } from "../entities/user_word-entry.entity";
 
 export interface IDictionaryRepository {
   dictionaryReplenish(payload:AddWordJobPayload): Promise<UserWord>;
-  removeFromDictionary(payload:RemoveFromDictionaryobPayload): Promise<void>;
+  removeFromDictionary(payload:RemoveFromDictionaryobPayload): Promise<UserWord>;
 updateDictionaryProgress(payload:updateDictionaryProgressPayload):Promise<void>
 
 updateLearnedStatus(payload:updateLearnedStatusPayload):Promise<void>

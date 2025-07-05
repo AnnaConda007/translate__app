@@ -46,8 +46,8 @@ export class DataBaseService {
       return result;
   }
 
-     async removeFromDictionary(payload:RemoveFromDictionaryobPayload) : Promise<void>{
-        await this.dictionaryRepo.removeFromDictionary(payload);
+     async removeFromDictionary(payload:RemoveFromDictionaryobPayload) : Promise<UserWord>{
+       return await this.dictionaryRepo.removeFromDictionary(payload);
    }
   
    

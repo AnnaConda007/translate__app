@@ -42,7 +42,7 @@ export class AddWordRegDto {
 
 export class removeFromDictionaryResDto {
   @IsString()
-  word!: string;
+  source!: string;
 }
 
 export class updateDictionaryProgressResDto {

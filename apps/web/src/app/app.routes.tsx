@@ -1,5 +1,5 @@
  import { RouteObject } from 'react-router-dom'; 
- import { RegisterPage, ResetPasswordPage, LoginPage,HomePage, LibraryPage } from '@web-fsd';
+ import { RegisterPage, ResetPasswordPage, LoginPage,HomePage, LibraryPage, DictionaryPage } from '@web-fsd';
 
 
  export const appRoutes: RouteObject[] = [
@@ -26,6 +26,12 @@
     element: <LibraryPage />,
   },
 
+         {
+    path: '/dictionary',
+    element: <DictionaryPage />,
+  },
+
+  
   
   
 

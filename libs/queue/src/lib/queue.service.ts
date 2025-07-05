@@ -45,7 +45,8 @@ export class QueueService {
   }
 
     async addRemoveFromDictionaryJob(payload: RemoveFromDictionaryobPayload) {
-    await this.databaseQueue.add(JOB_NAMES.REMOVE_FROM_DICTONARY,payload);
+    const job = await this.databaseQueue.add(JOB_NAMES.REMOVE_FROM_DICTONARY,payload);
+    return job.finished()
  
   }
 

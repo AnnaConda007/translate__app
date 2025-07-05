@@ -35,9 +35,8 @@ export class AppController {
       const user = req['user'];  
       const userId = user.uid
             const {title} = body
-      const dd = await this.queueService.addRemoveTextJob({userId,title});
-      return dd
-  }
+      return await this.queueService.addRemoveTextJob({userId,title});
+   }
 
 
  
@@ -56,11 +55,11 @@ export class AppController {
       return this.queueService.addDictionaryReplenishJob({userId,source, translation});
   }
 
-  @Post('remove-from-dictionary') async removeFromDictionary ( @Body() body: removeFromDictionaryResDto,  @Req() req: Request):  Promise<void>{
+  @Post('remove-from-dictionary') async removeFromDictionary ( @Body() body: removeFromDictionaryResDto,  @Req() req: Request):  Promise<UserWord>{
        const user = req['user'];  
        const userId = user.uid
-       const {word} = body
-        this.queueService.addRemoveFromDictionaryJob({userId,word});
+       const {source} = body
+        return this.queueService.addRemoveFromDictionaryJob({userId,source});
   }
 
 

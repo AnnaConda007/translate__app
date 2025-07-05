@@ -7,3 +7,6 @@ export {ResetPasswordPage}from "./lib/pages/reset-password-page/reset-password-p
 export {HomePage}from "./lib/pages/home-page/home-page" 
 
 export {LibraryPage} from "./lib/pages/library-page/library-page"
+export { DictionaryPage } from "./lib/pages/dictionary-page/dictionary-page"
+
+ 

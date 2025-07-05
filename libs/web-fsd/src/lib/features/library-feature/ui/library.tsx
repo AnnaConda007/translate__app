@@ -5,7 +5,9 @@
 import { useEffect } from "react" 
 import {RenameTitleForm} from "../../renaime-text-feature/ui/rename-title-form"
  import {ReplenishLibraryFeature} from "../../replenish-library-feature/ui/replenish-library"
-export const LibraryFeature = ()=>{
+import { useLibraryStore } from "../../../entities/library/model/stor"
+
+ export const LibraryFeature = ()=>{
  const {searchValue, setSearchValue, filteredTextTitles, getAllTitles, renameClicked, removeTitle,setRenameClicked}= useTranslateForm()
  
  useEffect(()=>{

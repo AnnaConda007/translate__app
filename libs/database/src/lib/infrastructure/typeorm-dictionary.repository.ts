@@ -36,9 +36,9 @@ export class TypeOrmDictionaryRepository implements IDictionaryRepository {
   }
 
 
-async removeFromDictionary(payload: RemoveFromDictionaryobPayload): Promise<void> {
-  const { userId, word } = payload;
-console.log("userId, word", userId, word)
+async removeFromDictionary(payload: RemoveFromDictionaryobPayload): Promise<UserWord> {
+  const { userId, source } = payload;
+console.log("userId, word", userId, source)
   const user = await this.userRepo.findOne({ where: { user_id: userId } });
    console.log("user", user)
 
@@ -49,15 +49,15 @@ console.log("userId, word", userId, word)
    const entry = await this.userWordRepo.findOne({
     where: {
       user: { id: user.id },
-      source: word,  
+      source: source,  
     },
     relations: ['user'],  
   });
 
    if (!entry) {
-     throw new Error(`Word "${word}" not found in user's dictionary`);
+     throw new Error(`Word "${source}" not found in user's dictionary`);
   }
-  await this.userWordRepo.remove(entry)
+ return await this.userWordRepo.remove(entry)
  }
 
 
