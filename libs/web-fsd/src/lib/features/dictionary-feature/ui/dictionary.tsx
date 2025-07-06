@@ -1,10 +1,11 @@
  
  import {InputUi} from "../../../shared/ui-kit/ui-kit-input/ui-kit-input"
- import {ButtonUi} from "../../../shared/ui-kit/ui-kit-button/ui-kit-button"
- import { useDictionary } from "../model/use-dictionary"
+  import { useDictionary } from "../model/use-dictionary"
+ import {RemoveWordFromDictionaryFeature} from "../../remove-word-from-dictionary-feature/ui/remove-word-dictionary"
 import { useEffect } from "react"  
+
   export const DictionaryFeature = ()=>{
- const {searchValue,setSearchValue, filteredTextTitles, getDictionary,removeWord}= useDictionary()
+ const {searchValue,setSearchValue, filteredTextTitles, getDictionary}= useDictionary()
  
  useEffect(()=>{
     getDictionary()
@@ -17,8 +18,8 @@ import { useEffect } from "react"
 {filteredTextTitles.map((word)=>(
    <div key={word.source}>
      <div >     {word.source }  - {word.translation} 
-           <ButtonUi title={"удалить"} handleButton={()=>removeWord({source:word.source })} />
-      
+      <RemoveWordFromDictionaryFeature wordToDeleted={word.source}/>
+       
    </div>
 
     </div>

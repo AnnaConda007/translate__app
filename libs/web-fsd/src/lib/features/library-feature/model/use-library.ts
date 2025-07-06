@@ -1,6 +1,5 @@
 import { useMemo, useState } from "react"
 import { getAllTextTitlesFromApi } from "../../../entities/library/api/get-library-from-api"
- import { removeTitleFromDb } from "../../../entities/library/api/remove-title-name-from-db"
 import { useLibraryStore } from "../../../entities/library/model/stor";
 
 export const useLibrary = ()=>{ 
@@ -16,14 +15,7 @@ const getAllTitles = async ()=>{
  setTitles(result)
  }
 
- const removeTitle = async ({title})=>{
- await removeTitleFromDb({title})
-   const result=  await  getAllTextTitlesFromApi()
- setTitles(result)
- }
-
  
-
 const filteredTextTitles = useMemo(() => {
   const value = searchValue.toLowerCase();
   return titles.filter((title) =>
@@ -34,7 +26,7 @@ const filteredTextTitles = useMemo(() => {
  
  
 
-return {searchValue,setSearchValue, filteredTextTitles, getAllTitles, renameClicked,removeTitle, setRenameClicked}
+return {searchValue,setSearchValue, filteredTextTitles, getAllTitles, renameClicked, setRenameClicked}
 
 
 }

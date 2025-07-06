@@ -8,10 +8,7 @@ import { addWordToDictionary } from "../../../entities/dictionary-entities/api/a
 import { getDictionaryFromApi } from "../../../entities/dictionary-entities/api/get-dictionary";
 
  
-export const UseAddWordToDictionary = ()=>{
-
-const [source,setSource] = useState("")
-const [translation,setTranslation] = useState("")
+export const UseAddWordToDictionary = ()=>{ 
 
 const setDictionary = useDictionaryStore((state) => state.setDictionary);
 
@@ -27,6 +24,6 @@ const setDictionary = useDictionaryStore((state) => state.setDictionary);
  
  
  return {
-   source,setSource, translation,setTranslation, handleSendWord
+     handleSendWord
  }
 }

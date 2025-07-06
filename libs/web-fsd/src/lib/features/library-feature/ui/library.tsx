@@ -3,12 +3,11 @@
  import {ButtonUi} from "../../../shared/ui-kit/ui-kit-button/ui-kit-button"
  import { useLibrary } from "../model/use-library"
 import { useEffect } from "react" 
-import {RenameTitleForm} from "../../renaime-text-feature/ui/rename-title-form"
- import {AddTextToLibraryFeature} from "../../add-text-to-library-feature/ui/add-text-to-library"
-import { useLibraryStore } from "../../../entities/library/model/stor"
+import {RenameTitleForm} from "../../renaime-text-feature/ui/rename-title-form" 
+import { RemoveTextFromLibraryButton  } from "../../remove-text-from-library/ui/remove-text-from-library"
 
  export const LibraryFeature = ()=>{
- const {searchValue, setSearchValue, filteredTextTitles, getAllTitles, renameClicked, removeTitle,setRenameClicked}= useLibrary()
+ const {searchValue, setSearchValue, filteredTextTitles, getAllTitles, renameClicked,setRenameClicked}= useLibrary()
  
  useEffect(()=>{
     getAllTitles()
@@ -17,16 +16,17 @@ import { useLibraryStore } from "../../../entities/library/model/stor"
 
     return(
         <> 
-        <AddTextToLibraryFeature/>
-        ------------------------------------
+          
         <InputUi value={searchValue} handleOnChange={(e: React.ChangeEvent<HTMLInputElement>)=>setSearchValue(e.target.value)}/>
 {filteredTextTitles.map((title)=>(
    <div key={title}>
      <div >     {title } 
         <ButtonUi title={"переименовать"} handleButton={setRenameClicked} />
-       <ButtonUi title={"удалить"} handleButton={()=>removeTitle({title})} /></div>
+        <RemoveTextFromLibraryButton  title={title}/>
+          
+       </div>
 
-        {renameClicked && <RenameTitleForm  title={title}  getAllTitles={getAllTitles} />}
+        {renameClicked && <RenameTitleForm  title={title}   />}
    </div>
 
 ))} 

@@ -3,15 +3,22 @@ import { ButtonUi } from "../../../shared/ui-kit/ui-kit-button/ui-kit-button"
 import { InputUi } from "../../../shared/ui-kit/ui-kit-input/ui-kit-input"
 import {useTranslateForm} from "../model/use-translate-form"
 
-export const TranslateForm = ()=>{
-const {value, setValue,handleSubmit, result} = useTranslateForm ()
+type Props = {
+   onTranslated: (args: { translated: string }) => void;
+   value:string
+};
 
+export const TranslateForm = ({ onTranslated, value }: Props) => {
+const { sendToApi} = useTranslateForm ()
+
+  const handleClick = async (value) => {
+    const translated = await sendToApi({value});
+    onTranslated({translated}); 
+  };
 
     return(
         <>
-        <InputUi value={value} handleOnChange={(e: React.ChangeEvent<HTMLInputElement>)=>setValue(e.target.value)}/>
-        <ButtonUi title={"перевести"} handleButton={handleSubmit}/>
-        <TextUi text={result}/>
-        </>
+        <ButtonUi title={"перевести"} handleButton={()=>handleClick(value)}/>
+         </>
     )
 }

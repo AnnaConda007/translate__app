@@ -9,4 +9,4 @@ export {HomePage}from "./lib/pages/home-page/home-page"
 export {LibraryPage} from "./lib/pages/library-page/library-page"
 export { DictionaryPage } from "./lib/pages/dictionary-page/dictionary-page"
 
- 
+ export {TranslatorPage} from "./lib/pages/translator-page//translator-page"
