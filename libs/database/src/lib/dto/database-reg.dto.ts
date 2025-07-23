@@ -50,7 +50,7 @@ export class updateDictionaryProgressResDto {
   progress!: number;
 
     @IsString()
-  word!: string;
+  source!: string; 
 }
 
 export class updateLearnedStatusResDto {
@@ -66,8 +66,11 @@ export class updateLearnedStatusResDto {
  export type RenaimeTextPayload = RenaimeTextRegDto & { userId: string };
  export type RemoveFromDictionaryobPayload = removeFromDictionaryResDto & { userId: string };
  export type updateLearnedStatusPayload = updateLearnedStatusResDto & { userId: string };
-export type updateDictionaryProgressPayload = updateDictionaryProgressResDto & { userId: string };
-export type AddWordJobPayload = AddWordRegDto & { userId: string };
+ export type AddWordJobPayload = AddWordRegDto & { userId: string };
 export type NewUserRegPayload = NewUserRegDto & { userId: string };
  export type AddUserTextRegPayload = AddUserTextRegDto & { userId: string };
+export type updateDictionaryProgressPayload = {
+  userId: string;
+  body: updateDictionaryProgressResDto[];
+};
 

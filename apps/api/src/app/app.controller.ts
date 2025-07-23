@@ -63,11 +63,10 @@ export class AppController {
   }
 
 
-    @Post('update-dictionary-progress') async updateDictionaryProgress(  @Body() body: updateDictionaryProgressResDto,   @Req() req: Request): Promise< void>{
+    @Post('update-dictionary-progress') async updateDictionaryProgress(  @Body() body: updateDictionaryProgressResDto[],   @Req() req: Request): Promise< void>{
        const user = req['user'];  
        const userId = user.uid
-       const {progress, word} = body
-        this.queueService.addUpdateDictionaryProgressJob({userId,progress, word}, );
+         this.queueService.addUpdateDictionaryProgressJob({userId,body}, );
   }
  
       @Post('update-dictionary-learned-status') async updateLearnedStatus(  @Body() body: updateLearnedStatusResDto,   @Req() req: Request): Promise< void>{

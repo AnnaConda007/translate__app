@@ -2,7 +2,10 @@ import { create } from 'zustand';
 
  export interface IDictionary{
 source:string,
-translation:string
+translation:string,
+progress:number,
+isLearned:boolean
+
  }
 
 interface IDictionaryStore {

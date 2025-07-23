@@ -1,6 +1,6 @@
  import { RouteObject } from 'react-router-dom'; 
  import { RegisterPage, ResetPasswordPage, LoginPage,HomePage, LibraryPage, DictionaryPage, TranslatorPage } from '@web-fsd';
-
+import { TestsPage } from '@web-fsd';
 
  export const appRoutes: RouteObject[] = [
   {
@@ -36,7 +36,11 @@
     element: <TranslatorPage />,
   },
 
-  
+           {
+    path: '/tests',
+    element: <TestsPage />,
+  },
+
   
 
   
