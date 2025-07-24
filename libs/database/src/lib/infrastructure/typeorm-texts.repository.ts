@@ -4,7 +4,7 @@ import { Injectable } from '@nestjs/common';
 import { UserText } from '../entities/user_text-entry.entity';
 import { ILibraryRepository } from '../interfaces/library-provider.interface';
 import { User } from '../entities/users-entry.entity';
- import { AddUserTextRegPayload, GetUserIdPayload, RemoveTextPayload, RenaimeTextPayload } from '../dto/database-reg.dto';
+ import { AddUserTextRegPayload, GetUserIdPayload, RemoveTextPayload, RenaimeTextPayload, TextByTitlePayload } from '../dto/database-reg.dto';
  
 
 @Injectable()
@@ -119,4 +119,34 @@ console.log(texts)
 
 
 
+async getTextByTitle(payload: TextByTitlePayload): Promise<string> {
+  const { userId, title } = payload;
+
+  const user = await this.userRepo.findOne({
+    where: { user_id: userId },
+  });
+
+  if (!user) {
+    throw new Error(`User with id ${userId} not found`);
+  }
+
+  const text = await this.userTextRepo.findOne({
+    where: {
+      user: { id: user.id },
+      title: title,
+    },
+    relations: ['user'],
+  });
+
+  if (!text) {
+    throw new Error(`Text with title "${title}" not found`);
+  }
+
+  return text.content;  
 }
+
+
+
+}
+
+

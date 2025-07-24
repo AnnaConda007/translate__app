@@ -1,7 +1,7 @@
-import { Controller, Get, Body,Post , Req} from '@nestjs/common';
+import { Controller, Get, Body,Post , Req, Query} from '@nestjs/common';
 import {QueueService} from '@queue';
 import { Request } from 'express';
- import { NewUserRegDto, AddUserTextRegDto,AddWordRegDto, removeFromDictionaryResDto, updateDictionaryProgressResDto, updateLearnedStatusResDto, RemoveTextRegDto, RenaimeTextRegDto } from '@dataBase';
+ import { NewUserRegDto, AddUserTextRegDto,AddWordRegDto, removeFromDictionaryResDto, updateDictionaryProgressResDto, updateLearnedStatusResDto, RemoveTextRegDto, RenaimeTextRegDto, TextByTitleDto } from '@dataBase';
  import { TranslateRegDto } from '@translate';
    import { User, UserText, UserWord } from '@dataBase';
 import { DataBaseService } from '@dataBase';
@@ -78,6 +78,7 @@ export class AppController {
 
    @Post('translate') async translate(@Body()  body:TranslateRegDto ):Promise<string> { 
        const {text} = body
+       console.log("dddd ", text)
    return  await this.queueService.addTranslateJob({text});
    }
 
@@ -87,6 +88,16 @@ export class AppController {
           const user = req['user'];  
        const userId = user.uid
     return  await this.DataBaseService.getAllText({userId});
+   
+   }
+
+
+       @Get('get-text-by-title') async getTextByTitle(    @Query() query: TextByTitleDto
+,  @Req() req: Request ):Promise<string> { 
+          const user = req['user'];  
+       const userId = user.uid
+       const title = query.title
+    return  await this.DataBaseService.getTextByTitle({userId,title });
    
    }
 

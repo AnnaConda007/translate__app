@@ -32,6 +32,13 @@ export class RenaimeTextRegDto {
 
 
 
+export class TextByTitleDto {
+  @IsString()
+  title!: string; 
+}
+
+
+
 export class AddWordRegDto {
   @IsString()
   source!: string;
@@ -61,6 +68,7 @@ export class updateLearnedStatusResDto {
 }
 
  export type GetUserIdPayload =   { userId: string };
+  export type TextByTitlePayload = TextByTitleDto & { userId: string };
 
  export type RemoveTextPayload = RemoveTextRegDto & { userId: string };
  export type RenaimeTextPayload = RenaimeTextRegDto & { userId: string };

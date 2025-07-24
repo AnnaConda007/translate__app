@@ -3,14 +3,17 @@ import { useState } from "react";
 import { getAllTextTitlesFromApi } from "../../../entities/library/api/get-library-from-api";
 import {sendTextToServer} from "../../../entities/library/api/sendTextToServer"
 
+import parse, { domToReact } from 'html-react-parser';
 
 export const useAddTextToLibrary = ()=>{
 const [title,setTextTitle] = useState("")
 const [content,setContent] = useState("")
+
  const setTitles = useLibraryStore((state) => state.setTitles);
 
 
  const handleSendText =   async ({title,content})=>{
+  console.log({title})
   await sendTextToServer(title,content)
   const result =await getAllTextTitlesFromApi()
   setTitles(result )
@@ -25,7 +28,7 @@ const [content,setContent] = useState("")
     const reader = new FileReader();
     reader.onload = async (event) => {
       const content = event.target?.result as string;
-      setContent(content)
+      setContent(String(content))
     };
     reader.readAsText(file);
   };

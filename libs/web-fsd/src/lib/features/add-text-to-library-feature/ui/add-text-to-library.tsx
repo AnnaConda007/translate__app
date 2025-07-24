@@ -11,7 +11,7 @@ const {title,content ,setTextTitle,handleFileUpload, handleSendText} = useAddTex
     return (
   <>
         <input type="text" onChange={(e)=>setTextTitle(e.target.value)}  value={title}/>
-      <input type="file" accept=".txt,.md,.docx" onChange={handleFileUpload} />
+      <input type="file" accept=".txt,.md,.docx,.html" onChange={handleFileUpload} />
       <button onClick={()=>handleSendText({title,content})}>
         отправить
       </button>

@@ -14,7 +14,7 @@ const widgetConfig = [
      } ,
       {
         title:"Переводчик",
-        navigate:"/translate"
+        navigate:"/translator"
      } 
 ]
  

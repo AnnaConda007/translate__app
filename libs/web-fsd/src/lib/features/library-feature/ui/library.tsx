@@ -7,7 +7,7 @@ import {RenameTitleForm} from "../../renaime-text-feature/ui/rename-title-form"
 import { RemoveTextFromLibraryButton  } from "../../remove-text-from-library/ui/remove-text-from-library"
 
  export const LibraryFeature = ()=>{
- const {searchValue, setSearchValue, filteredTextTitles, getAllTitles, renameClicked,setRenameClicked}= useLibrary()
+ const {searchValue, setSearchValue, handleClickByTitle,filteredTextTitles, getAllTitles, renameClicked,setRenameClicked}= useLibrary()
  
  useEffect(()=>{
     getAllTitles()
@@ -16,10 +16,10 @@ import { RemoveTextFromLibraryButton  } from "../../remove-text-from-library/ui/
 
     return(
         <> 
-          
+        <span>поиск</span>  
         <InputUi value={searchValue} handleOnChange={(e: React.ChangeEvent<HTMLInputElement>)=>setSearchValue(e.target.value)}/>
 {filteredTextTitles.map((title)=>(
-   <div key={title}>
+   <div key={title} role="button" onClick={()=>handleClickByTitle(title)}>
      <div >     {title } 
         <ButtonUi title={"переименовать"} handleButton={setRenameClicked} />
         <RemoveTextFromLibraryButton  title={title}/>
