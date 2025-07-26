@@ -15,6 +15,10 @@ const widgetConfig = [
       {
         title:"Переводчик",
         navigate:"/translator"
+     } ,
+      {
+        title:"тесты",
+        navigate:"/tests"
      } 
 ]
  

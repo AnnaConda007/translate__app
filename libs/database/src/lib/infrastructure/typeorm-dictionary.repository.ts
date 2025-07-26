@@ -72,12 +72,10 @@ async updateDictionaryProgress(payload: updateDictionaryProgressPayload): Promis
       if (!user) {
     throw new Error(`User with id ${userId} not found`);
   }
-          console.log("user",user ,body)
-
+ 
 
    for (const word of body) {
-    console.log("fffff",user.id , word.source)
-    const entry = await this.userWordRepo.findOne({
+     const entry = await this.userWordRepo.findOne({
       where: {
         user: { id: user.id },
         source: word.source,

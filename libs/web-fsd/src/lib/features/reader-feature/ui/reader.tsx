@@ -1,66 +1,54 @@
-import { useEffect, useState } from "react";
-import { getTextByTitleFromApi } from "../../../entities/library/api/get-text-by-title-from-api";
- import { useParams } from "react-router-dom";
-import { AutoTranslate } from "../../translate-form-feature/ui/auto-translate";
- interface ModalPosition {
-  x: number;
-  y: number;
-}
+import { Virtuoso } from "react-virtuoso";
+import { useWord } from "../model/useWord";
+import { useText } from "../model/useText";
+import { useParams } from "react-router-dom";
+ import { WordSpan } from "./internal/word";  
 
 export const ReaderFeature = () => {
   const { title } = useParams<{ title: string }>();
-  const [text, setText] = useState("");
-    const [wordIndex, setWordIndex] = useState<number>();
+  const { onWord, selectedWord, position,setSelectedWord } = useWord();
+  const {  savedParagraphId, wordsArr } = useText();
+ 
+  const saveCurrentParagraph = (startIndex: number) => {
+setSelectedWord(null)
+ localStorage.setItem(`reader:${title}:paragraph`, `paragraph-${startIndex}`);
+  };
+ 
 
-  const [selectedWord, setSelectedWord] = useState<string | null>(null);
-
-const [position,setPosition] = useState<ModalPosition >()
-  useEffect(() => {
-    const fetchText = async () => {
-      if (!title) return;
-      const plainText = await getTextByTitleFromApi(title);  
-      setText(plainText);
-    };
-
-    fetchText();
-  }, [title]);
-
-   const paragraphs = text.split(/\n\s*\n/);
-
-const handleClickWord = ( i:number,word:string, event: React.MouseEvent<HTMLSpanElement>)=>{
-  const rect = event.currentTarget.getBoundingClientRect();
-    const x = rect.left + window.scrollX;
-    const y = rect.bottom + window.scrollY;
-     setPosition({ x, y });
-     setSelectedWord(word)
-     setWordIndex(i)
-    }
-
+  if(!wordsArr.length) return "load"
   return (
-    <div  >
-      {paragraphs.map((para, i) => {
-         const words = para.split(/(\s+)/);
-
-        return (
-          <p key={i} >
-            {words.map((word, j) =>
-              /\s+/.test(word) ? (
-                word
-             ) : (
-                <span
-                  key={j}
-                  onClick={(e) => handleClickWord(j,word, e)}
-                   
-                >
-                  {word}
-                  { wordIndex==j && selectedWord==word && <AutoTranslate value={word}/>
-}
-                </span>
-              )
-            )}
-          </p>
-        );
-      })}
-    </div>
+    <>
+      <Virtuoso
+         style={{ height: "100vh" }}
+        totalCount={wordsArr.length}
+        initialTopMostItemIndex={ savedParagraphId}
+        rangeChanged={({ startIndex }) => saveCurrentParagraph(startIndex)}
+         itemContent={(index) => {
+          const words = wordsArr[index];
+          return (
+            <p id={`paragraph-${index}`} style={{ padding: "8px 16px", lineHeight: "1.6" }}>
+              {words.map((word, j) => (
+                <WordSpan key={`${index}-${j}`} word={word} onClick={onWord} />
+              ))}
+            </p>
+          );
+        }}
+      />
+      {selectedWord  && (
+        <div
+          style={{
+            position: "absolute",
+            left: position?.x,
+            top: position?.y,
+            background: "white",
+            padding: "8px",
+            boxShadow: "0 2px 6px rgba(0,0,0,0.2)",
+            zIndex: 999,
+          }}
+        >
+          Перевод: <strong>{selectedWord}</strong>
+        </div>
+      )}
+    </>
   );
 };

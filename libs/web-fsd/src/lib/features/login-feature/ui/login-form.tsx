@@ -35,8 +35,7 @@ console.log(user)  })
 const onClick = async ()=>{
   const token = await auth.currentUser?.getIdToken();
  
- console.log(token)
-     const response = await axios.post(
+      const response = await axios.post(
     'http://localhost:3000/api/translate',
     { text: 'hello' },
     {

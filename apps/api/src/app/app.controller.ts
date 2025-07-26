@@ -78,8 +78,8 @@ export class AppController {
 
    @Post('translate') async translate(@Body()  body:TranslateRegDto ):Promise<string> { 
        const {text} = body
-       console.log("dddd ", text)
-   return  await this.queueService.addTranslateJob({text});
+       console.log("text", text)
+    return  await this.queueService.addTranslateJob({text});
    }
 
 

@@ -13,8 +13,7 @@ const [content,setContent] = useState("")
 
 
  const handleSendText =   async ({title,content})=>{
-  console.log({title})
-  await sendTextToServer(title,content)
+   await sendTextToServer(title,content)
   const result =await getAllTextTitlesFromApi()
   setTitles(result )
 

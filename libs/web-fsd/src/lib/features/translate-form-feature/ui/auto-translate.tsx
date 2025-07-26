@@ -12,9 +12,9 @@ const { sendToApi} = useTranslateForm ()
 const [translated, setTranslated] = useState("")
 
 useEffect(()=>{
-  const translate = async()=>{
+   const translate = async()=>{
     const translated = await sendToApi({value});
-setTranslated(translated)
+ setTranslated(translated)
   }
 
   translate()
@@ -23,11 +23,9 @@ setTranslated(translated)
  
     return(
         <>
-        <div>
-          <span>
+           <span>
 {translated} 
           </span> <AddWordToDictionaryFeature source ={value} translation={translated} />
-        </div>
-          </>
+           </>
     )
 }
