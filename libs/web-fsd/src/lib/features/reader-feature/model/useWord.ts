@@ -1,5 +1,5 @@
 import { useState } from "react";
- interface ModalPosition {
+ export  interface ModalPosition {
   x: number;
   y: number;
 }

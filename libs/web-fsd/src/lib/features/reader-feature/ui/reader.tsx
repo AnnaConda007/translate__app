@@ -1,26 +1,22 @@
 import { Virtuoso } from "react-virtuoso";
 import { useWord } from "../model/useWord";
 import { useText } from "../model/useText";
+import { WordSpan } from "./internal/word";  
+import {AutoTranslate} from "../../translate-form-feature/ui/auto-translate"
 import { useParams } from "react-router-dom";
- import { WordSpan } from "./internal/word";  
 
 export const ReaderFeature = () => {
-  const { title } = useParams<{ title: string }>();
-  const { onWord, selectedWord, position,setSelectedWord } = useWord();
-  const {  savedParagraphId, wordsArr } = useText();
- 
-  const saveCurrentParagraph = (startIndex: number) => {
-setSelectedWord(null)
- localStorage.setItem(`reader:${title}:paragraph`, `paragraph-${startIndex}`);
-  };
- 
+ const { onWord, selectedWord, position,setSelectedWord } = useWord();
+const {  savedParagraphId, wordsArr, saveCurrentParagraph } = useText(setSelectedWord);
+ const { title } = useParams<{ title: string }>();
 
-  if(!wordsArr.length) return "load"
+  if(!wordsArr?.length) return "load"
   return (
     <>
       <Virtuoso
+      key={title}
          style={{ height: "100vh" }}
-        totalCount={wordsArr.length}
+         totalCount={wordsArr.length}
         initialTopMostItemIndex={ savedParagraphId}
         rangeChanged={({ startIndex }) => saveCurrentParagraph(startIndex)}
          itemContent={(index) => {
@@ -34,20 +30,9 @@ setSelectedWord(null)
           );
         }}
       />
-      {selectedWord  && (
-        <div
-          style={{
-            position: "absolute",
-            left: position?.x,
-            top: position?.y,
-            background: "white",
-            padding: "8px",
-            boxShadow: "0 2px 6px rgba(0,0,0,0.2)",
-            zIndex: 999,
-          }}
-        >
-          Перевод: <strong>{selectedWord}</strong>
-        </div>
+      {selectedWord  && position &&  (
+                 <AutoTranslate value={selectedWord} position={position} />
+
       )}
     </>
   );
