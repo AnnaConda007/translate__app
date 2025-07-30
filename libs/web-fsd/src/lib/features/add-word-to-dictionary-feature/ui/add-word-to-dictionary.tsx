@@ -1,11 +1,14 @@
  
  import {UseAddWordToDictionary} from "../model/use-add-word-to-dictionary"
+import { Icon } from '@mui/material';
+import AddCircleOutlineOutlinedIcon from '@mui/icons-material/AddCircleOutlineOutlined'; 
+ 
+interface Props {
+  source:string,
+  translation:string
+}
 
- import {InputUi} from "../../../shared/ui-kit/ui-kit-input/ui-kit-input"
- import {ButtonUi} from "../../../shared/ui-kit/ui-kit-button/ui-kit-button"
-import React from "react"
-
-  export const AddWordToDictionaryFeature = ({source,translation})=>{
+  export const AddWordToDictionaryFeature = ({source,translation}:Props)=>{
 const { handleSendWord} = UseAddWordToDictionary()
  
 
@@ -13,11 +16,10 @@ const { handleSendWord} = UseAddWordToDictionary()
   
 
     return (
-  <>
-         
-                <ButtonUi title={"добавить в словарь"} handleButton={()=>handleSendWord({source, translation})}/>
-
-      </>
-    )
+   <button  className="click-animate active:scale-125 transition-transform duration-100" onClick={()=>handleSendWord({source, translation})}>
+          <Icon component={AddCircleOutlineOutlinedIcon} />
+  </button>
+ 
+     )
 }
  

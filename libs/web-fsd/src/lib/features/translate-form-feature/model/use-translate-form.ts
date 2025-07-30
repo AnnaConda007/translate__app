@@ -3,8 +3,8 @@ import { sendTextToApi } from "../api/send-text-to-api"
 
 export const useTranslateForm = ()=>{
  
-const sendToApi  = async(  {value} ):Promise <string>=>{
-return   await sendTextToApi(value)
+const sendToApi  = async(  {sourceValue} ):Promise <string>=>{
+return   await sendTextToApi(sourceValue)
  
 }
 

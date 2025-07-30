@@ -5,45 +5,46 @@ import { getTextByTitleFromApi } from "../../../entities/library/api/get-text-by
 export const useText = ( setSelectedWord:(word:string|null)=>void)=>{
       const { title } = useParams<{ title: string }>();
       const [text, setText] = useState<string>();
-     const [savedParagraphId, setSavedParagraphId] = useState<number>();
+     const [savedParagraphId, setSavedParagraphId] = useState<number>(6);
+         const debounceTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+const isHtml = (str: string) => /<\/?[a-z][\s\S]*>/i.test(str); 
 
 
-const wordsArr = useMemo(() => {
-if(!text) return
-const cleaned = text
-  .replace(/\r\n/g, "\n")
+ const wordsArr = useMemo(() => {
+    if (!text) return;
 
-   .replace(/([А-ЯЁ])\.\s*\n+\s*([А-ЯЁ])\.?\s*\n+\s*([А-ЯЁа-яё]+)/g, "$1. $2. $3")  
-  .replace(/([А-ЯЁ])\.\s*\n+\s*([А-ЯЁа-яё]+)/g, "$1. $2")         
+     if (isHtml(text)) {
+      const parser = new DOMParser();
+      const doc = parser.parseFromString(text, "text/html");
+      const paragraphs = Array.from(doc.querySelectorAll("p, h1, h2, h3, h4, h5")).map((el) =>
+        el.textContent?.trim() ?? ""
+      );
+       return paragraphs
+        .filter(Boolean)
+        .map((p) => p.split(/(\s+)/));  
+    }
 
-   .replace(/([а-яёА-ЯЁ\.\*!?»”"\d])(?=(?:ГЛАВА|Глава|глава)\s+\d+)/g, "$1\n");
+     const cleaned = text 
+  const regex = /(?<![А-ЯЁ]\.)(?<=[.?!…])\s+(?=[А-ЯЁ])/g;
+    const paragraphs = cleaned.split(regex).map((p) => p.trim()).filter(Boolean);
+    return paragraphs.map((p) => p.split(/(\s+)/));
+  }, [text]);
 
-const regex = /(?<![А-ЯЁ]\.)(?<=[.?!…])\s+(?=[А-ЯЁ])|(?<=\n)(?=(?:ГЛАВА|Глава|глава)\s+\d+)/g;
-
-const paragraphs = cleaned.split(regex).map(p => p.trim()).filter(Boolean);
 
  
-    return paragraphs?.map((p) => p.split(/(\s+)/)) ?? [];
+  const saveCurrentParagraph = useMemo(() => {
+    return (startIndex: number) => {
+      setSelectedWord(null);
+      if (debounceTimer.current) {
+        clearTimeout(debounceTimer.current);
+      }
 
-}, [text]);
-
-
-
-
-
- 
-    const debounceTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
- 
-   const saveCurrentParagraph = (startIndex: number) => {
- setSelectedWord(null)
-  if (debounceTimer.current) {
-       clearTimeout(debounceTimer.current); 
-     }
- debounceTimer.current = setTimeout(() => {
-       localStorage.setItem(`reader:${title}:paragraph`, `paragraph-${startIndex}`);
-     }, 3000);  };
-  
-  
+      debounceTimer.current = setTimeout(() => {
+        localStorage.setItem(`reader:${title}:paragraph`, `paragraph-${startIndex}`);
+      }, 500);
+    };
+  }, [title, setSelectedWord]);
 
 
 
@@ -52,13 +53,10 @@ const paragraphs = cleaned.split(regex).map(p => p.trim()).filter(Boolean);
         if (!title) return;
         const plainText = await getTextByTitleFromApi(title);  
         setText(plainText);
-    
         const saved = localStorage.getItem(`reader:${title}:paragraph`) ;
         if(!saved)return
        const pId =  parseInt(saved.replace("paragraph-", ""), 10) | 0
- setSavedParagraphId(pId);
-    
-    
+  setSavedParagraphId(pId);
       };
     
       fetchText();

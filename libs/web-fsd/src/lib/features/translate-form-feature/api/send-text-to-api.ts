@@ -3,8 +3,7 @@
 export const sendTextToApi = async (text: string) : Promise<string> => {
    const user = auth.currentUser;
   if (!user) throw new Error("User not authenticated");
-console.log(text)
-  const token = await user.getIdToken();
+   const token = await user.getIdToken();
 
   const result = await fetch("http://localhost:3000/api/translate", {
     method: "POST",

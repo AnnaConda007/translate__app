@@ -5,6 +5,10 @@
   "scripts": {},
   "private": true,
   "dependencies": {
+    "@emotion/react": "^11.14.0",
+    "@emotion/styled": "^11.14.1",
+    "@mui/icons-material": "^7.2.0",
+    "@mui/material": "^7.2.0",
     "@nestjs/bull": "^11.0.2",
     "@nestjs/common": "^11.0.0",
     "@nestjs/config": "^4.0.2",
@@ -27,6 +31,8 @@
     "react-virtuoso": "^4.13.0",
     "reflect-metadata": "^0.1.13",
     "rxjs": "^7.8.0",
+    "simplebar": "^6.3.2",
+    "simplebar-react": "^3.3.2",
     "tslib": "^2.3.0",
     "typeorm": "^0.3.25",
     "zustand": "^5.0.6"

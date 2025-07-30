@@ -3,40 +3,44 @@ import {useTranslateForm} from "../model/use-translate-form"
 import { useEffect, useState } from "react";
 import { AddWordToDictionaryFeature } from "../../add-word-to-dictionary-feature/ui/add-word-to-dictionary";
 import { ModalPosition } from "../../reader-feature/model/useWord";
+
+import React from "react";
 type Props = {
     value:string,
     position:ModalPosition 
 };
 
-export const AutoTranslate = ({  value, position }: Props) => {
+export const AutoTranslate = React.memo(({ value, position }: Props) => {
 const { sendToApi} = useTranslateForm ()
 const [translated, setTranslated] = useState("")
 
-useEffect(()=>{
+  
+ useEffect(()=>{
    const translate = async()=>{
-    const translated = await sendToApi({value});
+    const sourceValue = value.toLowerCase().replace(/[^a-zа-яё]/gi, "")
+    const translated = await sendToApi({sourceValue});
  setTranslated(translated)
   }
 
   translate()
-},[])
 
- 
+   return () => {
+    setTranslated("");
+  };
+},[value])
+
+ if (!translated) return null
+
     return(
-        <>
-           <span style={{
-               position: "absolute",
-            left: position?.x,
+ <div className="no-close-on-click w-60 p-2 bg-yellow-100 shadow-md absolute flex justify-between"
+            style={{
+             left: position?.x,
             top: position?.y,
-            background: "white",
-            padding: "8px",
-            boxShadow: "0 2px 6px rgba(0,0,0,0.2)",
-            zIndex: 999,
-           }}>
-{translated} 
+            }}>
+<p className="no-close-on-click p-2">{translated} 
+</p>
 <AddWordToDictionaryFeature source ={value} translation={translated} 
           />
-          </span> 
-           </>
-    )
-}
+          </div> 
+     )
+})

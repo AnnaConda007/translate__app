@@ -22,7 +22,7 @@ export const WordSpan = memo(({ word, onClick }: Props) => {
   };
 
   return (
-    <span onClick={handleClick} style={{ whiteSpace: "pre-wrap", cursor: "pointer" }}>
+    <span  className="no-close-on-click" onClick={handleClick} style={{ whiteSpace: "pre-wrap", cursor: "pointer" }}>
       {word}
     </span>
   );
