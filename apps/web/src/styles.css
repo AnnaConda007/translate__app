@@ -5,7 +5,13 @@
 
 
 #root{
-     display: flex;
-    justify-content: center;
-    flex-direction: column;
+     display: flex;  
+       flex-direction: column;
+    justify-content: end;
+    height: 100vh;
+  background-color: aqua;
+
+ 
 }
+
+ 

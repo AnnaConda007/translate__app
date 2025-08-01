@@ -31,8 +31,8 @@ const navMap: Record<NawEnum, { path: string; Icon : React.ElementType }> = {
 
 
 return (
-<nav>
- <ul className="p- absolute  h-auto w-screen  flex flex-row justify-evenly gap-10    ">
+<nav >
+<ul className="  flex justify-evenly gap-10 p-4">
 
     {navItems.map((item, i) => {
       const { path, Icon } = navMap[item];

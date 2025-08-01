@@ -19,20 +19,21 @@ export const ReaderFeature = () => {
 
   if (!wordsArr?.length) return "load";
    return (
-    <div className="px-4 container mx-auto">
-      <SimpleBar
-        style={{ height: "96vh" }}
+<div  
+className=" container mx-auto flex-grow overflow-hidden   "> 
+         <SimpleBar
+       className="h-full"
         scrollableNodeProps={{ ref: setScrollParent }}
       >
-        {scrollParent && (
+      
+                {scrollParent && (
           <Virtuoso
-             style={{ flexGrow: 1 }}
-            key={title}
+className="h-full"            key={title}
             totalCount={wordsArr.length}
             initialTopMostItemIndex={savedParagraphId}
             customScrollParent={scrollParent}
             rangeChanged={({ startIndex }) => saveCurrentParagraph(startIndex)}
-            itemContent={(index) => {
+              itemContent={(index) => {
               const words = wordsArr[index];
               return (
                 <p id={`paragraph-${index}`} className="py-2 leading-5">
@@ -44,14 +45,13 @@ export const ReaderFeature = () => {
             }}
           />
         )}
-
-        
-      </SimpleBar>
-      {selectedWord && position && (
+              {selectedWord && position && (
        <div>
             <AutoTranslate value={selectedWord} position={position} />
        </div>
         )}
+
+      </SimpleBar>
     </div>
   );
 };
