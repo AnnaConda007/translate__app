@@ -16,7 +16,7 @@ const { handleSendWord} = UseAddWordToDictionary()
   
 
     return (
-   <button  className="click-animate active:scale-125 transition-transform duration-100" onClick={()=>handleSendWord({source, translation})}>
+   <button  className=" active:scale-125 transition-transform duration-100" onClick={()=>handleSendWord({source, translation})}>
           <Icon component={AddCircleOutlineOutlinedIcon} />
   </button>
  

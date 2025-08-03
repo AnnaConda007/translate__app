@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import {  useEffect, useRef, useState } from "react";
  export  interface ModalPosition {
   x: number;
   y: number;
@@ -7,33 +7,27 @@ import { useEffect, useState } from "react";
 export const useWord = ( )=>{
 const [position,setPosition] = useState<ModalPosition >()
 const [selectedWord, setSelectedWord] = useState<string | null>(null);
+const selectedWordRef = useRef<string | null>(null);
 
-  useEffect(() => {
-  const handleClick = (e: MouseEvent) => {
-    const target = e.target as HTMLElement;
-     if (target.closest(".click-animate") ) {
-  
-      setTimeout(()=>{    
-          setSelectedWord(null);
-           
-},500)
-return
-    }
-    if (!target.classList.contains("no-close-on-click") && selectedWord) {
-      setSelectedWord(null);
-    }
+       const getSelection= (e:  MouseEvent)=>{
+     const target = e.target as HTMLElement;
+const word = target.dataset["word"] || null
+      const rect = target.getBoundingClientRect();
+     const position = { x: rect.left + window.scrollX, y: rect.bottom + window.scrollY }
+     const selection = window.getSelection()?.toString();
+     const selectionIsActual = selection?.toString() !=selectedWordRef.current
+const selected = selectionIsActual?selection:null
+     const text = selected || word
+     setSelectedWord(text)
+     setPosition(position)
+          selectedWordRef.current =text
+     }
 
-  
-  };
-
-  window.addEventListener("click", handleClick);
-  return () => window.removeEventListener("click", handleClick);
-}, [selectedWord]);
-
-  const onWord = ({   selectedWord,  position}: {    selectedWord: string | null;  position: ModalPosition})=>{
-    setPosition(position);
-      setSelectedWord(selectedWord)
- }
+    useEffect(()=>{
+  window.addEventListener("mouseup", getSelection);
+  return ()=>window.removeEventListener("mouseup", getSelection)
+},[]
+)
  
-return {onWord, selectedWord, setSelectedWord, position,setPosition}
+return { selectedWord, setSelectedWord, position,setPosition}
 }

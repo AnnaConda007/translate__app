@@ -36,6 +36,8 @@ const isHtml = (str: string) => /<\/?[a-z][\s\S]*>/i.test(str);
   const saveCurrentParagraph = useMemo(() => {
     return (startIndex: number) => {
       setSelectedWord(null);
+      window.getSelection()?.removeAllRanges();
+
       if (debounceTimer.current) {
         clearTimeout(debounceTimer.current);
       }
@@ -62,5 +64,8 @@ const isHtml = (str: string) => /<\/?[a-z][\s\S]*>/i.test(str);
       fetchText();
     }, [title]);
  
+
+
+    
     return {title,text, setText, savedParagraphId, wordsArr, saveCurrentParagraph}
 }

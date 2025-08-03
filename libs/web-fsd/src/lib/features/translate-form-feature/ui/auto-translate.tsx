@@ -1,46 +1,61 @@
- 
-import {useTranslateForm} from "../model/use-translate-form"
-import { useEffect, useState } from "react";
+ import React, { useEffect, useRef, useState } from "react";
+import { useTranslateForm } from "../model/use-translate-form";
 import { AddWordToDictionaryFeature } from "../../add-word-to-dictionary-feature/ui/add-word-to-dictionary";
 import { ModalPosition } from "../../reader-feature/model/useWord";
 
-import React from "react";
 type Props = {
-    value:string,
-    position:ModalPosition 
+  value: string;
+  position: ModalPosition;
 };
 
 export const AutoTranslate = React.memo(({ value, position }: Props) => {
-const { sendToApi} = useTranslateForm ()
-const [translated, setTranslated] = useState("")
+  const { sendToApi } = useTranslateForm();
+  const [translated, setTranslated] = useState("");
+  const [adjustedPos, setAdjustedPos] = useState<ModalPosition>(position);
+  const boxRef = useRef<HTMLDivElement>(null);
 
-  
- useEffect(()=>{
-   const translate = async()=>{
-    const sourceValue = value.toLowerCase().replace(/[^a-zа-яё]/gi, "")
-    const translated = await sendToApi({sourceValue});
- setTranslated(translated)
-  }
+  useEffect(() => {
+    const translate = async () => {
+      const sourceValue = value.toLowerCase();
+      const translated = await sendToApi({ sourceValue });
+      setTranslated(translated);
+    };
 
-  translate()
+    translate();
+    return () => setTranslated("");
+  }, [value]);
 
-   return () => {
-    setTranslated("");
-  };
-},[value])
+  useEffect(() => {
+     requestAnimationFrame(() => {
+      const box = boxRef.current;
+      if (!box) return;
 
- if (!translated) return null
+      const rect = box.getBoundingClientRect();
+      const padding = 8;
 
-    return(
- <div className="no-close-on-click w-60 p-2 bg-yellow-100 shadow-md absolute flex justify-between"
-            style={{
-             left: position?.x,
-            top: position?.y,
-            }}>
-<p className="no-close-on-click p-2">{translated} 
-</p>
-<AddWordToDictionaryFeature source ={value} translation={translated} 
-          />
-          </div> 
-     )
-})
+      const newX = Math.min(position.x, window.innerWidth - rect.width - padding);
+      const newY = Math.min(position.y, window.innerHeight - rect.height - padding);
+
+      setAdjustedPos({ x: newX, y: newY });
+    });
+  }, [translated, position]);
+
+  if (!translated) return null;
+
+  return (
+    <div className="fixed inset-0 z-50" style={{ pointerEvents: "none" }}>
+      <div
+        ref={boxRef}
+        className="absolute bg-yellow-100 shadow-md flex justify-between p-2 max-w-[90vw]"
+        style={{
+          left: adjustedPos.x,
+          top: adjustedPos.y,
+          pointerEvents: "auto",
+        }}
+      >
+        <p className="pr-2">{translated}</p>
+        <AddWordToDictionaryFeature source={value} translation={translated} />
+      </div>
+    </div>
+  );
+});
