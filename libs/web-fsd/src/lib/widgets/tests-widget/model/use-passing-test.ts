@@ -1,0 +1,73 @@
+ import { IDictionary } from "../../../entities/dictionary-entities/model/stor";
+import { ITestResultUI } from "../../../entities/test-entities/model/types";
+import { updateProgressInDictionary } from "../../../entities/dictionary-entities/api/update-dictionary";
+
+interface Props {
+    words:IDictionary[][] 
+    results :ITestResultUI[],
+    setResults:React.Dispatch<React.SetStateAction<ITestResultUI[]>>,
+    setCurrentWordIndex:React.Dispatch<React.SetStateAction<number>>,
+    currentWordIndex:number,
+    setCurrentChunk:React.Dispatch<React.SetStateAction<IDictionary[]>>,
+    currentChunk:IDictionary[]
+    currentChunkIndex:number
+ setCurrentChunkIndex:React.Dispatch<React.SetStateAction<number>>,
+  }
+
+export const usePassingTest  = ({words,setResults, results, currentChunkIndex, setCurrentChunkIndex,currentChunk, setCurrentChunk,currentWordIndex, setCurrentWordIndex}:Props)=>{
+    const progressIncrement = 1
+     const chunkIndex =  currentChunkIndex>= words.length-1 ? 0 : currentChunkIndex + 1
+
+
+ const currentWord = currentChunk[currentWordIndex];
+    const updateResult = (result: boolean) => {
+  const current = currentChunk[currentWordIndex];
+  const progressDelta = result ? progressIncrement : 0;
+   setResults((prev) => [
+    ...prev,
+    {
+      source: current.source,
+      translation: current.translation,
+      progress: current.progress + progressDelta,
+      progressDelta,
+      
+    },
+  ]);
+  };
+
+
+const onResult = (result: boolean) => {
+  updateResult(result);
+setCurrentWordIndex((prev) => prev + 1);  };
+
+
+
+
+   const isChunkFinished = ()=>{
+    if(!currentChunk.length) return 
+    return currentWordIndex>currentChunk.length-1 
+   }
+ 
+
+   
+ const goToNextTest = ()=>{
+    setResults([])
+    setCurrentChunkIndex( chunkIndex);
+ }
+
+
+ const goToNextChunk  = () => {
+   localStorage.setItem("currentChunkIndex", String(chunkIndex))
+const resToDb = results.map(({ progressDelta: _, ...rest }) => rest);
+    updateProgressInDictionary(resToDb);  
+ };
+
+
+ 
+
+
+return {onResult, isChunkFinished, goToNextChunk,goToNextTest, setCurrentChunk, currentWord}
+
+
+
+}

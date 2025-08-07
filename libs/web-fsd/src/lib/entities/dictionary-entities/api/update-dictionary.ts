@@ -7,8 +7,7 @@ export const updateProgressInDictionary
   if (!user) throw new Error("User not authenticated");
 
   const token = await user.getIdToken();
-
-  await fetch("http://localhost:3000/api/update-dictionary-progress", {
+   await fetch("http://localhost:3000/api/update-dictionary-progress", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

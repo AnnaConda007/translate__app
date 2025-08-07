@@ -1,24 +1,27 @@
-import { ITestResult } from "../../../entities/test-entities/model/types"
+import { useEffect, useState } from "react"
+import { ITestResultUI } from "../../../entities/test-entities/model/types"
 import { ButtonUi } from "../../../shared/ui-kit/ui-kit-button/ui-kit-button"
  import { RemoveWordFromDictionaryFeature } from "../../remove-word-from-dictionary-feature/ui/remove-word-dictionary"
+ import { auth } from "../../../shared/config/firebase-сonfig";
 
  interface Props{
-  results :ITestResult[]
-  onContinue:()=>void
+  results :ITestResultUI[]
+  onContinue:()=>void,
+  goToNextTest:()=>void
  }
-export const TestResult:React.FC<Props>  = ({results, onContinue})=>{
- 
+export const TestResult:React.FC<Props>  = ({results,goToNextTest, onContinue})=>{
+               useEffect(()=>{onContinue()},[])
  
     return (
 <>
      { results.map(res=>
      <div  key={res.source}>
-     <p>{res.source}{res.progress}</p>
+     <p  className={res.progressDelta ? "bg-green-300" :"bg-red-500"}>{res.source}</p>
            <RemoveWordFromDictionaryFeature  wordToDeleted={res.source}/>
 
      </div>
       )}
-<ButtonUi handleButton={onContinue} title={"далее"}/>
+<ButtonUi handleButton={goToNextTest} title={"далее"}/>
 
 </>          )
   }

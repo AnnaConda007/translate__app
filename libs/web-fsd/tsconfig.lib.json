@@ -5,5 +5,5 @@
     "declaration": true,
     "types": ["node"]
   },
-  "include": ["src/**/*.ts", "src/lib/features/login/model/useLogin.tsx", "src/lib/pages/dictionary-page/dictionary-page.tsx"]
+  "include": ["src/**/*.ts", "src/lib/features/login/model/useLogin.tsx", "src/lib/pages/dictionary-page/dictionary-page.tsx", "src/lib/shared/ui-kit/ui-kit-typography/ui-kit-typography.tsx"]
 }

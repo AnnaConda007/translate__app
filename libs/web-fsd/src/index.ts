@@ -14,3 +14,5 @@ export { DictionaryPage } from "./lib/pages/dictionary-page/dictionary-page"
  export {TestsPage}  from "./lib/pages/tests-page/test-page"
  
   export {ReaderPage}  from "./lib/pages/reader-page/library-page"
+
+    export  { animations } from "./lib/shared/theme/tokens/animation"

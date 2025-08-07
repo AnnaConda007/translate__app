@@ -3,14 +3,15 @@ import HomeIcon from '@mui/icons-material/Home';
 import SchoolIcon from '@mui/icons-material/School';
 import TranslateIcon from '@mui/icons-material/Translate';
 import MenuBookIcon from '@mui/icons-material/MenuBook';
- 
+ import BookmarkIcon from '@mui/icons-material/Bookmark';
 
 export enum NawEnum  {
     LIBRARY="LIBRARY",
     HOME="HOME",
     TESTS="TESTS",
     TRANSLATOR="TRANSLATOR",
-    CURRENT_TEXT="CURRENT_TEXT"
+    CURRENT_TEXT="CURRENT_TEXT",
+    DICTIONARY ="DICTIONARY"
 
 }
 
@@ -22,11 +23,13 @@ interface Props {
 export const NawUi = ({navItems}:Props)=>{
 
 const navMap: Record<NawEnum, { path: string; Icon : React.ElementType }> = {
-  [NawEnum.LIBRARY]:     { path: "/library", Icon :LibraryBooksIcon },
+  [NawEnum.LIBRARY]:     { path: "/library", Icon : MenuBookIcon },
   [NawEnum.HOME]:        { path: "/", Icon : HomeIcon },
   [NawEnum.TESTS]:       { path: "/tests", Icon : SchoolIcon },
   [NawEnum.TRANSLATOR]:  { path: "/translator", Icon : TranslateIcon},
-  [NawEnum.CURRENT_TEXT]:{ path: "/current", Icon : MenuBookIcon },
+  [NawEnum.CURRENT_TEXT]:{ path: "/current", Icon : BookmarkIcon },
+  [NawEnum.DICTIONARY]:{ path: "/dictionary", Icon : MenuBookIcon },
+
 };
 
 
