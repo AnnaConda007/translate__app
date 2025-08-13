@@ -1,5 +1,5 @@
  import { IDictionary } from "../../../entities/dictionary-entities/model/stor";
-import { ITestResultUI } from "../../../entities/test-entities/model/types";
+import { ITestResultUI } from "../../../entities/test-entities/types/test-types";
 import { updateProgressInDictionary } from "../../../entities/dictionary-entities/api/update-dictionary";
 
 interface Props {
@@ -18,6 +18,10 @@ export const usePassingTest  = ({words,setResults, results, currentChunkIndex, s
     const progressIncrement = 1
      const chunkIndex =  currentChunkIndex>= words.length-1 ? 0 : currentChunkIndex + 1
 
+     const toPrevIndex = ()=>{
+      if(currentWordIndex<1) return
+      setCurrentWordIndex((prev)=>prev-1)
+     }
 
  const currentWord = currentChunk[currentWordIndex];
     const updateResult = (result: boolean) => {
@@ -33,6 +37,8 @@ export const usePassingTest  = ({words,setResults, results, currentChunkIndex, s
       
     },
   ]);
+      console.log(result)
+
   };
 
 
@@ -66,7 +72,7 @@ const resToDb = results.map(({ progressDelta: _, ...rest }) => rest);
  
 
 
-return {onResult, isChunkFinished, goToNextChunk,goToNextTest, setCurrentChunk, currentWord}
+return {onResult, isChunkFinished, goToNextChunk,goToNextTest, toPrevIndex,setCurrentChunk, currentWord}
 
 
 

@@ -1,5 +1,9 @@
-import { useEffect, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import { IDictionary } from "../../../entities/dictionary-entities/model/stor"
+import { animations } from "../../../shared/theme/tokens/animation";
+import { InputStatus, InputUi } from "../../../shared/ui-kit/ui-kit-input/ui-kit-input";
+import { useAudio } from "../../../shared/audio/models/use-audio-for-test";
+import { vibrate } from "../../../shared/utils/vibrate";
 
 interface Props {
     currentWord:IDictionary,
@@ -8,42 +12,62 @@ interface Props {
  }
 
 export const TestSelectAnswerFeature = ({ currentWord, currentFalseWords,onResult}:Props) => {
-   const [selected, setSelected] = useState("");
-     const handleClick = (selectedValue:string)=>{
-setSelected(selectedValue)
-const isCorrectAnswer = currentWord.source==selectedValue
- onResult(isCorrectAnswer)  
-
-  
-}
+const [selected, setSelected] = useState("");
+const [status, setStatus] = useState<InputStatus>(InputStatus.None)
+const [animation, setAnimation] = useState("");
+const [isLocked, setIsLocked] = useState(false);
+const { correctAnswerAudio, uncorrectedAnswerAudio , toPlayAudio}= useAudio()
 
 useEffect(()=>{
+    setStatus(InputStatus.None)
     setSelected("")
- 
-
+     setAnimation("");  
+       setIsLocked(false);
 
 }, [currentWord])
 
+const handleTestClick = (selectedValue: string) => {
+  if (isLocked) return;
+  const isCorrectAnswer = currentWord.source === selectedValue;
+  const newStatus = isCorrectAnswer ? InputStatus.Success : InputStatus.Error;
+  const audio = isCorrectAnswer ? correctAnswerAudio : uncorrectedAnswerAudio;
+
+  vibrate()
+  setIsLocked(true);
+  toPlayAudio(audio.current);
+  setStatus(newStatus);
+  setSelected(selectedValue);
+  setAnimation(isCorrectAnswer ? "animate-move-left" : "animate-move-right");
+
+  setTimeout(() => {
+    onResult(isCorrectAnswer);
+  }, animations.nextTestCart.durationMs);
+};
+
+
+ 
  
     return (     
-        <>
-         <p>{currentWord.translation}</p>
-       <form>
-        {currentFalseWords.map((w, i)=>   
-         <div key={i}>
-         <input type="radio" id={w.source}       checked={selected === w.source}  onChange={() => handleClick(w.source)}></input>
-         <label   className={
-    selected === w.source
-      ? w.source === currentWord.source
-        ? "bg-green-500"
-        : "bg-red-400"
-      : ""
-  }
- htmlFor={w.source}>{w.source}</label>
-         </div>
-        )}
-    </form>
-        </>
+        <div className={`flex flex-col gap-2  w-full items-center ${animation} `}  >
+         <p className="font-normal text-lg tracking-wider">{currentWord.translation}</p>
+       <div role="radiogroup" className="m-1" >
+  {currentFalseWords.map((w,i) => {
+  const isSelected = selected === w.source;
+
+  return (
+       <div className="m-2"  key={w.source}role="radio" aria-checked={isSelected}  >
+        <InputUi
+          isReadOnly={true}
+          onClick={() => handleTestClick(w.source)}
+          status={isSelected ? status : InputStatus.None}
+          value={w.source}
+        />
+      </div>
+   );
+})}
+
+    </div>
+        </div>
     
 )
 
@@ -52,6 +76,8 @@ useEffect(()=>{
 
     
 } 
+
+
 
 
 

@@ -1,5 +1,5 @@
  import { auth } from "../../../shared/config/firebase-сonfig";
-import { ITestResult } from "../../test-entities/model/types";
+import { ITestResult } from "../../test-entities/types/test-types";
  
 export const updateProgressInDictionary
  = async (results:ITestResult[]) => {

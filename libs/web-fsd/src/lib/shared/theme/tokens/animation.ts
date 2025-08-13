@@ -1,5 +1,5 @@
 export const animations = {
   nextTestCart: {
-    durationMs: 300,  
+    durationMs: 500,  
   },
 } as const;

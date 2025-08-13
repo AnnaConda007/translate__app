@@ -18,5 +18,5 @@ export const getTextByTitleFromApi = async (title: string): Promise<string> => {
     throw new Error(`Ошибка ${response.status}: ${error}`);
   }
 
-  return await response.text(); // ✅ ← это строка HTML или обычного текста
+  return await response.text(); 
 };

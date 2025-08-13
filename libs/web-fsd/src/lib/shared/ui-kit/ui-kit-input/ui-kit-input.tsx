@@ -1,5 +1,4 @@
-import { colors } from "../../theme/tokens/colors";
-
+ 
 export enum InputStatus {
   Success = "success",
   Error = "error",
@@ -12,11 +11,14 @@ export enum InputStatus {
 
 interface InputUiProps {
   value: string;
-  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onClick?: () => void;
+
   status: InputStatus ;
+  isReadOnly?:boolean
 }
 
-export const InputUi= ({ value, onChange, status=InputStatus.None }:InputUiProps) => {
+export const InputUi= ({ value, onChange, onClick,status=InputStatus.None, isReadOnly=false }:InputUiProps) => {
 
  const bgColor = {
   [InputStatus.Success]: "bg-success",
@@ -26,13 +28,17 @@ export const InputUi= ({ value, onChange, status=InputStatus.None }:InputUiProps
   [InputStatus.None]: "",
 }[status];
 
-
+const cursor = isReadOnly ? "cursor-pointer" :"cursor-text"
 
  
 
     return(
-        <input     className={`w-full ${bgColor} p-1 outline-none rounded-md border-2 border-solid`}
-value={value} type="text" onChange={onChange} />
+        <input    readOnly={isReadOnly}
+    className={`w-full ${bgColor} p-1 outline-none rounded-md border-2 border-solid, ${cursor}`}
+value={value} type="text" onChange={onChange} onClick={onClick} />
     )
 
 }
+
+
+ 

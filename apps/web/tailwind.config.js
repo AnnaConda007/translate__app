@@ -38,7 +38,7 @@ module.exports = {
       },
    animation: {
         'move-right': `move-right  ${animations.nextTestCart.durationMs / 1000}s ease-in-out`,
-        'move-left': `move-left ${animations.nextTestCart.durationMs / 1000}s ease-in-out`,
+        'move-left': `move-left ${animations.nextTestCart.durationMs / 1000}s ease-in-out forwards`,
           'shake': 'shake 0.5s ease-in-out',
 
 

@@ -1,5 +1,5 @@
  
- import {UseAddWordToDictionary} from "../model/use-add-word-to-dictionary"
+ import {useAddWordToDictionary} from "../model/use-add-word-to-dictionary"
 import { Icon } from '@mui/material';
 import AddCircleOutlineOutlinedIcon from '@mui/icons-material/AddCircleOutlineOutlined'; 
  
@@ -9,14 +9,12 @@ interface Props {
 }
 
   export const AddWordToDictionaryFeature = ({source,translation}:Props)=>{
-const { handleSendWord} = UseAddWordToDictionary()
+const { handleSendWord} = useAddWordToDictionary()
  
-
   
-  
-
+ 
     return (
-   <button  className=" active:scale-125 transition-transform duration-100" onClick={()=>handleSendWord({source, translation})}>
+   <button  className="close-delay" onClick={()=>handleSendWord({source, translation})}>
           <Icon component={AddCircleOutlineOutlinedIcon} />
   </button>
  

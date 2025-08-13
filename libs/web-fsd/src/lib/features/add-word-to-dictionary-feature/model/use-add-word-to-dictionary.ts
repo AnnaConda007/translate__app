@@ -8,13 +8,15 @@ import { addWordToDictionary } from "../../../entities/dictionary-entities/api/a
 import { getDictionaryFromApi } from "../../../entities/dictionary-entities/api/get-dictionary";
 
  
-export const UseAddWordToDictionary = ()=>{ 
+export const useAddWordToDictionary = ()=>{ 
 
 const setDictionary = useDictionaryStore((state) => state.setDictionary);
 
 
  const handleSendWord =   async ({source,translation})=>{
-  await addWordToDictionary(source,translation)
+    console.log("000000000000")
+   await addWordToDictionary(source,translation)
+
   const result =await getDictionaryFromApi()
   setDictionary(result )
 

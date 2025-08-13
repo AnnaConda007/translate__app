@@ -1,7 +1,7 @@
  import { Virtuoso } from "react-virtuoso";
 import SimpleBar from "simplebar-react";
 import "simplebar-react/dist/simplebar.min.css";
-import {   useEffect, useState } from "react";
+import {  useState } from "react";
 import { useParams } from "react-router-dom";
 import { AutoTranslate } from "../../translate-form-feature/ui/auto-translate";
 import { useWord } from "../model/useWord";
