@@ -13,11 +13,7 @@ import { vibrate } from "../../../shared/utils/vibrate"
 export const TestSelectAnswerWidget	 =()=>{
     const {getWords,results,currentWord,isLoad,currentChunk,toPrevIndex, isChunkFinished,currentWordIndex, isEmptyWords,currentFalseWords,onResult, goToNextChunk , goToNextTest} = useTestWidget()
     const progress = currentFalseWords.progress
-     useEffect(()=>{
-        getWords()
-     },[])
-const {clickAudio, toPlayAudio} =useAudio()
-
+    const {clickAudio, toPlayAudio} =useAudio()
 
      const handlePrev = ()=>{
        vibrate()
@@ -25,22 +21,19 @@ const {clickAudio, toPlayAudio} =useAudio()
        toPrevIndex()
      }
 
+      useEffect(()=>{ getWords() },[])
+
+
 if (isLoad ) return <>Load</>;
  if ( isChunkFinished()) return <TestResult onContinue={goToNextChunk }  goToNextTest={goToNextTest} results={results}/>;
-
-
  if (isEmptyWords() ) return <>{texts.tests.empty}</>  
 
     return (
 <div className="w-full flex flex-col items-start">
- 
 {progress<=5 &&   <TestSelectAnswerFeature   currentWord = {currentWord} currentFalseWords={currentFalseWords.shuffled}  onResult={onResult} />}
 {progress >5  && progress <= 10  &&    <TestTranslateFeature  wordToTest={currentWord.translation} correctAnswer =  {currentWord.source}  onResult={onResult} />}
 {progress>=10  &&        <TestTranslateFeature  wordToTest={currentWord.source} correctAnswer = {currentWord.translation}  onResult={onResult}   />}
- 
  <ButtonIconUi Icon={UndoIcon} handleButton={handlePrev} />
  <ProgressBarUi  currentIndex={currentWordIndex} totalLength={currentChunk.length}/>
- 
-
        </div>    )
 } 

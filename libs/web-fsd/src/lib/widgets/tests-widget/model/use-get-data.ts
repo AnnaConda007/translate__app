@@ -10,25 +10,23 @@ setWords: React.Dispatch<React.SetStateAction<IDictionary[][]>>,
   setCurrentChunk: React.Dispatch<React.SetStateAction<IDictionary[]>>
 setLoad: React.Dispatch<React.SetStateAction<boolean>>
     currentChunk:IDictionary[]
-    currentWordIndex:number,
+     currentWord:IDictionary
+    
 
 }
 
-export const useGetData = ({setCurrentChunk,setWords, setLoad,words,currentWordIndex,currentChunk,currentChunkIndex} :Props)=>{ 
+export const useGetData = ({setCurrentChunk,setWords,currentWord, setLoad,words,currentChunk,currentChunkIndex} :Props)=>{ 
  
   
   const testWordsLength = 10
 const isEmptyWords = () => (words[0]?.length ?? 0) <testWordsLength ;
  
-const currentWord = currentChunk[currentWordIndex];
-
 
  const getWords = async ()=>{
     setLoad(true)
   const result=  await  getDictionaryFromApi()
   const wordsChunks = Array.from({ length: Math.ceil(result.length /testWordsLength) }, (_, i) => result.slice(i * testWordsLength, i * testWordsLength + testWordsLength))
- const index = Math.min(currentChunkIndex, wordsChunks.length - 1);
-  setCurrentChunk(wordsChunks[index])
+     setCurrentChunk(wordsChunks[currentChunkIndex])
    setWords(wordsChunks)
      setLoad(false)
 

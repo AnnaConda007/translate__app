@@ -10,20 +10,34 @@ interface Props {
     currentWordIndex:number,
     setCurrentChunk:React.Dispatch<React.SetStateAction<IDictionary[]>>,
     currentChunk:IDictionary[]
-    currentChunkIndex:number
- setCurrentChunkIndex:React.Dispatch<React.SetStateAction<number>>,
+  setCurrentChunkIndex:React.Dispatch<React.SetStateAction<number>>,
+      currentWord:IDictionary,
+      currentChunkIndex:number
+
   }
 
-export const usePassingTest  = ({words,setResults, results, currentChunkIndex, setCurrentChunkIndex,currentChunk, setCurrentChunk,currentWordIndex, setCurrentWordIndex}:Props)=>{
+export const usePassingTest  = ({words,setResults, results,currentWord, setCurrentChunkIndex,currentChunkIndex,currentChunk, setCurrentChunk,currentWordIndex, setCurrentWordIndex}:Props)=>{
     const progressIncrement = 1
-     const chunkIndex =  currentChunkIndex>= words.length-1 ? 0 : currentChunkIndex + 1
+  
+ 
 
-     const toPrevIndex = ()=>{
+      const toPrevIndex = ()=>{
       if(currentWordIndex<1) return
       setCurrentWordIndex((prev)=>prev-1)
      }
 
- const currentWord = currentChunk[currentWordIndex];
+
+ const goToNextTest = () => {
+  setResults([])
+    setCurrentWordIndex(0)  
+  setCurrentChunkIndex(prev => {
+    const nextIndex = prev+1
+const newIndex = nextIndex>=words.length ? 0:nextIndex
+    setCurrentChunk(words[newIndex])
+    return newIndex
+  })
+}
+ 
     const updateResult = (result: boolean) => {
   const current = currentChunk[currentWordIndex];
   const progressDelta = result ? progressIncrement : 0;
@@ -37,16 +51,13 @@ export const usePassingTest  = ({words,setResults, results, currentChunkIndex, s
       
     },
   ]);
-      console.log(result)
-
+ 
   };
 
 
 const onResult = (result: boolean) => {
   updateResult(result);
 setCurrentWordIndex((prev) => prev + 1);  };
-
-
 
 
    const isChunkFinished = ()=>{
@@ -56,14 +67,12 @@ setCurrentWordIndex((prev) => prev + 1);  };
  
 
    
- const goToNextTest = ()=>{
-    setResults([])
-    setCurrentChunkIndex( chunkIndex);
- }
 
 
  const goToNextChunk  = () => {
-   localStorage.setItem("currentChunkIndex", String(chunkIndex))
+      const nextIndex = currentChunkIndex+1
+const newIndex = nextIndex>=words.length ? 0:nextIndex
+   localStorage.setItem("currentChunkIndex", String(newIndex))
 const resToDb = results.map(({ progressDelta: _, ...rest }) => rest);
     updateProgressInDictionary(resToDb);  
  };
