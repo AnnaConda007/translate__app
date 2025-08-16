@@ -2,15 +2,17 @@
   import { useRemoveWordFromDictionary } from "../model/use-remove-word-from-dictionary"
 import { ButtonIconUi } from "../../../shared/ui-kit/ui-kit-button/ui-kit-button-icon";
 import DeleteIcon from '@mui/icons-material/Delete';
-import { ITestResultUI } from "../../../entities/test-entities/types/test-types";
  
-interface Props {
-  wordToDelete:ITestResultUI,
+type Word = { source: string };
+
+
+interface Props <T extends Word>{
+  wordToDelete:T,
   onDelete?:((word:string)=>void)
-  rollback?:((word:ITestResultUI, index:number)=>void)
-  index?:number
+  rollback?:((word:T, index:number)=>void)
+  index:number
 }
-   export const RemoveWordFromDictionaryFeature = ({wordToDelete, onDelete, index, rollback}:Props)=>{
+export const RemoveWordFromDictionaryFeature = <T extends Word,>({ wordToDelete, onDelete, index, rollback,}: Props<T>)=>{
  
  const { removeWordAndGetUpdatedDictionary}= useRemoveWordFromDictionary()
  
@@ -22,8 +24,7 @@ const handleButton = async () => {
  
   } catch (e) {
     console.error("Ошибка удаления из словаря:", e);
-    if(index)
-    rollback?.(wordToDelete, index);
+     rollback?.(wordToDelete, index);
   }
 };
 

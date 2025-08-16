@@ -14,11 +14,12 @@ interface InputUiProps {
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onClick?: () => void;
 
-  status: InputStatus ;
-  isReadOnly?:boolean
+  status?: InputStatus ;
+  isReadOnly?:boolean,
+  placeholder?:string
 }
 
-export const InputUi= ({ value, onChange, onClick,status=InputStatus.None, isReadOnly=false }:InputUiProps) => {
+export const InputUi= ({ value, onChange, onClick,status=InputStatus.None, isReadOnly=false , placeholder}:InputUiProps) => {
 
  const bgColor = {
   [InputStatus.Success]: "bg-success",
@@ -33,7 +34,7 @@ const cursor = isReadOnly ? "cursor-pointer" :"cursor-text"
  
 
     return(
-        <input    readOnly={isReadOnly}
+        <input    placeholder={placeholder || undefined}  readOnly={isReadOnly}
     className={`w-full ${bgColor} p-1 outline-none rounded-md border-2 border-solid, ${cursor}`}
 value={value} type="text" onChange={onChange} onClick={onClick} />
     )

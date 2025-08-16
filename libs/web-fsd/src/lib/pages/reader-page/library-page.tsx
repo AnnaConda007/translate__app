@@ -1,17 +1,15 @@
 import {ReaderWidget} from "../../widgets/reader-widget/reader-widget"
- import { NawEnum } from "../../shared/ui-kit/ui-kit-nav/ui-kit-naw"
- import { NawUi } from "../../shared/ui-kit/ui-kit-nav/ui-kit-naw"
+  import { NawUi } from "../../shared/ui-kit/ui-kit-nav/ui-kit-naw"
 
-export const ReaderPage = ()=>{
-        const nawValues = [NawEnum.HOME,NawEnum.LIBRARY, NawEnum.TESTS, NawEnum.TRANSLATOR]
-        
+ export const ReaderPage = ()=>{
+         
 return(
 <>
  
  
 
         <ReaderWidget/>
-        <NawUi  navItems={nawValues} />
+        <NawUi    />
 
 
 </>

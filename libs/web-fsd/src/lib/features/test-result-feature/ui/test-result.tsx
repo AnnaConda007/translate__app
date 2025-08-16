@@ -6,7 +6,8 @@ import StartIcon from '@mui/icons-material/Start';
 import { ButtonIconUi } from "../../../shared/ui-kit/ui-kit-button/ui-kit-button-icon";
 import { vibrate } from "../../../shared/utils/vibrate"
 import { useAudio } from "../../../shared/audio/models/use-audio-for-test";
- 
+ import { deleteByKey , rollbackWord} from "../../../shared/utils/list-utils";
+
 interface Props{
   results :ITestResultUI[]
   onContinue:()=>void,
@@ -16,15 +17,16 @@ export const TestResult:React.FC<Props>  = ({results,goToNextTest, onContinue})=
 const {clickAudio, toPlayAudio} =useAudio()
 const [words, setWords] = useState(results)
 
+
 const onDeleted = (word:string)=>{
-       const filtered= words.filter((w)=>w.source!==word)
-setWords(filtered)
+  const newWords = deleteByKey(words, "source", word);
+setWords(newWords)
 }
+
 const rollback = (word: ITestResultUI, index: number) => {
   setWords((prev) => {
-    const restored = [...prev];      
-    restored.splice(index, 0, word); 
-    return restored;                 
+      const dd = rollbackWord(prev,word, index)
+     return dd;                 
   });
 };
 

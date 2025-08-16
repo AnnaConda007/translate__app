@@ -13,6 +13,8 @@ export const ReaderFeature = () => {
   const { savedParagraphId, wordsArr, saveCurrentParagraph } = useText(setSelectedWord);
   const { title } = useParams<{ title: string }>();
 
+  localStorage.setItem("current-text",String(title) )
+  
    const [scrollParent, setScrollParent] = useState<HTMLDivElement | null>(null);
 
  

@@ -1,15 +1,23 @@
  
-import { useState } from "react";
-import { DictionaryFeature } from "../../features/dictionary-feature/ui/dictionary";
-import { ButtonUi } from "../../shared/ui-kit/ui-kit-button/ui-kit-button";
-import {TranslateWidget} from "../translate-widget/translate-widget"
+ import { DictionaryFeature } from "../../features/dictionary-feature/ui/dictionary";
+ 
+import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
+import { ButtonIconUi } from "../../shared/ui-kit/ui-kit-button/ui-kit-button-icon";
+import { useNavigate } from "react-router-dom";
+
 export const DictionaryWidget = ()=>{ 
-const [clicked, setClicked] = useState(false)
+ const navigate = useNavigate()
+
+const handleToAddNewWord = ()=>{
+     navigate("/translator")
+ }
     return (
         <>
-        <ButtonUi title={"Добавить новое слово"} handleButton={()=>setClicked(true)}/> 
- {clicked && <TranslateWidget/> }
- <DictionaryFeature/>
+     <div className="  container flex  h-full  m-auto pt-3 items-start">
+         <DictionaryFeature/>
+    <ButtonIconUi Icon={AddCircleOutlineIcon} handleButton={handleToAddNewWord}/> 
+      </div>
+
 </>
     )
 }

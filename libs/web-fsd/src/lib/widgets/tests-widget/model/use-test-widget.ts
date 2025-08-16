@@ -12,10 +12,7 @@ const [currentChunk, setCurrentChunk] = useState<IDictionary[]>([])
  const [currentChunkIndex, setCurrentChunkIndex] = useState(() => {
   const saved = localStorage.getItem("currentChunkIndex");
   return saved !== null ? parseInt(saved) : 0;
-});
-console.log("currentChunk",currentChunk)
-console.log("currentWordIndex",currentWordIndex)
-
+}); 
 const currentWord = currentChunk[currentWordIndex];
 
 

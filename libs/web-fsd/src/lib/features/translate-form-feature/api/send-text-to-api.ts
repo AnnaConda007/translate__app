@@ -1,6 +1,7 @@
  import { auth } from "../../../shared/config/firebase-сonfig";
  
 export const sendTextToApi = async (text: string) : Promise<string> => {
+  console.log(text)
    const user = auth.currentUser;
   if (!user) throw new Error("User not authenticated");
    const token = await user.getIdToken();
