@@ -2,7 +2,7 @@
  
 
 
-export const sendNewTitleToApi = async ({title,newTitle}): Promise<void> => {
+export const sendNewTitleToApi = async ({title,newTitle}:{title:string,newTitle:string}): Promise<void> => {
   const user = await waitForAuthUser();  
   const token = await user.getIdToken();
 console.log(title,newTitle)

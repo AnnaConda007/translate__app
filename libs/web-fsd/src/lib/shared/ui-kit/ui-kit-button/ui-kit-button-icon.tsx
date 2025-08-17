@@ -1,7 +1,7 @@
 
 interface Props {
   Icon:React.ElementType,
-  handleButton:()=>void
+  handleButton?:()=>void 
 }
 
 export const ButtonIconUi = ({Icon, handleButton}:Props)=>{

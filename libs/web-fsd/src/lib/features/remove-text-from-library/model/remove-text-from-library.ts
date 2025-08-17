@@ -6,7 +6,7 @@ export const useRemoveTextFromLibrary = ()=>{
    const setTitles = useLibraryStore((state) => state.setTitles);
  
 
- const removeTitle = async ({title})=>{
+ const removeTitle = async ({title}:{title:string})=>{
  await removeTitleFromDb({title})
    const result=  await  getAllTextTitlesFromApi()
  setTitles(result)

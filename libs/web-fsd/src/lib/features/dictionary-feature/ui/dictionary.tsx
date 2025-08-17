@@ -5,6 +5,7 @@
 import { useEffect, useState } from "react"  
 import { deleteByKey, rollbackWord } from "../../../shared/utils/list-utils"
 import { IDictionary } from "../../../entities/dictionary-entities/model/stor"
+import { texts } from "../../../shared/ui-texts/ui-texts"
 
 export const DictionaryFeature = ()=>{
  const {searchValue,setSearchValue, filteredTextTitles, getDictionary}= useDictionary()
@@ -30,8 +31,8 @@ export const DictionaryFeature = ()=>{
  
  const rollback = (word: IDictionary, index: number) => {
    setList((prev) => {
-       const dd = rollbackWord(prev,word, index)
-      return dd;                 
+       const words = rollbackWord(prev,word, index)
+      return words;                 
    });
  };
  
@@ -39,7 +40,7 @@ export const DictionaryFeature = ()=>{
 
     return(
         <div className=" flex-grow flex flex-col "> 
-         <InputUi value={searchValue} placeholder={"search"} onChange={(e: React.ChangeEvent<HTMLInputElement>)=>setSearchValue(e.target.value)}/>
+         <InputUi value={searchValue} placeholder={texts.dictionary.inputPlaceholder} onChange={(e: React.ChangeEvent<HTMLInputElement>)=>setSearchValue(e.target.value)}/>
 {list.map((word,i)=>(
    <div key={word.source} className=" flex justify-between ">
        <span className="  transition-transform duration-200 ease-out flex-grow  max-w-96 hover:scale-105  hover:translate-x-2 break-words"> {word.source}  - {word.translation} </span>  
