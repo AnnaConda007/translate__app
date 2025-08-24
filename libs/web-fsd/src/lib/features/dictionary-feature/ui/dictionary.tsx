@@ -6,15 +6,15 @@ import { useEffect, useState } from "react"
 import { deleteByKey, rollbackWord } from "../../../shared/utils/list-utils"
 import { IDictionary } from "../../../entities/dictionary-entities/model/stor"
 import { texts } from "../../../shared/ui-texts/ui-texts"
+import { SkeletonUi } from "../../../shared/ui-kit/ui-kit-skeletons/ui-kit-test-skeleton"
 
 export const DictionaryFeature = ()=>{
- const {searchValue,setSearchValue, filteredTextTitles, getDictionary}= useDictionary()
+ const {searchValue,setSearchValue, filteredTextTitles,isLoad, getDictionary}= useDictionary()
  const [list, setList] = useState<IDictionary[]>( [])
-   console.log(filteredTextTitles)
-
+ 
  useEffect(()=>{
     getDictionary()
- },[])
+ },[getDictionary])
 
 
   useEffect(()=>{
@@ -36,11 +36,12 @@ export const DictionaryFeature = ()=>{
    });
  };
  
-
-
+ 
     return(
-        <div className=" flex-grow flex flex-col "> 
+        <div className=" flex-grow flex flex-col gap-2 "> 
          <InputUi value={searchValue} placeholder={texts.dictionary.inputPlaceholder} onChange={(e: React.ChangeEvent<HTMLInputElement>)=>setSearchValue(e.target.value)}/>
+        {isLoad &&  < SkeletonUi testItemsAmount={10}/>}
+
 {list.map((word,i)=>(
    <div key={word.source} className=" flex justify-between ">
        <span className="  transition-transform duration-200 ease-out flex-grow  max-w-96 hover:scale-105  hover:translate-x-2 break-words"> {word.source}  - {word.translation} </span>  

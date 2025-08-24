@@ -30,14 +30,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 
 
     return(
-        <> 
-          
-    
-       <ButtonIconUi Icon={DeleteIcon} handleButton={handleButton} />
-
- 
- 
-         </>
+        <ButtonIconUi Icon={DeleteIcon} handleButton={handleButton} />
     )
 }
 

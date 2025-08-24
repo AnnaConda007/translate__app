@@ -111,8 +111,7 @@ async getAllText(payload:GetUserIdPayload): Promise<string[]> {
     where: { user: { id: user.id } },
     relations: ['user'],
   });
-console.log(texts)
-  const titles = texts.map((text)=>text.title)
+   const titles = texts.map((text)=>text.title)
 
    return titles;
 }

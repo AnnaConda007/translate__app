@@ -18,7 +18,7 @@ export class FirebaseAuthGuard implements CanActivate {
       req['user'] = decoded;  
        return true;
     } catch (err) {
-      throw new UnauthorizedException('Невалидный токен');
+      throw new UnauthorizedException('Невалидный токен',err);
     }
   }
 }

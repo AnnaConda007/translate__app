@@ -30,12 +30,11 @@ finally {
 
   return {
     email,
-    password,
-   loading,
-    error,
+    password, 
     setEmail,
     setPassword,
     submitLoginForm,
- 
+    loading
+ ,error
   };
 };

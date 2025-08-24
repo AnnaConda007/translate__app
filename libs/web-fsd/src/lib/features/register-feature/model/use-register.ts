@@ -31,8 +31,7 @@ finally {
   return {
     email,
     password,
-   loading,
-    error,
+  error,loading,
     setEmail,
     setPassword,
     submitRegisterForm,name, setName

@@ -2,6 +2,7 @@
 import { useTranslateForm } from "../model/use-translate-form";
 import { AddWordToDictionaryFeature } from "../../add-word-to-dictionary-feature/ui/add-word-to-dictionary";
 import { ModalPosition } from "../../reader-feature/model/useWord";
+import { sendTextToApi } from "../api/send-text-to-api";
 
 type Props = {
   value: string;
@@ -9,21 +10,21 @@ type Props = {
 };
 
 export const AutoTranslate = React.memo(({ value, position }: Props) => {
-  const { sendToApi } = useTranslateForm();
-  const [translated, setTranslated] = useState("");
+   const [translated, setTranslated] = useState("");
   const [adjustedPos, setAdjustedPos] = useState<ModalPosition>(position);
   const boxRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const translate = async () => {
       const sourceValue = value.toLowerCase();
-      const translated = await sendToApi({ sourceValue });
+      const translated = await   sendTextToApi(sourceValue)
+       
       setTranslated(translated);
     };
 
     translate();
     return () => setTranslated("");
-  }, [value]);
+  }, [value,   sendTextToApi]);
 
   useEffect(() => {
      requestAnimationFrame(() => {

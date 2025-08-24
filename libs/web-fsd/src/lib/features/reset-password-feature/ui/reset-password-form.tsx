@@ -2,7 +2,7 @@
 import {useResetPassword} from "../model/use-reset-password"
  
 export const ResetPasswordForm = ()=>{
-const { email, setEmail, submitResetPasswordForm, loading, error } = useResetPassword();
+const { email, setEmail, submitResetPasswordForm } = useResetPassword();
 
 const handleEmail = (email:string)=>{
   setEmail(email)

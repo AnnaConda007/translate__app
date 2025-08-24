@@ -1,4 +1,4 @@
-import {  useEffect, useRef, useState } from "react";
+import {  useCallback, useEffect, useRef, useState } from "react";
  export  interface ModalPosition {
   x: number;
   y: number;
@@ -14,30 +14,7 @@ const timeoutDelay  = 150
 const immediateDelay  = 0
 
 
-       const getSelection= (e:  MouseEvent)=>{
-     const target = e.target as HTMLElement;
-     const shouldDelay = Boolean(target.closest(".close-delay")) 
-     // Задержка нужна, чтобы клик по элементам с .close-delay успел обработаться
-
- 
-      if (timeoutRef.current) {
-    clearTimeout(timeoutRef.current);
-  }
-
-const word = target.dataset["word"] || null
-      const rect = target.getBoundingClientRect();
-     const position = { x: rect.left + window.scrollX, y: rect.bottom + window.scrollY }
-     const selection = window.getSelection()?.toString();
-     const selectionIsActual = selection?.toString() !=selectedWordRef.current
-const selected = selectionIsActual?selection:null
-     const text = selected || word
-     
-          selectedWordRef.current =text
-          setSelectionWithDelay(text,position,shouldDelay)
-     }
-
-
-          const  setSelectionWithDelay = (text:string|null, position:ModalPosition,timeout:boolean ) => {
+        const  setSelectionWithDelay = (text:string|null, position:ModalPosition,timeout:boolean ) => {
  const delay = timeout? timeoutDelay :immediateDelay
  timeoutRef.current = window.setTimeout(()=>{
    setSelectedWord(text);
@@ -46,6 +23,30 @@ const selected = selectionIsActual?selection:null
     
    }
 
+const getSelection = useCallback((e: MouseEvent) => {
+  const target = e.target as HTMLElement;
+  const shouldDelay = Boolean(target.closest('.close-delay'));
+
+  if (timeoutRef.current) {
+    clearTimeout(timeoutRef.current);
+  }
+
+  const word = target.dataset['word'] || null;
+  const rect = target.getBoundingClientRect();
+  const position = { x: rect.left + window.scrollX, y: rect.bottom + window.scrollY };
+  const selection = window.getSelection()?.toString();
+  const selectionIsActual = selection !== selectedWordRef.current;
+  const selected = selectionIsActual ? selection : null;
+  const text = selected || word;
+
+  selectedWordRef.current = text;
+  setSelectionWithDelay(text, position, shouldDelay);
+}, [setSelectionWithDelay]);
+
+
+
+  
+
     useEffect(()=>{
   window.addEventListener("mouseup", getSelection);
  return () => {
@@ -53,7 +54,7 @@ const selected = selectionIsActual?selection:null
     if (timeoutRef.current) {
       clearTimeout(timeoutRef.current);  
     }
-  };},[]
+  };},[getSelection]
 )
  
 return { selectedWord, setSelectedWord, position,setPosition}

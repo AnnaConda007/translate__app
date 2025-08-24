@@ -21,9 +21,10 @@ export const ReaderFeature = () => {
 
   if (!wordsArr?.length) return "load";
    return (
-<div  
+<main  
 className=" container mx-auto flex-grow overflow-hidden   "> 
-         <SimpleBar
+<article     className="h-full">
+        <SimpleBar
        className="h-full"
         scrollableNodeProps={{ ref: setScrollParent }}
       >
@@ -50,9 +51,11 @@ className="h-full"            key={title}
   
 
       </SimpleBar>
+</article>
+ 
                   {selectedWord  && position  &&(
              <AutoTranslate value={selectedWord} position={position} />
          )}
-    </div>
+    </main>
   );
 };

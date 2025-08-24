@@ -44,7 +44,10 @@ const toPlayAudio = (audio:HTMLAudioElement|null)=>{
     if(!audio) return
          audio.pause();
   audio.currentTime = 0;
-audio.play().catch(() => {})
+audio.play().catch(() => {
+        /* no-op: browser autoplay restriction */
+
+})
 
 
  } 

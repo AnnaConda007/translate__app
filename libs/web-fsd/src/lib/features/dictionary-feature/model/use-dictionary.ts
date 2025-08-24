@@ -1,18 +1,25 @@
-import { useMemo, useState } from "react"
+import { useCallback, useMemo, useState } from "react"
 import { getDictionaryFromApi } from "../../../entities/dictionary-entities/api/get-dictionary";
 import { useDictionaryStore, IDictionary } from "../../../entities/dictionary-entities/model/stor";
  
  export const useDictionary = ()=>{ 
    const dictionary = useDictionaryStore((state) => state.dictionary);
       const setDictionary = useDictionaryStore((state) => state.setDictionary);
-
+const[isLoad, setIload] =useState(false)
  
 const [searchValue, setSearchValue] = useState("")
   
-const getDictionary = async ()=>{
-  const result=  await  getDictionaryFromApi()
- setDictionary(result)
- }
+
+const getDictionary = useCallback(async () => {
+  setIload(true);
+  try {
+    const result = await getDictionaryFromApi();
+    setDictionary(result);
+  } finally {
+    setIload(false);
+  }
+}, []);
+
 
  
 
@@ -27,5 +34,5 @@ const filteredTextTitles = useMemo(() => {
  
  
 
-return {searchValue,setSearchValue, filteredTextTitles, getDictionary}
+return {searchValue,setSearchValue, isLoad,filteredTextTitles, getDictionary}
 }

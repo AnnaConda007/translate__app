@@ -84,15 +84,16 @@ setTimeout(()=>{    onResult(isCorrectAnswer)},animations.nextTestCart.durationM
 
  
     return ( 
-        <div className=" pt-2 h-full flex flex-col items-end">
+ <article className={`w-full flex justify-center ${animateNext && "animate-move-left" }`}>
+     <div className=" pt-2 h-full flex flex-col items-end  ">
                 <ButtonIconUi Icon={RemoveRedEyeIcon}  handleButton={handleHelp}/>
         <div className="flex flex-col flex-grow justify-center">
 
- <div className= {` overflow-hidden flex flex-wrap w-full m-2 ${animateNext && "animate-move-left" }`}>
+ <div className= {` overflow-hidden flex flex-wrap w-full m-2 `}>
                   <p className= {` w-full  text-base mt-1 mb-1 ${shouldShake ? " animate-move-right" : "" } `}>{wordToTest}</p>
 
       <div className={`flex-grow ${shouldShake && 'animate-shake'} ` }>
-        <InputUi  status={status}  value={value} onChange={(e:React.ChangeEvent<HTMLInputElement>)=> inputOnchange(e.target.value)}/>
+        <InputUi onEnterHandle={handleNextClick}  status={status}  value={value} onChange={(e:React.ChangeEvent<HTMLInputElement>)=> inputOnchange(e.target.value)}/>
     </div>
  <ButtonIconUi Icon={NavigateNextIcon} handleButton={    handleNextClick   } />
  </div>
@@ -102,7 +103,9 @@ setTimeout(()=>{    onResult(isCorrectAnswer)},animations.nextTestCart.durationM
 </div>
    
         </div>
-
+ </article>
+   
+ 
 
 
 

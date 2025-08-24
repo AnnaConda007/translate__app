@@ -2,7 +2,7 @@
  
 
 
-export const removeTitleFromDb = async ({title}): Promise<any> => {
+export const removeTitleFromDb = async ({title}:{title:string}): Promise<void> => {
   const user = await waitForAuthUser();  
   const token = await user.getIdToken();
     await fetch("http://localhost:3000/api/remove-text-from-user-library", {

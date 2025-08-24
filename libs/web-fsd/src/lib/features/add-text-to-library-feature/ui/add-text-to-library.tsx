@@ -1,6 +1,5 @@
  
-import { useState } from "react"
-import {useAddTextToLibrary} from "../model/use-add-text-to-library.ts"
+ import {useAddTextToLibrary} from "../model/use-add-text-to-library.ts"
  import UploadFileIcon from '@mui/icons-material/UploadFile';
 import { ButtonIconUi } from "../../../shared/ui-kit/ui-kit-button/ui-kit-button-icon.js";
   import FileUploadIcon from '@mui/icons-material/FileUpload';

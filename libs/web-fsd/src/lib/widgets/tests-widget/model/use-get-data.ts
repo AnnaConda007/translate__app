@@ -1,4 +1,4 @@
- import { useMemo } from "react"
+ import { useCallback, useMemo } from "react"
 import { getDictionaryFromApi } from "../../../entities/dictionary-entities/api/get-dictionary"
 import { IDictionary } from "../../../entities/dictionary-entities/model/stor"
    import { shuffle } from "../../../shared/utils/shafle"
@@ -22,15 +22,22 @@ export const useGetData = ({setCurrentChunk,setWords,currentWord, setLoad,words,
 const isEmptyWords = () => (words[0]?.length ?? 0) <testWordsLength ;
  
 
- const getWords = async ()=>{
-    setLoad(true)
-  const result=  await  getDictionaryFromApi()
-  const wordsChunks = Array.from({ length: Math.ceil(result.length /testWordsLength) }, (_, i) => result.slice(i * testWordsLength, i * testWordsLength + testWordsLength))
-     setCurrentChunk(wordsChunks[currentChunkIndex])
-   setWords(wordsChunks)
-     setLoad(false)
+const getWords = useCallback(async () => {
+  setLoad(true);
+  try {
+    const result = await getDictionaryFromApi();
+    const wordsChunks = Array.from(
+      { length: Math.ceil(result.length / testWordsLength) },
+      (_, i) => result.slice(i * testWordsLength, i * testWordsLength + testWordsLength)
+    );
+    setCurrentChunk(wordsChunks[currentChunkIndex]);
+    setWords(wordsChunks);
+  } finally {
+    setLoad(false);
+  }
+}, [currentChunkIndex, testWordsLength, setWords, setCurrentChunk]);
 
- }
+ 
 
 const currentFalseWords = useMemo(() => {
   if (!currentWord) return { shuffled: [], progress: 0 };
@@ -42,7 +49,7 @@ const currentWords = [...currentChunk.filter((w) => w !== currentWord).slice(0,s
     progress,
     shuffled
    }
-}, [ currentWord, currentChunkIndex]);
+}, [ currentWord,currentChunk ]);
 
 
   

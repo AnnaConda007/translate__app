@@ -9,6 +9,8 @@ import { ButtonIconUi } from "../../../shared/ui-kit/ui-kit-button/ui-kit-button
 import {ProgressBarUi}from "../../../shared/ui-kit/ui-kit-progress-bar/ui-kit-progress-bar";
 import { useAudio } from "../../../shared/audio/models/use-audio-for-test"
 import { vibrate } from "../../../shared/utils/vibrate"
+import {SkeletonUi} from "../../../shared/ui-kit/ui-kit-skeletons/ui-kit-test-skeleton"
+
 
 export const TestSelectAnswerWidget	 =()=>{
     const {getWords,results,currentWord,isLoad,currentChunk,toPrevIndex, isChunkFinished,currentWordIndex, isEmptyWords,currentFalseWords,onResult, goToNextChunk , goToNextTest} = useTestWidget()
@@ -21,19 +23,27 @@ export const TestSelectAnswerWidget	 =()=>{
        toPrevIndex()
      }
 
-      useEffect(()=>{ getWords() },[])
+      useEffect(()=>{ getWords() },[getWords])
 
+ if (isLoad ) return(
+      <main className="container mx-auto flex-grow flex justify-center items-center ">
+        <div className=" w-full max-w-60 ">
+          < SkeletonUi testItemsAmount={4}/>
 
-if (isLoad ) return <>Load</>;
+        </div>
+</main>);
  if ( isChunkFinished()) return <TestResult onContinue={goToNextChunk }  goToNextTest={goToNextTest} results={results}/>;
- if (isEmptyWords() ) return <>{texts.tests.empty}</>  
+if (isEmptyWords()) return texts.tests.empty;
 
     return (
+      <main className="container mx-auto flex-grow flex justify-center items-center">
 <div className="w-full flex flex-col items-start">
 {progress<=5 &&   <TestSelectAnswerFeature   currentWord = {currentWord} currentFalseWords={currentFalseWords.shuffled}  onResult={onResult} />}
 {progress >5  && progress <= 10  &&    <TestTranslateFeature  wordToTest={currentWord.translation} correctAnswer =  {currentWord.source}  onResult={onResult} />}
 {progress>=10  &&        <TestTranslateFeature  wordToTest={currentWord.source} correctAnswer = {currentWord.translation}  onResult={onResult}   />}
  <ButtonIconUi Icon={UndoIcon} handleButton={handlePrev} />
  <ProgressBarUi  currentIndex={currentWordIndex} totalLength={currentChunk.length}/>
-       </div>    )
+       </div>   
+      </main>
+ )
 } 

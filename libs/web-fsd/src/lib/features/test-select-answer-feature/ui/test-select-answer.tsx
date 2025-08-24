@@ -1,10 +1,9 @@
-import { Fragment, useEffect, useState } from "react";
+import {  useEffect, useState } from "react";
 import { IDictionary } from "../../../entities/dictionary-entities/model/stor"
 import { animations } from "../../../shared/theme/tokens/animation";
 import { InputStatus, InputUi } from "../../../shared/ui-kit/ui-kit-input/ui-kit-input";
 import { useAudio } from "../../../shared/audio/models/use-audio-for-test";
 import { vibrate } from "../../../shared/utils/vibrate";
-
 interface Props {
     currentWord:IDictionary,
     currentFalseWords:IDictionary[]
@@ -47,15 +46,15 @@ const handleTestClick = (selectedValue: string) => {
 
  
  
-    return (     
-        <div className={`flex flex-col gap-2  w-full items-center ${animation} `}  >
+    return (    
+         <article className={`flex flex-col gap-2  w-full items-center  ${animation} `}  >
          <p className="font-normal text-lg tracking-wider">{currentWord.translation}</p>
-       <div role="radiogroup" className="m-1" >
-  {currentFalseWords.map((w,i) => {
+       <div role="radiogroup"   >
+  {currentFalseWords.map((w) => {
   const isSelected = selected === w.source;
 
   return (
-       <div className="m-2"  key={w.source}role="radio" aria-checked={isSelected}  >
+       <div className="m-2  max-w-60 h-8 "  key={w.source}role="radio" aria-checked={isSelected}  >
         <InputUi
           isReadOnly={true}
           onClick={() => handleTestClick(w.source)}
@@ -67,7 +66,8 @@ const handleTestClick = (selectedValue: string) => {
 })}
 
     </div>
-        </div>
+        </article>
+        
     
 )
 

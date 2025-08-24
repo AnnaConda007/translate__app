@@ -33,13 +33,17 @@ module.exports = {
   '40%': { transform: 'translateX(5px)' },
   '60%': { transform: 'translateX(-5px)' },
   '80%': { transform: 'translateX(5px)' },
-}
-
+},  
+ shimmer: {
+          '0%': { backgroundPosition: '-200px 0' },
+          '100%': { backgroundPosition: '200px 0' },
+        },
       },
    animation: {
         'move-right': `move-right  ${animations.nextTestCart.durationMs / 1000}s ease-in-out`,
         'move-left': `move-left ${animations.nextTestCart.durationMs / 1000}s ease-in-out forwards`,
           'shake': 'shake 0.5s ease-in-out',
+        shimmer: 'shimmer 1.5s infinite linear',
 
 
       },

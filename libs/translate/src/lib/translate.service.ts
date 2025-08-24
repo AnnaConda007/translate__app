@@ -8,7 +8,7 @@ export class TranslateService {
     @Inject('ITranslateProvider') private readonly provider: ITranslateProvider
   ) {}
 
-  async translate(payload:TranslateRegDto): Promise<string> {
+  async translate(payload:TranslateRegDto): Promise<string |null> {
       return this.provider.translate(payload);
   }
 } 

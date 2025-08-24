@@ -39,10 +39,10 @@ const handleContinueTest = ()=>{
 }
 
  
- useEffect(()=>{onContinue()},[])
+ useEffect(()=>{onContinue()},[onContinue])
 
     return (
- <div className="flex flex-col justify-center gap-5 h-full">
+ <main className="flex flex-col justify-center gap-5 h-full">
 <div className="flex flex-col gap-2">
          { words.map((res, i)=>{
             const status = res.progressDelta ? InputStatus.Success :InputStatus.Error
@@ -58,7 +58,7 @@ const handleContinueTest = ()=>{
       )}
 </div>
   <ButtonIconUi  handleButton={handleContinueTest} Icon={StartIcon}  />
- </div>
+ </main>
 
 
            )

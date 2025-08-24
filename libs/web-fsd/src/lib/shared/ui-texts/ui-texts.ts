@@ -5,10 +5,14 @@ export const texts = {
     },
         library:{
         alreadyExist:"Такая книга уже добавлена",
-        inputPlaceholder : "search"
+        inputPlaceholder : "Search"
     },
     dictionary :{
-                        inputPlaceholder : "search"
+                        inputPlaceholder : "Search"
+
+    },
+     translator :{
+                        inputPlaceholder : "Используйте русский или английский язык"
 
     }
     

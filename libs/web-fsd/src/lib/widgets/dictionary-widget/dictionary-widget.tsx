@@ -12,12 +12,9 @@ const handleToAddNewWord = ()=>{
      navigate("/translator")
  }
     return (
-        <>
-     <div className="  container flex  h-full  m-auto pt-3 items-start">
+        <main className="  container flex  h-full  m-auto pt-3 items-start">
          <DictionaryFeature/>
     <ButtonIconUi Icon={AddCircleOutlineIcon} handleButton={handleToAddNewWord}/> 
-      </div>
-
-</>
+      </main>
     )
 }

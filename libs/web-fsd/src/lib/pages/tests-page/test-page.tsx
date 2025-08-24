@@ -5,11 +5,9 @@ export const TestsPage =()=>{
  
     return (<>
      
-     <div className="container mx-auto flex-grow flex justify-center items-center
- ">
+ 
    <TestSelectAnswerWidget/>
-     </div>
-                     <NawUi    />
+                      <NawUi    />
 
  
     </>)
