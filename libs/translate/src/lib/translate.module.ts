@@ -5,17 +5,19 @@ import { YandexTranslateProvider } from './providers/yandex-translate.provider';
 import { join } from 'path';
 
 @Module({
-  imports: [ ConfigModule.forRoot({
-      isGlobal: true,  
-  envFilePath: [join(__dirname, '../../../../.env')],
-    }),],
+  imports: [
+    ConfigModule.forRoot({
+      isGlobal: true,
+      envFilePath: [join(__dirname, '../../../../.env')],
+    }),
+  ],
   providers: [
     {
-      provide: 'ITranslateProvider',       
-      useClass: YandexTranslateProvider,     
+      provide: 'ITranslateProvider',
+      useClass: YandexTranslateProvider,
     },
     TranslateService,
-    YandexTranslateProvider,  
+    YandexTranslateProvider,
   ],
   exports: [TranslateService],
 })

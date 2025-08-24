@@ -1,40 +1,33 @@
- 
 import { useState } from 'react';
 
 import { useNavigate } from 'react-router-dom';
 import { resetPassword } from '../../../entities/user/api/reset-password-api';
 
 export const useResetPassword = () => {
-const [email, setEmail] = useState('');
-const [loading, setLoading] = useState(false);
-const [error, setError] = useState(false);
- const navigate= useNavigate()
+  const [email, setEmail] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(false);
+  const navigate = useNavigate();
 
-const submitResetPasswordForm = (email:string)=>{
+  const submitResetPasswordForm = (email: string) => {
     try {
-             resetPassword(  email) 
+      resetPassword(email);
       navigate('/auth/login');
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        console.error(error.message);
+        setError(true);
+      }
+    } finally {
+      setLoading(false);
+    }
+  };
 
-    }  catch (error: unknown) {
-  if (error instanceof Error) {
-    console.error(error.message)
-    setError(true);
-  }  
-}
-finally {
-    setLoading(false);  
-  }
-}
-
- return {
+  return {
     email,
-   loading,
+    loading,
     error,
     setEmail,
-     submitResetPasswordForm,
- 
+    submitResetPasswordForm,
   };
- 
-}
-
-
+};

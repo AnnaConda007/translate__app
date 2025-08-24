@@ -1,7 +1,5 @@
-import { LoginWidget } from "../../widgets/login-widget/login-widget"
+import { LoginWidget } from '../../widgets/login-widget/login-widget';
 
-export const LoginPage = ()=>{
-    return (
-<LoginWidget/>
-    )
-}
+export const LoginPage = () => {
+  return <LoginWidget />;
+};

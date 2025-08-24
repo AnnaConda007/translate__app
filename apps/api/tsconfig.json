@@ -1,13 +1,13 @@
 {
-"extends": "../../tsconfig.base.json"  ,
+  "extends": "../../tsconfig.base.json",
   "files": [],
   "include": [],
   "references": [
     {
       "path": "./tsconfig.app.json",
-       "@translate": ["libs/translate/src/lib/index.ts"],
-      "@queue":["libs/queue/src/index.ts"],
-      "@dataBase": ["libs/auth/src/index.ts"],
+      "@translate": ["libs/translate/src/lib/index.ts"],
+      "@queue": ["libs/queue/src/index.ts"],
+      "@dataBase": ["libs/auth/src/index.ts"]
     }
   ],
   "compilerOptions": {

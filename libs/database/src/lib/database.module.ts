@@ -16,7 +16,7 @@ import { TypeOrmDictionaryRepository } from './infrastructure/typeorm-dictionary
       provide: 'ICreateNewUserTableProvider',
       useClass: TypeOrmUserRepository,
     },
-   {
+    {
       provide: 'ILibraryRepository',
       useClass: TypeOrmTextsRepository,
     },
@@ -24,8 +24,6 @@ import { TypeOrmDictionaryRepository } from './infrastructure/typeorm-dictionary
       provide: 'IDictionaryRepository',
       useClass: TypeOrmDictionaryRepository,
     },
-
- 
 
     DataBaseService,
   ],

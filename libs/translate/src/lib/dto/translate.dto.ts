@@ -1,9 +1,6 @@
-import {  IsString } from 'class-validator';
- 
+import { IsString } from 'class-validator';
 
 export class TranslateRegDto {
   @IsString()
-  text!: string; 
+  text!: string;
 }
- 
- 

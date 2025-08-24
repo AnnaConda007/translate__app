@@ -1,18 +1,20 @@
-   import { waitForAuthUser } from "../../../shared/utils/wait-firebase-user";
- 
+import { waitForAuthUser } from '../../../shared/utils/wait-firebase-user';
 
-
-export const sendNewTitleToApi = async ({title,newTitle}:{title:string,newTitle:string}): Promise<void> => {
-  const user = await waitForAuthUser();  
+export const sendNewTitleToApi = async ({
+  title,
+  newTitle,
+}: {
+  title: string;
+  newTitle: string;
+}): Promise<void> => {
+  const user = await waitForAuthUser();
   const token = await user.getIdToken();
-    await fetch("http://localhost:3000/api/rename-text-in-library", {
-    method: "POST",
+  await fetch('http://localhost:3000/api/rename-text-in-library', {
+    method: 'POST',
     headers: {
-      "Content-Type": "application/json",
+      'Content-Type': 'application/json',
       Authorization: `Bearer ${token}`,
     },
-        body: JSON.stringify({ title,newTitle }),
-
+    body: JSON.stringify({ title, newTitle }),
   });
- 
 };

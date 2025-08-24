@@ -1,6 +1,3 @@
-export const TextUi = ({text})=>{
-    return(
-        <span   > {text} </span>
-    )
-
-}
+export const TextUi = ({ text }) => {
+  return <span> {text} </span>;
+};

@@ -1,11 +1,10 @@
- 
-import { AddTextToLibraryFeature} from "../../features/replenish-library-feature/ui/replenish-library";
+import { AddTextToLibraryFeature } from '../../features/replenish-library-feature/ui/replenish-library';
 
-  export const ReplenishLibraryWidget = ()=>{
- 
-    return(
-        <>Добавить книгу
-        <AddTextToLibraryFeature></AddTextToLibraryFeature>
- 
-         </>
-    )}
+export const ReplenishLibraryWidget = () => {
+  return (
+    <>
+      Добавить книгу
+      <AddTextToLibraryFeature></AddTextToLibraryFeature>
+    </>
+  );
+};

@@ -1,13 +1,19 @@
-import { CanActivate, ExecutionContext, Injectable, UnauthorizedException } from '@nestjs/common';
-import { firebaseAdmin } from './firebase/firebase-admin';
+import {
+  CanActivate,
+  ExecutionContext,
+  Injectable,
+  UnauthorizedException,
+} from '@nestjs/common';
 import { Request } from 'express';
+
+import { firebaseAdmin } from './firebase/firebase-admin';
 
 @Injectable()
 export class FirebaseAuthGuard implements CanActivate {
   async canActivate(context: ExecutionContext): Promise<boolean> {
-     const req = context.switchToHttp().getRequest<Request>();
+    const req = context.switchToHttp().getRequest<Request>();
     const authHeader = req.headers.authorization;
- 
+
     if (!authHeader?.startsWith('Bearer ')) {
       throw new UnauthorizedException('Нет токена');
     }
@@ -15,10 +21,10 @@ export class FirebaseAuthGuard implements CanActivate {
     const token = authHeader.split(' ')[1];
     try {
       const decoded = await firebaseAdmin.auth().verifyIdToken(token);
-      req['user'] = decoded;  
-       return true;
+      req['user'] = decoded;
+      return true;
     } catch (err) {
-      throw new UnauthorizedException('Невалидный токен',err);
+      throw new UnauthorizedException('Невалидный токен', err);
     }
   }
 }

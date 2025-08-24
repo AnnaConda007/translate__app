@@ -5,7 +5,7 @@ services:
     image: redis:6-alpine
     container_name: redis
     ports:
-      - "6379:6379"
+      - '6379:6379'
     restart: always
 
   postgres:
@@ -13,7 +13,7 @@ services:
     container_name: postgres
     restart: always
     ports:
-      - "5432:5432"
+      - '5432:5432'
     environment:
       POSTGRES_DB: translate_app
       POSTGRES_USER: admin

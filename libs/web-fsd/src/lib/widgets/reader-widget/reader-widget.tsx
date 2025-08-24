@@ -1,10 +1,9 @@
- import { ReaderFeature } from "../../features/reader-feature/ui/reader"
+import { ReaderFeature } from '../../features/reader-feature/ui/reader';
 
-
-export const ReaderWidget  =()=>{
-return(
+export const ReaderWidget = () => {
+  return (
     <>
-          <ReaderFeature/> </>
-  
-)
-}
+      <ReaderFeature />{' '}
+    </>
+  );
+};

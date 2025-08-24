@@ -1,6 +1,6 @@
 import { Processor, Process } from '@nestjs/bull';
 import { Job } from 'bull';
- import { Injectable } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { QUEUE_NAMES, JOB_NAMES } from '../queue-constants';
 import { DataBaseService } from '@dataBase';
 import { AddWordJobPayload } from '@dataBase';
@@ -11,7 +11,6 @@ export class AddToDictionaryProcessor {
 
   @Process(JOB_NAMES.ADD_WORD_TO_DICTIONARY)
   async handle(job: Job<AddWordJobPayload>) {
-         await this.service.addWordToDictionary(job.data)
-   }
+    await this.service.addWordToDictionary(job.data);
+  }
 }
- 

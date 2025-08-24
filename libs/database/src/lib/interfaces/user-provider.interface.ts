@@ -1,6 +1,6 @@
- import { NewUserRegPayload } from "../dto/database-reg.dto";
-import { User } from "../entities/users-entry.entity";
+import { NewUserRegPayload } from '../dto/database-reg.dto';
+import { User } from '../entities/users-entry.entity';
 
 export interface ICreateNewUserTableProvider {
-  createNewUserTable(payload:NewUserRegPayload): Promise<User>;
+  createNewUserTable(payload: NewUserRegPayload): Promise<User>;
 }

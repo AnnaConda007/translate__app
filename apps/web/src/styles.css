@@ -3,12 +3,9 @@
 @tailwind utilities;
 /* You can add global styles to this file, and also import other style files */
 
-
-#root{
-     display: flex;  
-       flex-direction: column;
-    justify-content: end;
-    height: 100vh;
+#root {
+  display: flex;
+  flex-direction: column;
+  justify-content: end;
+  height: 100vh;
 }
-
- 

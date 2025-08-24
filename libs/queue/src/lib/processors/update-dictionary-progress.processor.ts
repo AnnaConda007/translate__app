@@ -1,9 +1,9 @@
 import { Processor, Process } from '@nestjs/bull';
 import { Job } from 'bull';
- import { Injectable } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { QUEUE_NAMES, JOB_NAMES } from '../queue-constants';
 import { DataBaseService } from '@dataBase';
-import {   updateDictionaryProgressPayload} from '@dataBase';
+import { updateDictionaryProgressPayload } from '@dataBase';
 
 @Processor(QUEUE_NAMES.DATABASE_QUEUE)
 @Injectable()
@@ -12,7 +12,6 @@ export class UpdateDictionaryProgressProcessor {
 
   @Process(JOB_NAMES.UPDATE_DICTIONARY_PROGRESS)
   async handle(job: Job<updateDictionaryProgressPayload>) {
-          await this.service.updateDictionaryProgress(job.data)
-   }
+    await this.service.updateDictionaryProgress(job.data);
+  }
 }
- 

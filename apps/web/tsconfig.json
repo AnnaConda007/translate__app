@@ -12,9 +12,8 @@
   "references": [
     {
       "path": "./tsconfig.app.json",
-       "@web-fsd": ["libs/web-fsd/src/index.ts"]
-
+      "@web-fsd": ["libs/web-fsd/src/index.ts"]
     }
   ],
-"extends": "../../tsconfig.base.json"  
+  "extends": "../../tsconfig.base.json"
 }

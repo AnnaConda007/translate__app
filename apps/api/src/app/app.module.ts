@@ -1,18 +1,20 @@
+import { join } from 'path';
+
+import { DataBaseModule } from '@dataBase';
 import { Module } from '@nestjs/common';
+import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { QueueModule } from '@queue';
+import { TranslateModule } from '@translate';
+
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { TranslateModule } from '@translate'
- import { QueueModule } from '@queue';
-import {DataBaseModule} from '@dataBase'
-import { ConfigModule } from '@nestjs/config';
-import { join } from 'path';
- 
+
 @Module({
-  imports: [ 
-     ConfigModule.forRoot({
-      isGlobal: true,  
-  envFilePath: [join(__dirname, '../../../../.env')],
+  imports: [
+    ConfigModule.forRoot({
+      isGlobal: true,
+      envFilePath: [join(__dirname, '../../../../.env')],
     }),
     TypeOrmModule.forRoot({
       type: 'postgres',
@@ -22,12 +24,12 @@ import { join } from 'path';
       password: 'admin',
       database: 'translate_app',
       autoLoadEntities: true,
-      synchronize: true, // ❗ 
+      synchronize: true, // ❗
     }),
     TranslateModule,
-     QueueModule,
+    QueueModule,
     DataBaseModule,
-   ],
+  ],
   controllers: [AppController],
   providers: [AppService],
 })

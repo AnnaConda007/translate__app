@@ -28,8 +28,10 @@
     "lint": {
       "executor": "@nx/eslint:lint",
       "options": {
-        "lintFilePatterns": [  "apps/**/*.{ts,tsx,js,jsx}",
-  "libs/**/*.{ts,tsx,js,jsx}"]
+        "lintFilePatterns": [
+          "apps/**/*.{ts,tsx,js,jsx}",
+          "libs/**/*.{ts,tsx,js,jsx}"
+        ]
       }
     },
     "test": {
