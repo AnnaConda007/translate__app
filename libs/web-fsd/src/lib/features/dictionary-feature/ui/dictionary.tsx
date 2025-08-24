@@ -1,4 +1,5 @@
-import { InputUi } from '../../../shared/ui-kit/ui-kit-input/ui-kit-input';
+import {  InputUi } from '../../../shared/ui-kit/ui-kit-input/ui-kit-input';
+import { Status } from '../../../shared/ui-kit/type';
 import { useDictionary } from '../model/use-dictionary';
 import { RemoveWordFromDictionaryFeature } from '../../remove-word-from-dictionary-feature/ui/remove-word-dictionary';
 import { useEffect, useState } from 'react';
@@ -6,6 +7,7 @@ import { deleteByKey, rollbackWord } from '../../../shared/utils/list-utils';
 import { IDictionary } from '../../../entities/dictionary-entities/model/stor';
 import { texts } from '../../../shared/ui-texts/ui-texts';
 import { SkeletonUi } from '../../../shared/ui-kit/ui-kit-skeletons/ui-kit-test-skeleton';
+import { TextUi } from '../../../shared/ui-kit/ui-kit-text/ui-kit-text';
 
 export const DictionaryFeature = () => {
   const {
@@ -13,7 +15,7 @@ export const DictionaryFeature = () => {
     setSearchValue,
     filteredTextTitles,
     isLoad,
-    getDictionary,
+    getDictionary,isError
   } = useDictionary();
   const [list, setList] = useState<IDictionary[]>([]);
 
@@ -46,6 +48,8 @@ export const DictionaryFeature = () => {
           setSearchValue(e.target.value)
         }
       />
+              {isError &&         <div className='w-full flex justify-center'><TextUi text={texts.errorText} status={Status.Error} /></div>}
+      
       {isLoad && <SkeletonUi testItemsAmount={10} />}
 
       {list.map((word, i) => (

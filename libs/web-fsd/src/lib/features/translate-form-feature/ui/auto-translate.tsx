@@ -52,7 +52,7 @@ export const AutoTranslate = React.memo(({ value, position }: Props) => {
     <div className="fixed inset-0 z-50" style={{ pointerEvents: 'none' }}>
       <div
         ref={boxRef}
-        className="absolute bg-yellow-100 shadow-md flex justify-between p-2 max-w-[90vw]"
+        className="absolute bg-main shadow-md flex justify-between p-2 max-w-[90vw]"
         style={{
           left: adjustedPos.x,
           top: adjustedPos.y,

@@ -1,10 +1,8 @@
 import { useEffect, useState } from 'react';
 import { ITestResultUI } from '../../../entities/test-entities/types/test-types';
 import { RemoveWordFromDictionaryFeature } from '../../remove-word-from-dictionary-feature/ui/remove-word-dictionary';
-import {
-  InputStatus,
-  InputUi,
-} from '../../../shared/ui-kit/ui-kit-input/ui-kit-input';
+import {InputUi} from '../../../shared/ui-kit/ui-kit-input/ui-kit-input';
+import { Status } from '../../../shared/ui-kit/type';
 import StartIcon from '@mui/icons-material/Start';
 import { ButtonIconUi } from '../../../shared/ui-kit/ui-kit-button/ui-kit-button-icon';
 import { vibrate } from '../../../shared/utils/vibrate';
@@ -51,8 +49,8 @@ export const TestResult: React.FC<Props> = ({
       <div className="flex flex-col gap-2">
         {words.map((res, i) => {
           const status = res.progressDelta
-            ? InputStatus.Success
-            : InputStatus.Error;
+            ? Status.Success
+            : Status.Error;
           return (
             <div className="flex gap-1" key={res.source}>
               <InputUi value={res.source} isReadOnly={true} status={status} />

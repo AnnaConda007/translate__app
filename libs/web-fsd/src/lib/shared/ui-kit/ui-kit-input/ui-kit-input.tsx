@@ -1,17 +1,14 @@
-export enum InputStatus {
-  Success = 'success',
-  Error = 'error',
-  Warning = 'warning',
 
-  None = '',
-}
+import { Status } from "../type";
+import { StatusBgColorClass , StatusTextColorClass} from "../constants";
+ 
 
 interface InputUiProps {
   value: string;
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onClick?: () => void;
   onEnterHandle?: () => void;
-  status?: InputStatus;
+  status?: Status;
   isReadOnly?: boolean;
   placeholder?: string;
   textInfo?: string | null;
@@ -24,18 +21,13 @@ export const InputUi = ({
   onChange,
   onEnterHandle,
   onClick,
-  status = InputStatus.None,
+  status = Status.None,
   textInfo,
   isReadOnly = false,
   placeholder,
 }: InputUiProps) => {
-  const statusColor = {
-    [InputStatus.Success]: 'bg-success',
-    [InputStatus.Error]: 'bg-error',
-    [InputStatus.Warning]: 'bg-orange-500',
-    [InputStatus.None]: '',
-  };
-  const bgColor = isTransparent ? 'bg-transparent' : statusColor[status];
+ 
+  const color = isTransparent ? 'bg-transparent' : StatusTextColorClass[status];
 
   const cursor = isReadOnly ? 'cursor-pointer' : 'cursor-text';
 
@@ -52,7 +44,7 @@ export const InputUi = ({
       <input
         placeholder={placeholder || undefined}
         readOnly={isReadOnly}
-        className={`w-full ${bgColor} outline-none rounded-md  ${cursor}`}
+        className={`w-full  ${color} outline-none rounded-md  ${cursor}`}
         value={value}
         type="text"
         onChange={onChange}

@@ -5,9 +5,9 @@ interface Props {
 
 export const ProgressBarUi = ({ currentIndex, totalLength }: Props) => {
   return (
-    <div className="w-full bg-blue-400">
+    <div className="w-full bg-secondary">
       <div
-        className="bg-blue-500 h-2 rounded-full "
+        className="bg-main h-2 rounded-full "
         style={{
           width: `${(currentIndex / totalLength) * 100}%`,
         }}

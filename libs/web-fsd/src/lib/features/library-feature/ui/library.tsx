@@ -1,7 +1,5 @@
-import {
-  InputStatus,
-  InputUi,
-} from '../../../shared/ui-kit/ui-kit-input/ui-kit-input';
+import {  InputUi} from '../../../shared/ui-kit/ui-kit-input/ui-kit-input';
+import { Status } from '../../../shared/ui-kit/type';
 import { ButtonIconUi } from '../../../shared/ui-kit/ui-kit-button/ui-kit-button-icon';
 import { useLibrary } from '../model/use-library';
 import { texts } from '../../../shared/ui-texts/ui-texts';
@@ -10,7 +8,7 @@ import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import DoneIcon from '@mui/icons-material/Done';
 import { RemoveTextFromLibraryButton } from '../../remove-text-from-library/ui/remove-text-from-library';
 import { SkeletonUi } from '../../../shared/ui-kit/ui-kit-skeletons/ui-kit-test-skeleton';
-
+import { TextUi } from '../../../shared/ui-kit/ui-kit-text/ui-kit-text';
 export const LibraryFeature = () => {
   const {
     searchValue,
@@ -42,7 +40,8 @@ export const LibraryFeature = () => {
       </div>
 
       <div className="flex-grow">
-        {error && 'error'}
+        {error &&         <div className='w-full flex justify-center'><TextUi text={texts.errorText} status={Status.Error} /></div>
+}
 
         {load && <SkeletonUi testItemsAmount={3} />}
 
@@ -58,7 +57,7 @@ export const LibraryFeature = () => {
               >
                 <div className="flex-grow">
                   <InputUi
-                    status={error ? InputStatus.Error : InputStatus.None}
+                    status={error ? Status.Error : Status.None}
                     isTransparent={isReadOnly}
                     isReadOnly={isReadOnly}
                     onChange={(e: React.ChangeEvent<HTMLInputElement>) =>

@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { InputUi } from '../../../shared/ui-kit/ui-kit-input/ui-kit-input';
 import { ButtonIconUi } from '../../../shared/ui-kit/ui-kit-button/ui-kit-button-icon';
-import { InputStatus } from '../../../shared/ui-kit/ui-kit-input/ui-kit-input';
+ import { Status } from '../../../shared/ui-kit/type';
 import NavigateNextIcon from '@mui/icons-material/NavigateNext';
 import { animations } from '../../../shared/theme/tokens/animation';
 import { useAudio } from '../../../shared/audio/models/use-audio-for-test';
@@ -20,7 +20,7 @@ export const TestTranslateFeature: React.FC<Props> = ({
   onResult,
 }) => {
   const [value, setValue] = useState('');
-  const [status, setStatus] = useState<InputStatus>(InputStatus.None);
+  const [status, setStatus] = useState<Status>(Status.None);
   const [shouldShake, setShouldShake] = useState(false);
   const [animateNext, setAnimateNext] = useState(false);
   const {
@@ -35,7 +35,7 @@ export const TestTranslateFeature: React.FC<Props> = ({
   });
 
   useEffect(() => {
-    setStatus(InputStatus.None);
+    setStatus(Status.None);
     setValue('');
     setAnimateNext(false);
     setShouldShake(false);
@@ -76,7 +76,7 @@ export const TestTranslateFeature: React.FC<Props> = ({
     if (empty) return;
 
     const isCorrectAnswer = value === correctAnswer;
-    const newStatus = isCorrectAnswer ? InputStatus.Success : InputStatus.Error;
+    const newStatus = isCorrectAnswer ? Status.Success : Status.Error;
     const audio = isCorrectAnswer ? correctAnswerAudio : uncorrectedAnswerAudio;
     vibrate();
 

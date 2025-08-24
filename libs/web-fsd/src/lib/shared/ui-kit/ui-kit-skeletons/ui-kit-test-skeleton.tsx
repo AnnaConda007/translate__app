@@ -1,7 +1,8 @@
 interface Props {
   testItemsAmount?: number;
+  small?:boolean
 }
-export const SkeletonUi = ({ testItemsAmount = 1 }: Props) => {
+export const SkeletonUi = ({ testItemsAmount = 1, small }: Props) => {
   const itemTestList = Array.from({ length: testItemsAmount });
 
   return (
@@ -9,11 +10,12 @@ export const SkeletonUi = ({ testItemsAmount = 1 }: Props) => {
       {itemTestList.map((_, i) => (
         <div
           key={i}
-          className=" h-8 rounded-md 
-    bg-gradient-to-r from-red-200 via-slate-300 to-red-200
-               animate-shimmer"
+          className={` ${small ? `h-4` : 'h-8 '}  rounded-md 
+    bg-gradient-to-r from-secondary via-secondary-light to-secondary
+               animate-shimmer`}
         ></div>
       ))}
     </div>
   );
+  
 };

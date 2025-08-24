@@ -9,15 +9,21 @@ export const useDictionary = () => {
   const dictionary = useDictionaryStore((state) => state.dictionary);
   const setDictionary = useDictionaryStore((state) => state.setDictionary);
   const [isLoad, setIload] = useState(false);
+  const [isError, setError] = useState(false);
 
   const [searchValue, setSearchValue] = useState('');
 
   const getDictionary = useCallback(async () => {
     setIload(true);
+    setError(false)
     try {
       const result = await getDictionaryFromApi();
       setDictionary(result);
-    } finally {
+    } 
+    catch{
+      setError(true)
+    }
+    finally {
       setIload(false);
     }
   }, [setDictionary]);
@@ -36,6 +42,6 @@ export const useDictionary = () => {
     setSearchValue,
     isLoad,
     filteredTextTitles,
-    getDictionary,
+    getDictionary,isError
   };
 };

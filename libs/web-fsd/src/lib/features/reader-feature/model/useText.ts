@@ -7,6 +7,7 @@ export const useText = (setSelectedWord: (word: string | null) => void) => {
   const [text, setText] = useState<string>();
   const [savedParagraphId, setSavedParagraphId] = useState<number>(6);
   const debounceTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const [isError, setIsError] = useState(false);
 
   const isHtml = (str: string) => /<\/?[a-z][\s\S]*>/i.test(str);
 
@@ -51,13 +52,18 @@ export const useText = (setSelectedWord: (word: string | null) => void) => {
 
   useEffect(() => {
     const fetchText = async () => {
-      if (!title) return;
-      const plainText = await getTextByTitleFromApi(title);
-      setText(plainText);
-      const saved = localStorage.getItem(`reader:${title}:paragraph`);
-      if (!saved) return;
-      const pId = parseInt(saved.replace('paragraph-', ''), 10) | 0;
-      setSavedParagraphId(pId);
+      try {
+        if (!title) return;
+
+        const plainText = await getTextByTitleFromApi(title);
+        setText(plainText);
+        const saved = localStorage.getItem(`reader:${title}:paragraph`);
+        if (!saved) return;
+        const pId = parseInt(saved.replace('paragraph-', ''), 10) | 0;
+        setSavedParagraphId(pId);
+      } catch (e) {
+        setIsError(true);
+      }
     };
 
     fetchText();
@@ -70,5 +76,6 @@ export const useText = (setSelectedWord: (word: string | null) => void) => {
     savedParagraphId,
     wordsArr,
     saveCurrentParagraph,
+    isError,
   };
 };

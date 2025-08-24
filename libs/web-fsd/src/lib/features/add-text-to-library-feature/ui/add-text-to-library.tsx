@@ -43,7 +43,7 @@ export const AddTextToLibraryFeature = () => {
         <UploadFileIcon className="active:scale-125 transition-transform duration-100" />
       </label>
       {fileAdded && (
-        <div className=" p-3 bg-red-900 absolute top-0 left-0 w-full h-full  flex flex-col items-end ">
+        <div className=" p-3 bg-main  absolute top-0 left-0 w-full h-full  flex flex-col items-end ">
           <ButtonIconUi Icon={CloseIcon} handleButton={handleClose} />
 
           <div className="flex flex-grow justify-center items-center wrap  w-full ">

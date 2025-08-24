@@ -5,7 +5,7 @@
   "scripts": {
     "startWeb": "nx serve web",
     "startApi": "nx serve api",
-     "lint": "nx run api:lint --fix && nx run web:lint --fix && nx format:write"
+    "lint": "nx run api:lint --fix && nx run web:lint --fix && nx format:write"
   },
   "private": true,
   "dependencies": {

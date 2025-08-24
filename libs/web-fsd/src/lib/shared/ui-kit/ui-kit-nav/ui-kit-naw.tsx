@@ -54,10 +54,14 @@ export const NawUi = () => {
           const activeNav = `/${segments[1]}` === item;
           const { path, Icon } = navMap[item];
           return (
-            <li key={i} className={`${activeNav ? 'bg-red-700' : ''} `}>
+            <li key={i} >
               <a href={path}>
-                <Icon />
-              </a>
+  <Icon
+      className={`
+        ${activeNav ? ' text-main-dark scale-125' : 'text-main '}
+    `}
+      fontSize="medium"
+    />              </a>
             </li>
           );
         })}

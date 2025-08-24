@@ -35,7 +35,7 @@ export const TranslateWidget = () => {
   };
 
   return (
-    <main className={`   h-full w-full bg-cyan-100 `}>
+    <main className={`   h-full w-full `}>
       <div className="container m-auto h-full ">
         <div className=" h-1/3 flex items-end">
           <TranslateForm

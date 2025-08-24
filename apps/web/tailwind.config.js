@@ -15,10 +15,15 @@ module.exports = {
   ],
   theme: {
     extend: {
-      colors: {
-        success: 'rgba(51, 255, 204, 0.1)',
-        error: 'rgba(204, 0, 0, 0.1)',
-      },
+       colors: {
+          main: '#87CEEB',
+          'main-dark': '#4682B4',
+          'main-light': '#87CEFA',
+          secondary: '#F0F8FF',
+        'secondary-light':"#F0FFFF",
+        success: '#00FF00	',
+        error: '#800000	',
+       },
       keyframes: {
         'move-right': {
           '0%, 100%': { transform: 'translateX(0)' },
@@ -44,7 +49,7 @@ module.exports = {
         'move-right': `move-right  ${animations.nextTestCart.durationMs / 1000}s ease-in-out`,
         'move-left': `move-left ${animations.nextTestCart.durationMs / 1000}s ease-in-out forwards`,
         shake: 'shake 0.5s ease-in-out',
-        shimmer: 'shimmer 1.5s infinite linear',
+        shimmer: 'shimmer 0.5s infinite linear',
       },
     },
   },

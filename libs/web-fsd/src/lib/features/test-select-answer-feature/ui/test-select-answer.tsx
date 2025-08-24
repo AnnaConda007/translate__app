@@ -2,11 +2,11 @@ import { useEffect, useState } from 'react';
 import { IDictionary } from '../../../entities/dictionary-entities/model/stor';
 import { animations } from '../../../shared/theme/tokens/animation';
 import {
-  InputStatus,
-  InputUi,
+   InputUi,
 } from '../../../shared/ui-kit/ui-kit-input/ui-kit-input';
 import { useAudio } from '../../../shared/audio/models/use-audio-for-test';
 import { vibrate } from '../../../shared/utils/vibrate';
+import { Status } from '../../../shared/ui-kit/type';
 interface Props {
   currentWord: IDictionary;
   currentFalseWords: IDictionary[];
@@ -19,14 +19,14 @@ export const TestSelectAnswerFeature = ({
   onResult,
 }: Props) => {
   const [selected, setSelected] = useState('');
-  const [status, setStatus] = useState<InputStatus>(InputStatus.None);
+  const [status, setStatus] = useState<Status>(Status.None);
   const [animation, setAnimation] = useState('');
   const [isLocked, setIsLocked] = useState(false);
   const { correctAnswerAudio, uncorrectedAnswerAudio, toPlayAudio } =
     useAudio();
 
   useEffect(() => {
-    setStatus(InputStatus.None);
+    setStatus(Status.None);
     setSelected('');
     setAnimation('');
     setIsLocked(false);
@@ -35,7 +35,7 @@ export const TestSelectAnswerFeature = ({
   const handleTestClick = (selectedValue: string) => {
     if (isLocked) return;
     const isCorrectAnswer = currentWord.source === selectedValue;
-    const newStatus = isCorrectAnswer ? InputStatus.Success : InputStatus.Error;
+    const newStatus = isCorrectAnswer ? Status.Success : Status.Error;
     const audio = isCorrectAnswer ? correctAnswerAudio : uncorrectedAnswerAudio;
 
     vibrate();
@@ -71,7 +71,7 @@ export const TestSelectAnswerFeature = ({
               <InputUi
                 isReadOnly={true}
                 onClick={() => handleTestClick(w.source)}
-                status={isSelected ? status : InputStatus.None}
+                status={isSelected ? status : Status.None}
                 value={w.source}
               />
             </div>
