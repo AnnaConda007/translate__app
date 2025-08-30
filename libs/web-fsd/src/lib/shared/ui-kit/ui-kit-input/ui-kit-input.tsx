@@ -1,6 +1,8 @@
 
 import { Status } from "../type";
-import { StatusBgColorClass , StatusTextColorClass} from "../constants";
+import {   StatusBorderClass, StatusTextColorClass} from "../constants";
+import { ButtonIconUi } from "../ui-kit-button/ui-kit-button-icon";
+import { TextUi } from "../ui-kit-text/ui-kit-text";
  
 
 interface InputUiProps {
@@ -13,7 +15,12 @@ interface InputUiProps {
   placeholder?: string;
   textInfo?: string | null;
   isTransparent?: boolean;
-}
+  type?:string,
+  large?:boolean,
+  Icon?:React.ElementType;
+  handleIcon ?:(e?:any)=>void
+
+ }
 
 export const InputUi = ({
   value,
@@ -25,10 +32,16 @@ export const InputUi = ({
   textInfo,
   isReadOnly = false,
   placeholder,
-}: InputUiProps) => {
- 
-  const color = isTransparent ? 'bg-transparent' : StatusTextColorClass[status];
+  type="text",
+  large,
+  Icon,
+  handleIcon
 
+ 
+}: InputUiProps) => {
+    const border = isReadOnly ? "" :`border-2  ${StatusBorderClass[status]}`;
+
+  const color = isTransparent ? 'bg-transparent' : StatusTextColorClass[status];
   const cursor = isReadOnly ? 'cursor-pointer' : 'cursor-text';
 
   const onEnter = (e: React.KeyboardEvent) => {
@@ -41,18 +54,37 @@ export const InputUi = ({
 
   return (
     <div className="w-full  p-1">
+      <div className={` w-full rounded-md  flex  ${large ? 'p-2' : '' }  ${color} ${border}` }> 
       <input
         placeholder={placeholder || undefined}
         readOnly={isReadOnly}
-        className={`w-full  ${color} outline-none rounded-md  ${cursor}`}
         value={value}
-        type="text"
+        type={type}
         onChange={onChange}
         onClick={onClick}
         onKeyDown={onEnter}
+ className={` outline-none flex-grow ${cursor} `}
       />
-      <div></div>
-      {textInfo && <span>{textInfo}</span>}
-    </div>
+      { Icon &&  
+       <ButtonIconUi Icon={Icon}      
+           handleButton={() => { 
+             if(handleIcon)   handleIcon()
+            }} 
+       />
+}
+
+      </div>
+ 
+
+
+
+
+
+   
+ 
+
+
+           {textInfo && <TextUi text={textInfo}  />}
+     </div>
   );
 };

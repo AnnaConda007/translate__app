@@ -4,11 +4,11 @@ import { ButtonIconUi } from '../../../shared/ui-kit/ui-kit-button/ui-kit-button
 import { useLibrary } from '../model/use-library';
 import { texts } from '../../../shared/ui-texts/ui-texts';
 import DriveFileRenameOutlineIcon from '@mui/icons-material/DriveFileRenameOutline';
-import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
-import DoneIcon from '@mui/icons-material/Done';
+ import DoneIcon from '@mui/icons-material/Done';
 import { RemoveTextFromLibraryButton } from '../../remove-text-from-library/ui/remove-text-from-library';
 import { SkeletonUi } from '../../../shared/ui-kit/ui-kit-skeletons/ui-kit-test-skeleton';
 import { TextUi } from '../../../shared/ui-kit/ui-kit-text/ui-kit-text';
+import { AddTextToLibraryFeature } from '../../add-text-to-library-feature/ui/add-text-to-library';
 export const LibraryFeature = () => {
   const {
     searchValue,
@@ -26,6 +26,10 @@ export const LibraryFeature = () => {
     handleClickByTitle,
   } = useLibrary();
 
+
+
+  
+
   return (
     <div className="flex h-full flex-col  gap-2 flex-wrap   ">
       <div className="flex items-center h-fit w-full ">
@@ -36,7 +40,7 @@ export const LibraryFeature = () => {
             setSearchValue(e.target.value)
           }
         />
-        <AddCircleOutlineIcon />
+         <AddTextToLibraryFeature/>
       </div>
 
       <div className="flex-grow">
@@ -60,6 +64,8 @@ export const LibraryFeature = () => {
                     status={error ? Status.Error : Status.None}
                     isTransparent={isReadOnly}
                     isReadOnly={isReadOnly}
+                    onEnterHandle={()=>handleSendNewTitleButton(t, i)}
+
                     onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                       handleOnChangeReName(e.target.value)
                     }

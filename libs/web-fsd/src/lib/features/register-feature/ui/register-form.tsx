@@ -1,44 +1,61 @@
+import { InputUi } from '../../../shared/ui-kit/ui-kit-input/ui-kit-input';
+ import { useState } from 'react';
+  import VisibilityIcon from '@mui/icons-material/Visibility';
+import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
+import {ButtonTextUi} from  "../../../shared/ui-kit/ui-kit-button/ui-kit-button-text"
+import { Status } from '../../../shared/ui-kit/type';
 import { useRegister } from '../model/use-register';
-
+import {TextUi} from "../../../shared/ui-kit/ui-kit-text/ui-kit-text"
+ 
 export const RegisterForm = () => {
-  const {
-    email,
-    password,
-    setEmail,
-    setPassword,
-    submitRegisterForm,
-    name,
-    setName,
-  } = useRegister();
+  const [passwordIsVisible, setPasswordIsVisible] = useState(false)
+  const { email,name, error, loading,nameInvalid,password,handleEmail,passwordInvalid, emailInvalid, handleName,handlePassword, submitRegisterForm} =useRegister();
+ 
 
-  const handleEmail = (email: string) => {
-    setEmail(email);
-  };
 
-  const handlePassword = (password: string) => {
-    setPassword(password);
-  };
+const     handleButton= (e?: React.ChangeEvent<HTMLInputElement>) => {
+   e?.preventDefault()
+       setPasswordIsVisible(v => !v)}
 
   return (
-    <>
-      <input
-        type="text"
-        value={email}
-        onInput={(e) => handleEmail((e.target as HTMLInputElement).value)}
+    <form className=' flex flex-col gap-3 items-center min-w-80 relative'>
+      <InputUi 
+      placeholder='Имя'
+      status={ nameInvalid ?   Status.Error:  Status.None}
+         value={name}
+        onChange={(e) => handleName((e.target as HTMLInputElement).value)}
+        large={true}
+   
+
       />
-      <input
-        type="password"
+
+      <InputUi 
+      placeholder='Email'
+      status={ emailInvalid ?   Status.Error:  Status.None}
+         value={email}
+        onChange={(e) => handleEmail((e.target as HTMLInputElement).value)}
+        large={true}
+                   type="email"
+
+    
+
+      />
+      <InputUi
+      placeholder='Пароль'
+           status={ passwordInvalid ?  Status.Error : Status.None }
+         large={true}
+        type={passwordIsVisible ? "text" :"password"}
         value={password}
-        onInput={(e) => handlePassword((e.target as HTMLInputElement).value)}
+        onChange={(e) => handlePassword((e.target as HTMLInputElement).value)}
+        Icon={passwordIsVisible ?  VisibilityOffIcon  : VisibilityIcon}
+        handleIcon={(e: React.ChangeEvent<HTMLInputElement>)=>handleButton(e)}
       />
-      <input
-        type="text"
-        value={name}
-        onInput={(e) => setName((e.target as HTMLInputElement).value)}
-      />
-      <button onClick={() => submitRegisterForm(email, name, password)}>
-        отправить
-      </button>
-    </>
+   
+ <TextUi  text={error}  status={ Status.Error}/>
+
+         <ButtonTextUi transparent={false} value={"Зарегистрироваться"} handleButton={(e?: React.ChangeEvent<HTMLInputElement>) => {e?.preventDefault()
+          submitRegisterForm()}} />
+
+    </form>
   );
 };

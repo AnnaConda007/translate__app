@@ -3,12 +3,12 @@ import { StatusTextColorClass } from "../constants";
 
 export const TextUi = ({
   text,
-  status,
+  status=Status.None,
 }: {
-  text: string;
-  status: Status;
+  text: string | null;
+  status?: Status;
 }) => {
   const color = StatusTextColorClass[status];
 
-  return <span className={`${color} `} > {text} </span>;
+  return <span className={`${color}  min-h-8`} > {text} </span>;
 };

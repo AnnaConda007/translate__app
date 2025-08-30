@@ -45,7 +45,7 @@ export const TestResult: React.FC<Props> = ({
   }, [onContinue]);
 
   return (
-    <main className="flex flex-col justify-center gap-5 h-full">
+    <main className="flex flex-col justify-center gap-5 h-full container m-auto">
       <div className="flex flex-col gap-2">
         {words.map((res, i) => {
           const status = res.progressDelta

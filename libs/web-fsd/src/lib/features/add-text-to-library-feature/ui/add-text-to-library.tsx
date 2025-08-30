@@ -1,11 +1,11 @@
 import { useAddTextToLibrary } from '../model/use-add-text-to-library.ts';
-import UploadFileIcon from '@mui/icons-material/UploadFile';
-import { ButtonIconUi } from '../../../shared/ui-kit/ui-kit-button/ui-kit-button-icon.js';
+ import { ButtonIconUi } from '../../../shared/ui-kit/ui-kit-button/ui-kit-button-icon';
 import FileUploadIcon from '@mui/icons-material/FileUpload';
 import { InputUi } from '../../../shared/ui-kit/ui-kit-input/ui-kit-input.js';
 import CloseIcon from '@mui/icons-material/Close';
-
-export const AddTextToLibraryFeature = () => {
+import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
+import { Status } from '../../../shared/ui-kit/type.js';
+ export const AddTextToLibraryFeature = () => {
   const {
     title,
     content,
@@ -40,7 +40,8 @@ export const AddTextToLibraryFeature = () => {
           accept=".txt,.md,.docx,.html"
           onChange={handleAddFile}
         />
-        <UploadFileIcon className="active:scale-125 transition-transform duration-100" />
+ 
+        <AddCircleOutlineIcon className="active:scale-125 transition-transform duration-100" />
       </label>
       {fileAdded && (
         <div className=" p-3 bg-main  absolute top-0 left-0 w-full h-full  flex flex-col items-end ">

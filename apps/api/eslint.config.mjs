@@ -8,8 +8,7 @@ export default [
   ...nx.configs['flat/typescript'],
   ...nx.configs['flat/javascript'],
 
-  // Игнор
-  {
+   {
     ignores: [
       '**/dist',
       '**/vite.config.*.timestamp*',
@@ -19,8 +18,7 @@ export default [
     ],
   },
 
-  // Общие правила качества + границы модулей Nx
-  {
+   {
     files: ['**/*.{ts,tsx,js,jsx,mts,cts,mjs,cjs}'],
     plugins: { import: importPlugin },
     rules: {
@@ -33,13 +31,11 @@ export default [
         },
       ],
 
-      // Качественные правила (не формат)
-      'no-console': ['warn', { allow: ['warn', 'error'] }],
+       'no-console': ['warn', { allow: ['warn', 'error'] }],
       'no-debugger': 'error',
       'no-duplicate-imports': 'error',
 
-      // Импорты (а форматирование уже делает Prettier Sort Imports)
-      'import/no-unresolved': 'off', // TS сам проверит
+       'import/no-unresolved': 'off', // TS сам проверит
       'import/order': [
         'warn',
         {
@@ -60,13 +56,10 @@ export default [
     },
     settings: {
       'import/resolver': {
-        node: { extensions: ['.js', '.jsx', '.ts', '.tsx', '.mjs', '.cjs'] },
-        // Если есть TS path aliases:
-        // typescript: { alwaysTryTypes: true, project: ['./tsconfig.json'] }
+        node: { extensions: ['.js', '.jsx', '.ts', '.tsx', '.mjs', '.cjs'] }, 
       },
     },
   },
 
-  // Отключаем все форматирующие правила ESLint в пользу Prettier
-  eslintConfigPrettier,
+   eslintConfigPrettier,
 ];

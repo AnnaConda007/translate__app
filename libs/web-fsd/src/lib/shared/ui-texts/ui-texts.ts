@@ -11,6 +11,8 @@ errorText:"Что то пошло не так",
   },
   dictionary: {
     inputPlaceholder: 'Search',
+   alreadyExist: 'Слово уже добавлено',
+
   },
   translator: {
     inputPlaceholder: 'Используйте русский или английский язык',

@@ -1,5 +1,4 @@
 import { DictionaryFeature } from '../../features/dictionary-feature/ui/dictionary';
-
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import { ButtonIconUi } from '../../shared/ui-kit/ui-kit-button/ui-kit-button-icon';
 import { useNavigate } from 'react-router-dom';

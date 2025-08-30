@@ -14,26 +14,36 @@ export class YandexTranslateProvider implements ITranslateProvider {
     const apiKey = this.configService.get<string>('YANDEX_API_KEY');
     const folderId = this.configService.get<string>('YANDEX_FOLDER_ID');
     const { text } = payload;
+
     try {
       const detected = await this.detectLanguage(text);
       if (!detected) return 'используйте русский или английский язык';
+
       const { sourceLanguageCode, targetLanguageCode } = detected;
+
+       const chunks = chunkByLength(text, 8000);
 
       const response = await axios.post(
         yandexApiUrl,
         {
-          folder_id: folderId,
-          texts: [text],
+          folderId,                 
+          texts: chunks,            
           targetLanguageCode,
           sourceLanguageCode,
         },
         {
           headers: {
             Authorization: `Api-Key ${apiKey}`,
+            'Content-Type': 'application/json',
           },
         },
       );
-      return response.data.translations[0].text;
+
+      const pieces: string[] = (response.data?.translations ?? []).map(
+        (t: any) => t?.text ?? '',
+      );
+
+      return pieces.join('');
     } catch (error) {
       console.error(error);
       throw error;
@@ -48,11 +58,14 @@ export class YandexTranslateProvider implements ITranslateProvider {
       const apiKey = this.configService.get<string>('YANDEX_API_KEY');
       const folderId = this.configService.get<string>('YANDEX_FOLDER_ID');
 
+      // /detect принимает максимум ~1000 символов
+      const sample = text.slice(0, 1000);
+
       const response = await axios.post(
         yandexApiUrl,
         {
           folderId,
-          text,
+          text: sample,
         },
         {
           headers: {
@@ -63,25 +76,18 @@ export class YandexTranslateProvider implements ITranslateProvider {
       );
 
       const pairMap = {
-        ru: {
-          sourceLanguageCode: 'ru',
-          targetLanguageCode: 'en',
-        },
-        en: {
-          sourceLanguageCode: 'en',
-          targetLanguageCode: 'ru',
-        },
-      };
+        ru: { sourceLanguageCode: 'ru', targetLanguageCode: 'en' },
+        en: { sourceLanguageCode: 'en', targetLanguageCode: 'ru' },
+      } as const;
 
-      type Supported = 'en' | 'ru';
+      type Supported = keyof typeof pairMap; // 'ru' | 'en'
 
-      const languageCode: Supported | null = response.data.languageCode;
+      const languageCode = response.data?.languageCode as Supported | undefined;
       if (!languageCode) return null;
-      const lang = pairMap[languageCode];
-      return lang;
+
+      return pairMap[languageCode];
     } catch (e) {
-      if (e instanceof Error) return null;
-      return null;
+       return null;
     }
   }
 }
@@ -89,4 +95,14 @@ export class YandexTranslateProvider implements ITranslateProvider {
 interface Pair {
   sourceLanguageCode: string;
   targetLanguageCode: string;
+}
+
+ 
+function chunkByLength(s: string, limit = 8000): string[] {
+  if (s.length <= limit) return [s];
+  const parts: string[] = [];
+  for (let i = 0; i < s.length; i += limit) {
+    parts.push(s.slice(i, i + limit));
+  }
+  return parts;
 }
