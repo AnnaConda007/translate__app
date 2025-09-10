@@ -1,9 +1,8 @@
 import { TranslateForm } from '../../features/translate-form-feature/ui/translate-form';
 import { AddWordToDictionaryFeature } from '../../features/add-word-to-dictionary-feature/ui/add-word-to-dictionary';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import SimpleBar from 'simplebar-react';
-import 'simplebar-react/dist/simplebar.min.css';
-import { SkeletonUi } from '../../shared/ui-kit/ui-kit-skeletons/ui-kit-test-skeleton';
+ import { SkeletonUi } from '../../shared/ui-kit/ui-kit-skeletons/ui-kit-test-skeleton';
 
 export const TranslateWidget = () => {
   const [source, setSource] = useState('');
@@ -33,7 +32,9 @@ export const TranslateWidget = () => {
   const isErr = (isError: boolean) => {
     setIsError(isError);
   };
-
+  useEffect(() => {
+    import('simplebar-react/dist/simplebar.min.css');
+  }, []);
   return (
     <main className={`   h-full w-full `}>
       <div className="container m-auto h-full ">

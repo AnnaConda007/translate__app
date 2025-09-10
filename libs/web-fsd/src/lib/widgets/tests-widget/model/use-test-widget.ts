@@ -1,6 +1,6 @@
 import { IDictionary } from '../../../entities/dictionary-entities/model/stor';
 import { ITestResultUI } from '../../../entities/test-entities/types/test-types';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 import { useGetData } from './use-get-data';
 import { usePassingTest } from './use-passing-test';
@@ -9,10 +9,21 @@ export const useTestWidget = () => {
   const [results, setResults] = useState<ITestResultUI[]>([]);
   const [currentWordIndex, setCurrentWordIndex] = useState(0);
   const [currentChunk, setCurrentChunk] = useState<IDictionary[]>([]);
-  const [currentChunkIndex, setCurrentChunkIndex] = useState(() => {
-    const saved = localStorage.getItem('currentChunkIndex');
-    return saved !== null ? parseInt(saved) : 0;
-  });
+
+  // 🔥 на сервере всегда будет 0, в браузере обновим
+  const [currentChunkIndex, setCurrentChunkIndex] = useState(0);
+
+  useEffect(() => {
+    try {
+      const saved = localStorage.getItem('currentChunkIndex');
+      if (saved !== null) {
+        setCurrentChunkIndex(parseInt(saved));
+      }
+    } catch {
+      // localStorage может быть недоступен (например, в Safari private mode)
+    }
+  }, []);
+
   const currentWord = currentChunk[currentWordIndex];
 
   const [words, setWords] = useState<IDictionary[][]>([]);
@@ -62,3 +73,4 @@ export const useTestWidget = () => {
     goToNextChunk,
   };
 };
+ 

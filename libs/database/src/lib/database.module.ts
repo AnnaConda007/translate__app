@@ -8,7 +8,7 @@ import { UserWord } from './entities/user_word-entry.entity';
 import { UserText } from './entities/user_text-entry.entity';
 import { TypeOrmTextsRepository } from './infrastructure/typeorm-texts.repository';
 import { TypeOrmDictionaryRepository } from './infrastructure/typeorm-dictionary.repository';
-
+ 
 @Module({
   imports: [TypeOrmModule.forFeature([User, UserWord, UserText]), ConfigModule],
   providers: [

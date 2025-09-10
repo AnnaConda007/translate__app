@@ -1,6 +1,6 @@
 import { waitForAuthUser } from '../../../shared/utils/wait-firebase-user';
 
-export const removeWordFromDictionary = async ({ source }): Promise<void> => {
+export const removeWordFromDictionary = async ({ source }:{source:string}): Promise<void> => {
   const user = await waitForAuthUser();
   const token = await user.getIdToken();
   await fetch('http://localhost:3000/api/remove-from-dictionary', {

@@ -4,6 +4,7 @@ import MenuBookIcon from '@mui/icons-material/MenuBook';
 import BookmarkIcon from '@mui/icons-material/Bookmark';
 import { useLocation } from 'react-router-dom';
 import DescriptionIcon from '@mui/icons-material/Description';
+import { useEffect, useState } from 'react';
 
 export enum NawPathEnum {
   LIBRARY = '/',
@@ -17,7 +18,16 @@ export const NawUi = () => {
   const location = useLocation();
   const pathname = location.pathname;
 
-  const title = localStorage.getItem('current-text');
+    const [title, setTitle] = useState<string | null>(null);
+
+ useEffect(() => {
+    try {
+      const val = localStorage.getItem('current-text');
+      setTitle(val);
+    } catch {
+      // ignore
+    }
+  }, []);
 
   const navMap: Record<NawPathEnum, { path: string; Icon: React.ElementType }> =
     {

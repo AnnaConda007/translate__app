@@ -1,7 +1,6 @@
-import 'simplebar-react/dist/simplebar.min.css';
-import { Virtuoso } from 'react-virtuoso';
+ import { Virtuoso } from 'react-virtuoso';
 import SimpleBar from 'simplebar-react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { AutoTranslate } from '../../translate-form-feature/ui/auto-translate';
 import { useWord } from '../model/useWord';
@@ -14,11 +13,17 @@ import { SkeletonUi } from '../../../shared/ui-kit/ui-kit-skeletons/ui-kit-test-
 
 export const ReaderFeature = () => {
   const { selectedWord, position, setSelectedWord } = useWord();
+  
   const { savedParagraphId, wordsArr, saveCurrentParagraph, isError } =
     useText(setSelectedWord);
+
+      useEffect(() => {
+    import('simplebar-react/dist/simplebar.min.css');
+      localStorage.setItem('current-text', String(title));
+
+  }, []);
   const { title } = useParams<{ title: string }>();
 
-  localStorage.setItem('current-text', String(title));
 
   const [scrollParent, setScrollParent] = useState<HTMLDivElement | null>(null);
 
